@@ -1,0 +1,749 @@
+v0
+
+AdditiveForce: Struct
+AdditiveForce.0: Vector3F
+AdditiveForce.1: Vector3F
+Angle: Struct
+Angle.0: Float
+AngleDeg: Struct
+AngleDeg.0: Float
+AngularForce: Struct
+AngularForce.0: Float
+AngularVelocity: Struct
+AngularVelocity.0: Float
+AutoBoxData: Struct
+AutoBoxData.0: AutoBoxType
+AutoBoxData.1: Float
+AutoBoxData.2: Float
+AutoBoxData.3: Float
+AutoBoxData.4: Float
+AutoBoxData.5: Float
+AutoBoxData.6: Float
+AutoBoxData.7: Float
+AutoBoxData.8: Float
+AutoBoxData.9: Float
+AxisOutput: Struct
+AxisOutput.0: WheelOutput
+AxisOutput.1: WheelOutput
+AxisOutput.2: InOutFeedback
+BatteryConsumptionData: Struct
+BatteryConsumptionData.0: Float
+BatteryConsumptionData.1: Float
+BatteryConsumptionData.2: Float
+BatteryConsumptionData.3: Float
+BatteryConsumptionData.4: Float
+BatteryConsumptionData.5: Bool
+CatBrakeData: Struct
+CatBrakeData.0: AngularForce
+CatBrakeData.1: AngularForce
+CatPlateData: Struct
+CatPlateData.0: Mass
+CatPlateData.1: Length
+CatPlateData.2: Int32
+CatPlateData.3: Int32
+CatPlateData.4: Float
+CatPlateData.5: SurfaceFrictionBonus
+CatPlateData.6: CurveData
+CatPlateData.7: CurveData
+CatPlateData.8: CurveData
+CatPlateData.9: AngleDeg
+CatPlateData.10: Vector2F
+CatPlateData.11: Float
+CatSegmentArray: Struct
+CatSegmentArray.0: Int32
+CatSegmentArray.1: Entity
+CatSegmentArray.2: Entity
+CatSegmentArray.3: Entity
+CatSegmentArray.4: Entity
+CatSegmentArray.5: Entity
+CatSegmentArray.6: Entity
+CatSegmentArray.7: Entity
+CatSegmentArray.8: Entity
+CatSegmentArray.9: Entity
+CatSegmentArray.10: Entity
+CatSegmentArray.11: Entity
+CatSegmentArray.12: Entity
+CatSegmentArray.13: Entity
+CatSegmentArray.14: Entity
+CatSegmentArray.15: Entity
+CatSegmentArray.16: Entity
+CatSegmentSuspensionData: Struct
+CatSegmentSuspensionData.0: Float
+CatSegmentSuspensionData.1: Float
+CatSegmentSuspensionData.2: Float
+CatSegmentSuspensionData.3: Float
+CatSegmentSuspensionData.4: Float
+CatShapeData: Struct
+CatShapeData.0: Length
+CatShapeData.1: Mass
+CatShapeData.2: Length
+CatShapeData.3: Mass
+CatShapeData.4: Int32
+CatShapeData.5: Length
+CatShapeData.6: Inertia
+CatTrackConfig: Struct
+CatTrackConfig.0: Entity
+CatTrackConfig.1: Bool
+CatTrackConfig.2: CatShapeData
+CatTrackConfig.3: CatPlateData
+CatTrackConfig.4: CatBrakeData
+CatTrackConfig.5: CatTrackSuspensionData
+CatTrackConfig.6: CatSegmentArray
+CatTrackConfig.7: UInt8
+CatTrackConfig.8: UInt8
+CatTrackState: Struct
+CatTrackState.0: AngularForce
+CatTrackSuspensionData: Struct
+CatTrackSuspensionData.0: CatSegmentSuspensionData
+CatTrackSuspensionData.1: CatSegmentSuspensionData
+CollisionData: Struct
+CollisionData.0: Int32
+CollisionData.1: Float
+CollisionData.2: Vector3F
+CollisionData.3: Vector3F
+CollisionData.4: Vector3F
+CombustionEngineData: Struct
+CombustionEngineData.0: Inertia
+CombustionEngineData.1: Rpm
+CombustionEngineData.2: Rpm
+CombustionEngineData.3: Rpm
+CombustionEngineData.4: CurveData
+CombustionEngineData.5: CurveData
+CombustionEngineData.6: CurveData
+CombustionEngineData.7: FuelInjectionData
+CombustionEngineData.8: EngineStarterData
+CombustionEngineData.9: Rpm
+CombustionEngineData.10: Float
+CombustionEngineData.11: AngularForce
+CombustionEngineData.12: Float
+CombustionEngineState: Struct
+CombustionEngineState.0: PID
+ContactForceCommand: Struct
+ContactForceCommand.0: AngularForce
+ContactForceCommand.1: StabilizationForce
+ContactForceCommand.2: AdditiveForce
+ContactForces: Struct
+ContactForces.0: Bool
+ContactForces.1: AngularForce
+ContactForces.2: ContactSlip
+ContactForces.3: Vector2F
+ContactForces.4: Vector3F
+ContactForces.5: AngularForce
+ContactLoad: Struct
+ContactLoad.0: Float
+ContactLoad.1: Float
+ContactLoad.2: AngularForce
+ContactLoad.3: LinearForce
+ContactSlip: Struct
+ContactSlip.0: Vector2F
+ContactSlip.1: Float
+ContactSlip.2: Angle
+CouplerData: Struct
+CouplerData.0: CouplerType
+CouplerData.1: FrictionClutchData
+CouplerData.2: HydraulicTorqueConverterData
+CurveData: Struct
+CurveData.0: Float
+CurveData.1: Float
+CurveData.2: WrapMethod
+CurveData.3: WrapMethod
+CurveData.4: UInt8
+CurveData.5: InterpMethod
+CurveData.6: Float
+CurveData.7: Float
+CurveData.8: Float
+CurveData.9: Float[32]
+DeltaTime: Struct
+DeltaTime.0: Float
+DriveData: Struct
+DriveData.0: Bool
+DriveData.1: Inertia
+DriveData.2: AngularForce
+DriveData.3: Inertia
+DriveOutput: Struct
+DriveOutput.0: DriveType
+DriveOutput.1: Bool
+DriveOutput.2: Bool
+DriveOutput.3: Int32
+DriveOutput.4: AxisOutput
+DriveOutput.5: AxisOutput
+DriveOutput.6: AxisOutput
+DriveOutput.7: AxisOutput
+DriveOutput.8: InOutFeedback
+DrivetrainData: Struct
+DrivetrainData.0: DriveData
+DrivetrainData.1: DriveData
+ElectricEngineData: Struct
+ElectricEngineData.0: Inertia
+ElectricEngineData.1: Rpm
+ElectricEngineData.2: Power
+ElectricEngineData.3: Float
+ElectricEngineData.4: CurveData
+ElectricEngineData.5: Vector3F
+ElectricEngineData.6: CurveData
+ElectricEngineData.7: CurveData
+ElectricEngineData.8: AngularForce
+ElectricEngineData.9: CurveData
+ElectricEngineData.10: Rpm
+ElectricEngineData.11: Float
+ElectricEngineData.12: AngularForce
+ElectricEngineData.13: Power
+ElectricEngineData.14: Rpm
+ElectricEngineData.15: Float
+ElectricEngineState: Struct
+ElectricEngineState.0: PID
+ElectricEngineState.1: Bool
+EngineStarterData: Struct
+EngineStarterData.0: AngularForce
+Entity: Struct
+Entity.0: Int32
+Entity.1: Int32
+Float16: Struct
+Float16.0: Float
+Float16.1: Float
+Float16.2: Float
+Float16.3: Float
+Float16.4: Float
+Float16.5: Float
+Float16.6: Float
+Float16.7: Float
+Float16.8: Float
+Float16.9: Float
+Float16.10: Float
+Float16.11: Float
+Float16.12: Float
+Float16.13: Float
+Float16.14: Float
+Float16.15: Float
+ForceFeedback: Struct
+ForceFeedback.0: Float
+ForceFeedback.1: Float
+ForceFeedback.2: Float
+ForceFeedback.3: Float
+ForceFeedback.4: Float
+ForceFeedback.5: Float
+ForceFeedback.6: Float
+ForceFeedback.7: Float
+ForceFeedback.8: Float
+ForceFeedback.9: Float
+ForceFeedback.10: Float
+FrictionClutchData: Struct
+FrictionClutchData.0: CurveData
+FrictionClutchData.1: Float
+FuelConsumptionData: Struct
+FuelConsumptionData.0: Float
+FuelConsumptionData.1: Float
+FuelConsumptionData.2: Float
+FuelConsumptionData.3: Float
+FuelConsumptionData.4: Float
+FuelConsumptionData.5: Bool
+FuelInjectionData: Struct
+FuelInjectionData.0: Float
+FuelInjectionData.1: Vector3F
+FuelInjectionData.2: Float
+GearboxData: Struct
+GearboxData.0: GearboxType
+GearboxData.1: Int32
+GearboxData.2: Float16
+GearboxData.3: Int32
+GearboxData.4: Float16
+GearboxData.5: Float
+GearboxData.6: Inertia
+HydraulicTorqueConverterData: Struct
+HydraulicTorqueConverterData.0: CurveData
+HydraulicTorqueConverterData.1: Float
+HydraulicTorqueConverterData.2: CurveData
+HydraulicTorqueConverterData.3: LockupClutchData
+Inertia: Struct
+Inertia.0: Float
+InOutConfig: Struct
+InOutConfig.0: Entity
+InOutConfig.1: Entity
+InOutConfig.2: InOutBindMode
+InOutConfig.3: ManifoldIndex
+InOutFeedback: Struct
+InOutFeedback.0: AngularVelocity
+InOutFeedback.1: Angle
+InOutState: Struct
+InOutState.0: AngularForce
+InOutState.1: AngularForce
+InOutState.2: Inertia
+InOutState.3: InOutFeedback
+Length: Struct
+Length.0: Float
+LinearForce: Struct
+LinearForce.0: Float
+LockupClutchData: Struct
+LockupClutchData.0: Float
+LockupClutchData.1: Float
+LockupClutchData.2: Float
+LockupClutchData.3: Float
+ManifoldIndex: Struct
+ManifoldIndex.0: DriveIndex
+ManifoldIndex.1: AxisIndex
+ManifoldIndex.2: WheelIndex
+ManifoldState: Struct
+ManifoldState.0: Bool
+ManifoldState.1: Bool
+ManifoldState.2: Bool
+ManifoldState.3: DriveOutput
+ManifoldState.4: DriveOutput
+ManifoldState.5: InOutState
+ManifoldState.6: Float
+ManifoldState.7: Float
+Mass: Struct
+Mass.0: Float
+MotorEngineConfig: Struct
+MotorEngineConfig.0: Entity
+MotorEngineConfig.1: Bool
+MotorEngineConfig.2: MotorEngineType
+MotorEngineConfig.3: CombustionEngineData
+MotorEngineConfig.4: ElectricEngineData
+MotorEngineConfig.5: UInt8
+MotorEngineState: Struct
+MotorEngineState.0: EngineState
+MotorEngineState.1: Rpm
+MotorEngineState.2: Float
+MotorEngineState.3: AngularForce
+MotorEngineState.4: Power
+MotorEngineState.5: Float
+MotorEngineState.6: FuelConsumptionData
+MotorEngineState.7: BatteryConsumptionData
+MotorEngineState.8: CombustionEngineState
+MotorEngineState.9: ElectricEngineState
+PID: Struct
+PID.0: Vector3F
+PID.1: Vector2F
+PID.2: Float
+PID.3: Float
+Power: Struct
+Power.0: Float
+RetarderData: Struct
+RetarderData.0: RetarderType
+RetarderData.1: Int32
+RetarderData.2: Float
+RetarderData.3: Float
+RetarderData.4: AngularForce
+RetarderData.5: CurveData
+RigidAeroData: Struct
+RigidAeroData.0: Vector3F
+RigidAeroData.1: Vector3F
+RigidbodyState: Struct
+RigidbodyState.0: RigidTransform
+RigidbodyState.1: RigidTelemetryData
+RigidbodyState.2: RigidTelemetryData
+RigidbodyState.3: RigidAeroData
+RigidbodyState.4: Vector3F
+RigidbodyState.5: CollisionData
+RigidTelemetryData: Struct
+RigidTelemetryData.0: Vector3F
+RigidTelemetryData.1: Vector3F
+RigidTelemetryData.2: Vector3F
+RigidTelemetryData.3: Vector3F
+RigidTelemetryData.4: Vector3F
+RigidTelemetryData.5: Vector3F
+RigidTelemetryData.6: Vector3F
+RigidTelemetryData.7: Vector3F
+RigidTelemetryData.8: Vector3F
+RigidTelemetryData.9: Vector3F
+RigidTelemetryData.10: Vector3F
+RigidTransform: Struct
+RigidTransform.0: Quaternion
+RigidTransform.1: Vector3F
+Rpm: Struct
+Rpm.0: Float
+SafeId: Struct
+SafeId.0: Int32
+SatForce: Struct
+SatForce.0: AngularForce
+SatForce.1: Angle
+SatForce.2: AngularForce
+SatForce.3: AngularForce
+SatForce.4: AngularForce
+ShapeContact: Struct
+ShapeContact.0: Vector3F
+ShapeContact.1: Vector3F
+ShapeContact.2: Vector3F
+ShapeContact.3: Vector3F
+ShapeContact.4: Vector3F
+ShapeContact.5: Vector3F
+ShapeContact.6: Vector3F
+ShapeContact.7: Vector3F
+ShapeContact.8: Angle
+ShapeContact.9: Angle
+ShapeContact.10: Vector2F
+ShapeContact.11: Float
+ShapeContact.12: LinearForce
+ShapeContact.13: SurfaceData
+ShapeContact.14: Float
+ShapeContact.15: SafeId
+ShapeContact.16: Vector3F
+ShapeContact.17: Vector3F
+SignalBipolar: Struct
+SignalBipolar.0: Float
+SignalUnipolar: Struct
+SignalUnipolar.0: Float
+StabilizationForce: Struct
+StabilizationForce.0: Bool
+StabilizationForce.1: Bool
+StabilizationForce.2: Vector3F
+StabilizationForce.3: Quaternion
+StabilizationForce.4: Vector3F
+StabilizationForce.5: Vector3F
+StabilizationForce.6: Vector3F
+StabilizationForce.7: Vector2F
+StabilizationForce.8: Vector3F
+SurfaceData: Struct
+SurfaceData.0: SurfaceType
+SurfaceData.1: Float[4]
+SurfaceData.2: Float
+SurfaceData.3: Float
+SurfaceData.4: Float
+SurfaceData.5: Float
+SurfaceFrictionBonus: Struct
+SurfaceFrictionBonus.0: Float
+SurfaceFrictionBonus.1: Float
+SurfaceFrictionBonus.2: Float
+SurfaceFrictionBonus.3: Float
+SurfaceFrictionBonus.4: Float
+SurfaceFrictionBonus.5: Float
+SurfaceFrictionBonus.6: Float
+SurfaceFrictionBonus.7: Float
+SurfaceFrictionBonus.8: Float
+SystemAbsConfig: Struct
+SystemAbsConfig.0: Bool
+SystemAbsConfig.1: Float
+SystemAbsConfig.2: Float
+SystemAbsState: Struct
+SystemAbsState.0: SignalUnipolar
+SystemAbsState.1: Float
+SystemAsrConfig: Struct
+SystemAsrConfig.0: Bool
+SystemAsrConfig.1: Float
+SystemAsrConfig.2: Float
+SystemAsrConfig.3: Float
+SystemAsrState: Struct
+SystemAsrState.0: SignalUnipolar
+SystemAsrState.1: Float
+TransmissionConfig: Struct
+TransmissionConfig.0: Entity
+TransmissionConfig.1: GearboxData
+TransmissionConfig.2: CouplerData
+TransmissionConfig.3: AutoBoxData
+TransmissionConfig.4: RetarderData
+TransmissionConfig.5: DrivetrainData
+VehicleConfig: Struct
+VehicleConfig.0: Int32
+VehicleConfig.1: Entity
+VehicleConfig.2: Entity
+VehicleConfig.3: VehicleCategory
+VehicleConfig.4: Mass
+VehicleConfig.5: RigidAeroData
+VehicleConfig.6: VehicleSteeringData
+VehicleConfig.7: SystemAbsConfig
+VehicleConfig.8: SystemAsrConfig
+VehicleConfig.9: Float
+VehicleConfig.10: Float
+VehicleConfig.11: UInt8
+VehicleControllerData: Struct
+VehicleControllerData.0: Int32
+VehicleControllerData.1: Bool
+VehicleControllerData.2: SignalBipolar
+VehicleControllerData.3: Angle
+VehicleControllerData.4: SatForce
+VehicleControllerData.5: ForceFeedback
+VehicleControllerData.6: Bool
+VehicleControllerData.7: SignalUnipolar
+VehicleControllerData.8: SignalUnipolar
+VehicleControllerData.9: SignalUnipolar
+VehicleControllerData.10: SignalUnipolar
+VehicleControllerData.11: Int32
+VehicleControllerData.12: Bool
+VehicleControllerData.13: Int32
+VehicleControllerData.14: Bool
+VehicleControllerData.15: Bool
+VehicleControllerData.16: Bool
+VehicleControllerData.17: Bool
+VehicleControllerData.18: Bool
+VehicleControllerData.19: Bool
+VehicleControllerData.20: Bool
+VehicleControllerData.21: Bool
+VehicleControllerData.22: Bool
+VehicleGaugeData: Struct
+VehicleGaugeData.0: Float
+VehicleGaugeData.1: Float
+VehicleGaugeData.2: Float
+VehicleGaugeData.3: Float
+VehicleGaugeData.4: Float
+VehicleGaugeData.5: Float
+VehicleGaugeData.6: Float
+VehicleGaugeData.7: Float
+VehicleGaugeData.8: Float
+VehicleGaugeData.9: FuelConsumptionData
+VehicleGaugeData.10: FuelConsumptionData
+VehicleGaugeData.11: BatteryConsumptionData
+VehicleGaugeData.12: BatteryConsumptionData
+VehicleGaugeData.13: Float
+VehicleGaugeData.14: Float
+VehicleGaugeData.15: FuelConsumptionData
+VehicleGaugeData.16: Float
+VehicleGaugeData.17: BatteryConsumptionData
+VehicleGaugeData.18: Float
+VehicleSetupInfo: Struct
+VehicleSetupInfo.0: String
+VehicleSetupInfo.1: String
+VehicleSetupInfo.2: Bool
+VehicleState: Struct
+VehicleState.0: Bool
+VehicleState.1: VehicleGaugeData
+VehicleState.2: Bool
+VehicleState.3: Bool
+VehicleState.4: Bool
+VehicleState.5: Bool
+VehicleState.6: Float
+VehicleState.7: Float
+VehicleState.8: Float
+VehicleState.9: Float
+VehicleState.10: Float
+VehicleState.11: Float
+VehicleSteeringData: Struct
+VehicleSteeringData.0: VehicleSteeringType
+VehicleSteeringData.1: AngleDeg
+VehicleSteeringData.2: AngleDeg
+VehicleSteeringData.3: Float
+WheelBrakeData: Struct
+WheelBrakeData.0: AngularForce
+WheelBrakeData.1: AngularForce
+WheelConfig: Struct
+WheelConfig.0: Entity
+WheelConfig.1: Entity
+WheelConfig.2: Bool
+WheelConfig.3: WheelShapeData
+WheelConfig.4: WheelTireData
+WheelConfig.5: WheelSatData
+WheelConfig.6: WheelBrakeData
+WheelConfig.7: WheelSuspensionData
+WheelConfig.8: UInt8
+WheelConfig.9: UInt8
+WheelOutput: Struct
+WheelOutput.0: Float
+WheelOutput.1: Entity
+WheelOutput.2: InOutState
+WheelSatData: Struct
+WheelSatData.0: CurveData
+WheelSatData.1: CurveData
+WheelSatData.2: Float
+WheelSatData.3: Float
+WheelSatData.4: Float
+WheelSatData.5: Float
+WheelSatData.6: Float
+WheelShapeData: Struct
+WheelShapeData.0: Bool
+WheelShapeData.1: Mass
+WheelShapeData.2: Inertia
+WheelShapeData.3: Length
+WheelShapeData.4: Length
+WheelShapeData.5: Length
+WheelShapeData.6: Length
+WheelShapeData.7: Float
+WheelShapeData.8: Float
+WheelShapeData.9: Float
+WheelShapeState: Struct
+WheelShapeState.0: Length
+WheelShapeState.1: Float
+WheelShapeState.2: Float
+WheelShapeState.3: Float
+WheelState: Struct
+WheelState.0: WheelTurnState
+WheelState.1: WheelTransformState
+WheelState.2: WheelShapeState
+WheelState.3: ShapeContact
+WheelState.4: ContactLoad
+WheelState.5: ContactForces
+WheelState.6: SatForce
+WheelState.7: ContactForceCommand
+WheelState.8: SystemAbsState
+WheelState.9: SystemAsrState
+WheelSuspensionData: Struct
+WheelSuspensionData.0: WheelSuspensionType
+WheelSuspensionData.1: Bool
+WheelSuspensionData.2: AngleDeg
+WheelSuspensionData.3: AngleDeg
+WheelSuspensionData.4: AngleDeg
+WheelSuspensionData.5: Float
+WheelSuspensionData.6: Float
+WheelSuspensionData.7: Float
+WheelSuspensionData.8: Float
+WheelSuspensionData.9: Float
+WheelTireData: Struct
+WheelTireData.0: Float
+WheelTireData.1: SurfaceFrictionBonus
+WheelTireData.2: CurveData
+WheelTireData.3: CurveData
+WheelTireData.4: CurveData
+WheelTireData.5: CurveData
+WheelTireData.6: CurveData
+WheelTireData.7: AngleDeg
+WheelTireData.8: Vector2F
+WheelTireData.9: Float
+WheelTireData.10: Float
+WheelTransformState: Struct
+WheelTransformState.0: Vector3F
+WheelTransformState.1: Vector3F
+WheelTransformState.2: Quaternion
+WheelTransformState.3: Quaternion
+WheelTransformState.4: Quaternion
+WheelTransformState.5: Quaternion
+WheelTransformState.6: Quaternion
+WheelTransformState.7: Quaternion
+WheelTransformState.8: Vector3F
+WheelTransformState.9: Vector3F
+WheelTransformState.10: Vector3F
+WheelTransformState.11: Float
+WheelTransformState.12: Vector3F
+WheelTransformState.13: Float
+WheelTransformState.14: Vector3F
+WheelTurnState: Struct
+WheelTurnState.0: Angle
+WheelTurnState.1: Angle
+WheelTurnState.2: Angle
+
+AutoBoxType: Enum Int32
+AutoBoxType.FullOrSemi = 0
+AutoBoxType.FullOnly = 1
+AutoBoxType.SemiOnly = 2
+AxisIndex: Enum UInt8
+AxisIndex.Axis0 = 0
+AxisIndex.Axis1 = 1
+AxisIndex.Axis2 = 2
+AxisIndex.Axis3 = 3
+CouplerType: Enum Int32
+CouplerType.Friction = 0
+CouplerType.Hydraulic = 1
+CouplerType.Direct = 2
+DriveIndex: Enum Int32
+DriveIndex.Front = 0
+DriveIndex.Rear = 1
+DriveType: Enum Int32
+DriveType.Wheels = 0
+DriveType.Caterpillar = 1
+EngineState: Enum Int32
+EngineState.Stalled = 0
+EngineState.Starting = 1
+EngineState.Running = 2
+GearboxType: Enum Int32
+GearboxType.Manual = 0
+GearboxType.Automatic = 1
+InOutBindMode: Enum Int32
+InOutBindMode.None = 0
+InOutBindMode.ParentDefault = 1
+InOutBindMode.ParentManifold = 2
+InterpMethod: Enum Int32
+InterpMethod.Step = 0
+InterpMethod.Linear = 1
+InterpMethod.Cosine = 2
+InterpMethod.Cubic = 3
+InterpMethod.Hermite = 4
+MotorEngineType: Enum Int32
+MotorEngineType.Diesel = 0
+MotorEngineType.Petrol = 1
+MotorEngineType.Electric = 2
+MotorEngineType.Hybrid = 3
+RetarderType: Enum Int32
+RetarderType.None = 0
+RetarderType.Electric = 1
+SurfaceType: Enum Int32
+SurfaceType.None = 0
+SurfaceType.Asphalt = 1
+SurfaceType.Concrete = 2
+SurfaceType.Stones = 3
+SurfaceType.DryGround = 4
+SurfaceType.WetMud = 5
+SurfaceType.Ice = 6
+SurfaceType.Wood = 7
+SurfaceType.Metal = 8
+SurfaceType.Other = 9
+VehicleCategory: Enum Int32
+VehicleCategory.Car = 0
+VehicleCategory.Truck = 1
+VehicleCategory.Trailer = 2
+VehicleCategory.Groundwork = 3
+VehicleCategory.Military = 4
+VehicleSteeringType: Enum Int32
+VehicleSteeringType.Wheel = 0
+VehicleSteeringType.Lever = 1
+WheelIndex: Enum Int32
+WheelIndex.Left = 0
+WheelIndex.Right = 1
+WheelSuspensionType: Enum Int32
+WheelSuspensionType.Independent = 0
+WheelSuspensionType.SwingingHalfAxle = 1
+WheelSuspensionType.RigidAxle = 2
+WrapMethod: Enum Int32
+WrapMethod.Clamp = 0
+WrapMethod.Extrapolate = 1
+WrapMethod.Mirror = 2
+WrapMethod.Repeat = 3
+
+LogSinkFn: Callback Void
+LogSinkFn.0: String
+LogSinkFn.1: Int32
+
+CalculateCatTrackHub: Export Void
+CalculateCatTrackHub.0: Entity
+CalculateCatTrackHub.1: Int32
+CalculateCatTrackHub.2: DeltaTime
+CalculateCatTrackHub.3: CatTrackConfig
+CalculateCatTrackHub.4: CatTrackState
+CalculateCatTrackHub.5: InOutConfig
+CalculateCatTrackHub.6: VehicleControllerData
+CalculateCatTrackHub.7: VehicleConfig
+CalculateCatTrackHub.8: VehicleState
+CalculateCatTrackHub.9: MotorEngineConfig
+CalculateCatTrackHub.10: MotorEngineState
+CalculateCatTrackHub.11: InOutState
+CalculateMotorEngine: Export Void
+CalculateMotorEngine.0: Entity
+CalculateMotorEngine.1: Int32
+CalculateMotorEngine.2: DeltaTime
+CalculateMotorEngine.3: MotorEngineConfig
+CalculateMotorEngine.4: InOutConfig
+CalculateMotorEngine.5: VehicleControllerData
+CalculateMotorEngine.6: MotorEngineState
+CalculateMotorEngine.7: InOutState
+CalculateVehicleController: Export Void
+CalculateVehicleController.0: VehicleControllerData
+CalculateVehicleController.1: ForceFeedback
+CalculateWheelHub: Export Void
+CalculateWheelHub.0: Entity
+CalculateWheelHub.1: Int32
+CalculateWheelHub.2: DeltaTime
+CalculateWheelHub.3: WheelConfig
+CalculateWheelHub.4: WheelState
+CalculateWheelHub.5: InOutConfig
+CalculateWheelHub.6: VehicleControllerData
+CalculateWheelHub.7: VehicleConfig
+CalculateWheelHub.8: VehicleState
+CalculateWheelHub.9: MotorEngineConfig
+CalculateWheelHub.10: MotorEngineState
+CalculateWheelHub.11: InOutState
+GetABIChecksum: Export UInt64
+GetABIVersion: Export UInt32
+OnPluginLoad: Export Void
+OnPluginLoad.0: LogSinkFn
+OnPluginUnload: Export Void
+OnVehicleDespawned: Export Void
+OnVehicleSpawned: Export Void
+OnVehicleSpawned.0: VehicleSetupInfo
+OnVehicleTelemetry: Export Void
+OnVehicleTelemetry.0: DeltaTime
+OnVehicleTelemetry.1: VehicleConfig
+OnVehicleTelemetry.2: VehicleState
+OnVehicleTelemetry.3: RigidbodyState
+OnVehicleTelemetry.4: Bool
+OnVehicleTelemetry.5: ManifoldState
+OnVehicleTelemetry.6: TransmissionConfig
+OnVehicleTelemetry.7: Bool
+OnVehicleTelemetry.8: MotorEngineState
+
+Checksum: 1326358091331673708
