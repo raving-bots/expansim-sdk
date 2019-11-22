@@ -4,7 +4,6 @@
 /Examples/Release/
 /Docs/build/
 /Docs/doxygen/
-generated/
 bin/
 obj/
 _ReSharper*/
