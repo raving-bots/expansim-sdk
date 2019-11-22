@@ -1,0 +1,40 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+max_line_length = 160
+
+[*.py]
+indent_style = space
+end_of_line = lf
+
+[*.yaml]
+indent_size = 2
+indent_style = space
+end_of_line = lf
+
+[*.*proj]
+indent_size = 2
+indent_style = space
+
+[*.props]
+indent_size = 2
+indent_style = space
+
+[*.targets]
+indent_size = 2
+indent_style = space
+
+[*.filters]
+indent_size = 2
+indent_style = space
+
+[*.DotSettings]
+end_of_line = lf
+
+[*.{ts,js}]
+end_of_line = lf
