@@ -46,24 +46,32 @@ namespace plugin
 	void TelemetryRecorder::Start(const xsim::VehicleSetupInfo& vehicleSetup)
 	{
 		m_Time = 0;
-		m_FirstRow = true;
-		m_SetupFile = CreateOutputFile(m_OutputPath, L"VehicleSetup.txt");
 		m_TelemetryFile = CreateOutputFile(m_OutputPath, L"Telemetry.csv");
 
-		m_SetupFile << "Vehicle: " << xsim::ToUTF8(vehicleSetup.m_VehicleName) << "\n";
+		auto setupFile = CreateOutputFile(m_OutputPath, L"VehicleSetup.txt");
+		setupFile << "Vehicle: " << xsim::ToUTF8(vehicleSetup.m_MotorVehicle.m_Vehicle.m_Name) << "\n";
 
 		if (vehicleSetup.m_HasTrailer)
 		{
-			m_SetupFile << "Trailer: " << xsim::ToUTF8(vehicleSetup.m_TrailerName) << "\n";
+			setupFile << "Trailer: " << xsim::ToUTF8(vehicleSetup.m_TrailerVehicle.m_Vehicle.m_Name) << "\n";
 		}
+
+		const auto& vehicleConfig = vehicleSetup.m_MotorVehicle.m_Vehicle;
+		const auto& bodyConfig = vehicleConfig.m_Body;
+		const auto& engineConfig = vehicleSetup.m_MotorVehicle.m_Engine;
+
+		setupFile << fmt::format("Category: {}\n", bodyConfig.m_Category);
+		setupFile << fmt::format("Mass: {:.0f}\n", bodyConfig.m_Mass.Value());
+		setupFile << fmt::format("FuelTankCapacity: {:.2f}\n", bodyConfig.m_FuelTankCapacity);
+		setupFile << fmt::format("MaxRPM: {:.0f}\n", engineConfig.m_CombustionEngine.m_MaxRpm.Value());
 
 		csv::WriteHeader(m_TelemetryFile,
 			"Time",
 			"Position.X",
 			"Position.Y",
 			"Position.Z",
-			"Rotation.Yaw",
 			"Rotation.Pitch",
+			"Rotation.Yaw",
 			"Rotation.Roll",
 			"LinearVelocity.X",
 			"LinearVelocity.Y",
@@ -87,13 +95,11 @@ namespace plugin
 			"FuelTankReserve"
 		);
 
-		m_SetupFile.flush();
 		m_TelemetryFile.flush();
 	}
 
 	void TelemetryRecorder::Record(
 		xsim::DeltaTime dt,
-		const xsim::VehicleConfig& vehicleConfig,
 		const xsim::VehicleState& vehicleState,
 		const xsim::RigidbodyState& rigidbody)
 	{
@@ -104,25 +110,14 @@ namespace plugin
 		const auto& position = rigidbody.m_RigidTransform.m_pos;
 		const auto& gauge = vehicleState.m_Gauge;
 
-		if (m_FirstRow)
-		{
-			m_SetupFile << fmt::format("Category: {}\n", vehicleConfig.m_Category);
-			m_SetupFile << fmt::format("Mass: {:.0f}\n", vehicleConfig.m_Mass.Value());
-			m_SetupFile << fmt::format("FuelTankCapacity: {:.2f}\n", vehicleConfig.m_FuelTankCapacity);
-
-			m_FirstRow = false;
-			m_SetupFile.flush();
-			m_SetupFile.close();
-		}
-
 		csv::WriteRow(m_TelemetryFile,
 			m_Time,
 			position.m_X,
 			position.m_Y,
 			position.m_Z,
-			telemetry.m_PitchYawRoll.m_X,
-			telemetry.m_PitchYawRoll.m_Y,
-			telemetry.m_PitchYawRoll.m_Z,
+			telemetry.m_PitchYawRoll.m_Pitch,
+			telemetry.m_PitchYawRoll.m_Yaw,
+			telemetry.m_PitchYawRoll.m_Roll,
 			telemetry.m_LinearVelocity.m_X,
 			telemetry.m_LinearVelocity.m_Y,
 			telemetry.m_LinearVelocity.m_Z,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ABI Version="0" Checksum="1326358091331673708">
+<ABI Version="0" Checksum="8566976633345006626">
 	<Types>
 		<Enum Name="AutoBoxType" Type="Int32">
 			<Item Name="FullOrSemi" Value="0" />
@@ -319,24 +319,6 @@
 			<Field Name="Index" Type="Int32" />
 			<Field Name="Version" Type="Int32" />
 		</Struct>
-		<Struct Name="Float16">
-			<Field Name="F0" Type="Float" />
-			<Field Name="F1" Type="Float" />
-			<Field Name="F2" Type="Float" />
-			<Field Name="F3" Type="Float" />
-			<Field Name="F4" Type="Float" />
-			<Field Name="F5" Type="Float" />
-			<Field Name="F6" Type="Float" />
-			<Field Name="F7" Type="Float" />
-			<Field Name="F8" Type="Float" />
-			<Field Name="F9" Type="Float" />
-			<Field Name="F10" Type="Float" />
-			<Field Name="F11" Type="Float" />
-			<Field Name="F12" Type="Float" />
-			<Field Name="F13" Type="Float" />
-			<Field Name="F14" Type="Float" />
-			<Field Name="F15" Type="Float" />
-		</Struct>
 		<Struct Name="ForceFeedback">
 			<Field Name="SpringCoefficient" Type="Float" />
 			<Field Name="SpringSaturation" Type="Float" />
@@ -370,9 +352,9 @@
 		<Struct Name="GearboxData">
 			<Field Name="Type" Type="GearboxType" />
 			<Field Name="ForwardGearCount" Type="Int32" />
-			<Field Name="ForwardGearRatios" Type="Float16" />
+			<Field Name="ForwardGearRatios" Type="Float" ArrayLength="16" />
 			<Field Name="ReverseGearCount" Type="Int32" />
-			<Field Name="ReverseGearRatios" Type="Float16" />
+			<Field Name="ReverseGearRatios" Type="Float" ArrayLength="16" />
 			<Field Name="FinalGearRatio" Type="Float" />
 			<Field Name="Inertia" Type="Inertia" />
 		</Struct>
@@ -423,6 +405,18 @@
 			<Field Name="PrecomputedRearGeometryCenter" Type="Float" />
 		</Struct>
 		<Alias Name="Mass" Target="Float" />
+		<Struct Name="MirrorConfig">
+			<Field Name="Fov" Type="Float" />
+			<Field Name="Angle" Type="Vector3F" />
+			<Field Name="Offset" Type="Vector3F" />
+			<Field Name="Static" Type="Bool" />
+		</Struct>
+		<Struct Name="MirrorsConfig">
+			<Field Name="VehicleEntity" Type="Entity" />
+			<Field Name="LeftMirror" Type="MirrorConfig" />
+			<Field Name="CenterMirror" Type="MirrorConfig" />
+			<Field Name="RightMirror" Type="MirrorConfig" />
+		</Struct>
 		<Struct Name="MotorEngineConfig">
 			<Field Name="VehicleEntity" Type="Entity" />
 			<Field Name="Precomputed" Type="Bool" />
@@ -443,11 +437,24 @@
 			<Field Name="CombustionEngine" Type="CombustionEngineState" />
 			<Field Name="ElectricEngine" Type="ElectricEngineState" />
 		</Struct>
+		<Struct Name="MotorVehicleConfigInfo">
+			<Field Name="Vehicle" Type="VehicleConfigInfo" />
+			<Field Name="FrontTracks" Type="CatTrackConfig" />
+			<Field Name="RearTracks" Type="CatTrackConfig" />
+			<Field Name="Mirrors" Type="MirrorsConfig" />
+			<Field Name="Engine" Type="MotorEngineConfig" />
+			<Field Name="Transmission" Type="TransmissionConfig" />
+		</Struct>
 		<Struct Name="PID">
 			<Field Name="Pid" Type="Vector3F" />
 			<Field Name="MinMax" Type="Vector2F" />
 			<Field Name="Error" Type="Float" />
 			<Field Name="Integral" Type="Float" />
+		</Struct>
+		<Struct Name="PitchYawRoll" NoFormatter="true">
+			<Field Name="Pitch" Type="Float" />
+			<Field Name="Yaw" Type="Float" />
+			<Field Name="Roll" Type="Float" />
 		</Struct>
 		<Alias Name="Power" Target="Float" />
 		<Struct Name="RetarderData">
@@ -473,7 +480,7 @@
 		<Struct Name="RigidTelemetryData">
 			<Field Name="CenterOfMass" Type="Vector3F" />
 			<Field Name="LocalCenterOfMass" Type="Vector3F" />
-			<Field Name="PitchYawRoll" Type="Vector3F" />
+			<Field Name="PitchYawRoll" Type="PitchYawRoll" />
 			<Field Name="LinearVelocity" Type="Vector3F" />
 			<Field Name="AngularVelocity" Type="Vector3F" />
 			<Field Name="LinearAcceleration" Type="Vector3F" />
@@ -567,6 +574,9 @@
 			<Field Name="Signal" Type="SignalUnipolar" />
 			<Field Name="SmoothVelocity" Type="Float" />
 		</Struct>
+		<Struct Name="TrailerVehicleConfigInfo">
+			<Field Name="Vehicle" Type="VehicleConfigInfo" />
+		</Struct>
 		<Struct Name="TransmissionConfig">
 			<Field Name="VehicleEntity" Type="Entity" />
 			<Field Name="Gearbox" Type="GearboxData" />
@@ -588,6 +598,12 @@
 			<Field Name="FuelTankCapacity" Type="Float" />
 			<Field Name="BatteryCapacityKwh" Type="Float" />
 			<Field Name="SoundPresetId" Type="UInt8" />
+		</Struct>
+		<Struct Name="VehicleConfigInfo">
+			<Field Name="Name" Type="String" />
+			<Field Name="Body" Type="VehicleConfig" />
+			<Field Name="FrontWheels" Type="WheelConfig" />
+			<Field Name="RearWheels" Type="WheelConfig" />
 		</Struct>
 		<Struct Name="VehicleControllerData">
 			<Field Name="PlayerID" Type="Int32" />
@@ -636,8 +652,8 @@
 			<Field Name="BatteryLongDuration" Type="Float" />
 		</Struct>
 		<Struct Name="VehicleSetupInfo">
-			<Field Name="VehicleName" Type="String" />
-			<Field Name="TrailerName" Type="String" />
+			<Field Name="MotorVehicle" Type="MotorVehicleConfigInfo" />
+			<Field Name="TrailerVehicle" Type="TrailerVehicleConfigInfo" />
 			<Field Name="HasTrailer" Type="Bool" />
 		</Struct>
 		<Struct Name="VehicleState">
@@ -862,7 +878,6 @@
 		<Type Name="CollisionData" />
 		<Type Name="DeltaTime" />
 		<Type Name="Entity" />
-		<Type Name="Float16" />
 		<Type Name="ForceFeedback" />
 		<Type Name="FuelConsumptionData" />
 		<Type Name="FuelInjectionData" />
@@ -871,10 +886,11 @@
 		<Type Name="LinearForce" />
 		<Type Name="LockupClutchData" />
 		<Type Name="Mass" />
+		<Type Name="MirrorConfig" />
 		<Type Name="PID" />
+		<Type Name="PitchYawRoll" />
 		<Type Name="Power" />
 		<Type Name="RigidAeroData" />
-		<Type Name="RigidTelemetryData" />
 		<Type Name="RigidTransform" />
 		<Type Name="Rpm" />
 		<Type Name="SafeId" />
@@ -884,7 +900,6 @@
 		<Type Name="SurfaceFrictionBonus" />
 		<Type Name="SystemAbsConfig" />
 		<Type Name="SystemAsrConfig" />
-		<Type Name="VehicleSetupInfo" />
 		<Type Name="WheelTransformState" />
 		<Type Name="CatSegmentArray">
 			<DependsOn Name="Entity" />
@@ -938,12 +953,6 @@
 		</Type>
 		<Type Name="DrivetrainData">
 			<DependsOn Name="DriveData" />
-		</Type>
-		<Type Name="RigidbodyState">
-			<DependsOn Name="CollisionData" />
-			<DependsOn Name="RigidAeroData" />
-			<DependsOn Name="RigidTelemetryData" />
-			<DependsOn Name="RigidTransform" />
 		</Type>
 		<Type Name="WheelShapeState">
 			<DependsOn Name="Length" />
@@ -1017,6 +1026,15 @@
 			<DependsOn Name="InOutFeedback" />
 			<DependsOn Name="WheelOutput" />
 		</Type>
+		<Type Name="RigidTelemetryData">
+			<DependsOn Name="PitchYawRoll" />
+		</Type>
+		<Type Name="RigidbodyState">
+			<DependsOn Name="CollisionData" />
+			<DependsOn Name="RigidAeroData" />
+			<DependsOn Name="RigidTelemetryData" />
+			<DependsOn Name="RigidTransform" />
+		</Type>
 		<Type Name="DriveOutput">
 			<DependsOn Name="AxisOutput" />
 			<DependsOn Name="DriveType" />
@@ -1027,7 +1045,6 @@
 			<DependsOn Name="InOutState" />
 		</Type>
 		<Type Name="GearboxData">
-			<DependsOn Name="Float16" />
 			<DependsOn Name="GearboxType" />
 			<DependsOn Name="Inertia" />
 		</Type>
@@ -1069,6 +1086,13 @@
 			<DependsOn Name="WheelShapeData" />
 			<DependsOn Name="WheelSuspensionData" />
 			<DependsOn Name="WheelTireData" />
+		</Type>
+		<Type Name="VehicleConfigInfo">
+			<DependsOn Name="VehicleConfig" />
+			<DependsOn Name="WheelConfig" />
+		</Type>
+		<Type Name="TrailerVehicleConfigInfo">
+			<DependsOn Name="VehicleConfigInfo" />
 		</Type>
 		<Type Name="RetarderData">
 			<DependsOn Name="AngularForce" />
@@ -1135,6 +1159,10 @@
 			<DependsOn Name="WheelTransformState" />
 			<DependsOn Name="WheelTurnState" />
 		</Type>
+		<Type Name="MirrorsConfig">
+			<DependsOn Name="Entity" />
+			<DependsOn Name="MirrorConfig" />
+		</Type>
 		<Type Name="EngineStarterData">
 			<DependsOn Name="AngularForce" />
 		</Type>
@@ -1151,6 +1179,17 @@
 			<DependsOn Name="ElectricEngineData" />
 			<DependsOn Name="Entity" />
 			<DependsOn Name="MotorEngineType" />
+		</Type>
+		<Type Name="MotorVehicleConfigInfo">
+			<DependsOn Name="CatTrackConfig" />
+			<DependsOn Name="MirrorsConfig" />
+			<DependsOn Name="MotorEngineConfig" />
+			<DependsOn Name="TransmissionConfig" />
+			<DependsOn Name="VehicleConfigInfo" />
+		</Type>
+		<Type Name="VehicleSetupInfo">
+			<DependsOn Name="MotorVehicleConfigInfo" />
+			<DependsOn Name="TrailerVehicleConfigInfo" />
 		</Type>
 	</TopologicalOrder>
 </ABI>

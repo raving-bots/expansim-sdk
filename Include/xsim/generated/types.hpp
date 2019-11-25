@@ -381,33 +381,6 @@ namespace xsim
 		int32_t m_Version{};
 	};
 
-	struct Float16 final
-	{
-		constexpr Float16() = default;
-		constexpr Float16(const Float16&) = default;
-		constexpr Float16(Float16&&) = default;
-		~Float16() = default;
-		constexpr Float16& operator=(const Float16&) = default;
-		constexpr Float16& operator=(Float16&&) = default;
-
-		float m_F0{};
-		float m_F1{};
-		float m_F2{};
-		float m_F3{};
-		float m_F4{};
-		float m_F5{};
-		float m_F6{};
-		float m_F7{};
-		float m_F8{};
-		float m_F9{};
-		float m_F10{};
-		float m_F11{};
-		float m_F12{};
-		float m_F13{};
-		float m_F14{};
-		float m_F15{};
-	};
-
 	struct ForceFeedback final
 	{
 		constexpr ForceFeedback() = default;
@@ -604,6 +577,21 @@ namespace xsim
 		float m_Value;
 	};
 
+	struct MirrorConfig final
+	{
+		constexpr MirrorConfig() = default;
+		constexpr MirrorConfig(const MirrorConfig&) = default;
+		constexpr MirrorConfig(MirrorConfig&&) = default;
+		~MirrorConfig() = default;
+		constexpr MirrorConfig& operator=(const MirrorConfig&) = default;
+		constexpr MirrorConfig& operator=(MirrorConfig&&) = default;
+
+		float m_Fov{};
+		Vector3F m_Angle{};
+		Vector3F m_Offset{};
+		bool m_Static{};
+	};
+
 	struct PID final
 	{
 		constexpr PID() = default;
@@ -617,6 +605,20 @@ namespace xsim
 		Vector2F m_MinMax{};
 		float m_Error{};
 		float m_Integral{};
+	};
+
+	struct PitchYawRoll final
+	{
+		constexpr PitchYawRoll() = default;
+		constexpr PitchYawRoll(const PitchYawRoll&) = default;
+		constexpr PitchYawRoll(PitchYawRoll&&) = default;
+		~PitchYawRoll() = default;
+		constexpr PitchYawRoll& operator=(const PitchYawRoll&) = default;
+		constexpr PitchYawRoll& operator=(PitchYawRoll&&) = default;
+
+		float m_Pitch{};
+		float m_Yaw{};
+		float m_Roll{};
 	};
 
 	struct Power final
@@ -662,28 +664,6 @@ namespace xsim
 
 		Vector3F m_Coefficients{};
 		Vector3F m_Areas{};
-	};
-
-	struct RigidTelemetryData final
-	{
-		constexpr RigidTelemetryData() = default;
-		constexpr RigidTelemetryData(const RigidTelemetryData&) = default;
-		constexpr RigidTelemetryData(RigidTelemetryData&&) = default;
-		~RigidTelemetryData() = default;
-		constexpr RigidTelemetryData& operator=(const RigidTelemetryData&) = default;
-		constexpr RigidTelemetryData& operator=(RigidTelemetryData&&) = default;
-
-		Vector3F m_CenterOfMass{};
-		Vector3F m_LocalCenterOfMass{};
-		Vector3F m_PitchYawRoll{};
-		Vector3F m_LinearVelocity{};
-		Vector3F m_AngularVelocity{};
-		Vector3F m_LinearAcceleration{};
-		Vector3F m_AngularAcceleration{};
-		Vector3F m_LocalLinearVelocity{};
-		Vector3F m_LocalLinearAcceleration{};
-		Vector3F m_LocalAngularVelocity{};
-		Vector3F m_LocalAngularAcceleration{};
 	};
 
 	struct RigidTransform final
@@ -894,20 +874,6 @@ namespace xsim
 		float m_MinEngineRpmNorm{};
 		float m_SmoothTime{};
 		float m_SlipRangeOffset{};
-	};
-
-	struct VehicleSetupInfo final
-	{
-		constexpr VehicleSetupInfo() = default;
-		constexpr VehicleSetupInfo(const VehicleSetupInfo&) = default;
-		constexpr VehicleSetupInfo(VehicleSetupInfo&&) = default;
-		~VehicleSetupInfo() = default;
-		constexpr VehicleSetupInfo& operator=(const VehicleSetupInfo&) = default;
-		constexpr VehicleSetupInfo& operator=(VehicleSetupInfo&&) = default;
-
-		const wchar_t* m_VehicleName{};
-		const wchar_t* m_TrailerName{};
-		bool m_HasTrailer{};
 	};
 
 	struct WheelTransformState final
@@ -1204,23 +1170,6 @@ namespace xsim
 		DriveData m_Rear{};
 	};
 
-	struct RigidbodyState final
-	{
-		constexpr RigidbodyState() = default;
-		constexpr RigidbodyState(const RigidbodyState&) = default;
-		constexpr RigidbodyState(RigidbodyState&&) = default;
-		~RigidbodyState() = default;
-		constexpr RigidbodyState& operator=(const RigidbodyState&) = default;
-		constexpr RigidbodyState& operator=(RigidbodyState&&) = default;
-
-		RigidTransform m_RigidTransform{};
-		RigidTelemetryData m_RigidTelemetry{};
-		RigidTelemetryData m_PrevRigidTelemetry{};
-		RigidAeroData m_RigidAero{};
-		Vector3F m_LocalAeroForce{};
-		CollisionData m_Collision{};
-	};
-
 	struct WheelShapeState final
 	{
 		constexpr WheelShapeState() = default;
@@ -1457,6 +1406,45 @@ namespace xsim
 		InOutFeedback m_FeedbackState{};
 	};
 
+	struct RigidTelemetryData final
+	{
+		constexpr RigidTelemetryData() = default;
+		constexpr RigidTelemetryData(const RigidTelemetryData&) = default;
+		constexpr RigidTelemetryData(RigidTelemetryData&&) = default;
+		~RigidTelemetryData() = default;
+		constexpr RigidTelemetryData& operator=(const RigidTelemetryData&) = default;
+		constexpr RigidTelemetryData& operator=(RigidTelemetryData&&) = default;
+
+		Vector3F m_CenterOfMass{};
+		Vector3F m_LocalCenterOfMass{};
+		PitchYawRoll m_PitchYawRoll{};
+		Vector3F m_LinearVelocity{};
+		Vector3F m_AngularVelocity{};
+		Vector3F m_LinearAcceleration{};
+		Vector3F m_AngularAcceleration{};
+		Vector3F m_LocalLinearVelocity{};
+		Vector3F m_LocalLinearAcceleration{};
+		Vector3F m_LocalAngularVelocity{};
+		Vector3F m_LocalAngularAcceleration{};
+	};
+
+	struct RigidbodyState final
+	{
+		constexpr RigidbodyState() = default;
+		constexpr RigidbodyState(const RigidbodyState&) = default;
+		constexpr RigidbodyState(RigidbodyState&&) = default;
+		~RigidbodyState() = default;
+		constexpr RigidbodyState& operator=(const RigidbodyState&) = default;
+		constexpr RigidbodyState& operator=(RigidbodyState&&) = default;
+
+		RigidTransform m_RigidTransform{};
+		RigidTelemetryData m_RigidTelemetry{};
+		RigidTelemetryData m_PrevRigidTelemetry{};
+		RigidAeroData m_RigidAero{};
+		Vector3F m_LocalAeroForce{};
+		CollisionData m_Collision{};
+	};
+
 	struct DriveOutput final
 	{
 		constexpr DriveOutput() = default;
@@ -1507,9 +1495,9 @@ namespace xsim
 
 		GearboxType m_Type{};
 		int32_t m_ForwardGearCount{};
-		Float16 m_ForwardGearRatios{};
+		Array<float, 16> m_ForwardGearRatios{};
 		int32_t m_ReverseGearCount{};
-		Float16 m_ReverseGearRatios{};
+		Array<float, 16> m_ReverseGearRatios{};
 		float m_FinalGearRatio{};
 		Inertia m_Inertia{};
 	};
@@ -1678,6 +1666,33 @@ namespace xsim
 		WheelSuspensionData m_Suspension{};
 		uint8_t m_SoundPresetId{};
 		uint8_t m_FxPresetId{};
+	};
+
+	struct VehicleConfigInfo final
+	{
+		constexpr VehicleConfigInfo() = default;
+		constexpr VehicleConfigInfo(const VehicleConfigInfo&) = default;
+		constexpr VehicleConfigInfo(VehicleConfigInfo&&) = default;
+		~VehicleConfigInfo() = default;
+		constexpr VehicleConfigInfo& operator=(const VehicleConfigInfo&) = default;
+		constexpr VehicleConfigInfo& operator=(VehicleConfigInfo&&) = default;
+
+		const wchar_t* m_Name{};
+		VehicleConfig m_Body{};
+		WheelConfig m_FrontWheels{};
+		WheelConfig m_RearWheels{};
+	};
+
+	struct TrailerVehicleConfigInfo final
+	{
+		constexpr TrailerVehicleConfigInfo() = default;
+		constexpr TrailerVehicleConfigInfo(const TrailerVehicleConfigInfo&) = default;
+		constexpr TrailerVehicleConfigInfo(TrailerVehicleConfigInfo&&) = default;
+		~TrailerVehicleConfigInfo() = default;
+		constexpr TrailerVehicleConfigInfo& operator=(const TrailerVehicleConfigInfo&) = default;
+		constexpr TrailerVehicleConfigInfo& operator=(TrailerVehicleConfigInfo&&) = default;
+
+		VehicleConfigInfo m_Vehicle{};
 	};
 
 	struct RetarderData final
@@ -1880,6 +1895,21 @@ namespace xsim
 		SystemAsrState m_SystemAsr{};
 	};
 
+	struct MirrorsConfig final
+	{
+		constexpr MirrorsConfig() = default;
+		constexpr MirrorsConfig(const MirrorsConfig&) = default;
+		constexpr MirrorsConfig(MirrorsConfig&&) = default;
+		~MirrorsConfig() = default;
+		constexpr MirrorsConfig& operator=(const MirrorsConfig&) = default;
+		constexpr MirrorsConfig& operator=(MirrorsConfig&&) = default;
+
+		Entity m_VehicleEntity{};
+		MirrorConfig m_LeftMirror{};
+		MirrorConfig m_CenterMirror{};
+		MirrorConfig m_RightMirror{};
+	};
+
 	struct EngineStarterData final
 	{
 		constexpr EngineStarterData() = default;
@@ -1933,6 +1963,37 @@ namespace xsim
 		uint8_t m_SoundPresetId{};
 	};
 
+	struct MotorVehicleConfigInfo final
+	{
+		constexpr MotorVehicleConfigInfo() = default;
+		constexpr MotorVehicleConfigInfo(const MotorVehicleConfigInfo&) = default;
+		constexpr MotorVehicleConfigInfo(MotorVehicleConfigInfo&&) = default;
+		~MotorVehicleConfigInfo() = default;
+		constexpr MotorVehicleConfigInfo& operator=(const MotorVehicleConfigInfo&) = default;
+		constexpr MotorVehicleConfigInfo& operator=(MotorVehicleConfigInfo&&) = default;
+
+		VehicleConfigInfo m_Vehicle{};
+		CatTrackConfig m_FrontTracks{};
+		CatTrackConfig m_RearTracks{};
+		MirrorsConfig m_Mirrors{};
+		MotorEngineConfig m_Engine{};
+		TransmissionConfig m_Transmission{};
+	};
+
+	struct VehicleSetupInfo final
+	{
+		constexpr VehicleSetupInfo() = default;
+		constexpr VehicleSetupInfo(const VehicleSetupInfo&) = default;
+		constexpr VehicleSetupInfo(VehicleSetupInfo&&) = default;
+		~VehicleSetupInfo() = default;
+		constexpr VehicleSetupInfo& operator=(const VehicleSetupInfo&) = default;
+		constexpr VehicleSetupInfo& operator=(VehicleSetupInfo&&) = default;
+
+		MotorVehicleConfigInfo m_MotorVehicle{};
+		TrailerVehicleConfigInfo m_TrailerVehicle{};
+		bool m_HasTrailer{};
+	};
+
 	static_assert(std::is_standard_layout<AutoBoxType>::value, "Sanity check failure: TypeEnum AutoBoxType is not standard layout");
 	static_assert(std::is_standard_layout<AxisIndex>::value, "Sanity check failure: TypeEnum AxisIndex is not standard layout");
 	static_assert(std::is_standard_layout<CouplerType>::value, "Sanity check failure: TypeEnum CouplerType is not standard layout");
@@ -1961,7 +2022,6 @@ namespace xsim
 	static_assert(std::is_standard_layout<CollisionData>::value, "Sanity check failure: TypeStruct CollisionData is not standard layout");
 	static_assert(std::is_standard_layout<DeltaTime>::value, "Sanity check failure: TypeAlias DeltaTime is not standard layout");
 	static_assert(std::is_standard_layout<Entity>::value, "Sanity check failure: TypeStruct Entity is not standard layout");
-	static_assert(std::is_standard_layout<Float16>::value, "Sanity check failure: TypeStruct Float16 is not standard layout");
 	static_assert(std::is_standard_layout<ForceFeedback>::value, "Sanity check failure: TypeStruct ForceFeedback is not standard layout");
 	static_assert(std::is_standard_layout<FuelConsumptionData>::value, "Sanity check failure: TypeStruct FuelConsumptionData is not standard layout");
 	static_assert(std::is_standard_layout<FuelInjectionData>::value, "Sanity check failure: TypeStruct FuelInjectionData is not standard layout");
@@ -1970,10 +2030,11 @@ namespace xsim
 	static_assert(std::is_standard_layout<LinearForce>::value, "Sanity check failure: TypeAlias LinearForce is not standard layout");
 	static_assert(std::is_standard_layout<LockupClutchData>::value, "Sanity check failure: TypeStruct LockupClutchData is not standard layout");
 	static_assert(std::is_standard_layout<Mass>::value, "Sanity check failure: TypeAlias Mass is not standard layout");
+	static_assert(std::is_standard_layout<MirrorConfig>::value, "Sanity check failure: TypeStruct MirrorConfig is not standard layout");
 	static_assert(std::is_standard_layout<PID>::value, "Sanity check failure: TypeStruct PID is not standard layout");
+	static_assert(std::is_standard_layout<PitchYawRoll>::value, "Sanity check failure: TypeStruct PitchYawRoll is not standard layout");
 	static_assert(std::is_standard_layout<Power>::value, "Sanity check failure: TypeAlias Power is not standard layout");
 	static_assert(std::is_standard_layout<RigidAeroData>::value, "Sanity check failure: TypeStruct RigidAeroData is not standard layout");
-	static_assert(std::is_standard_layout<RigidTelemetryData>::value, "Sanity check failure: TypeStruct RigidTelemetryData is not standard layout");
 	static_assert(std::is_standard_layout<RigidTransform>::value, "Sanity check failure: TypeStruct RigidTransform is not standard layout");
 	static_assert(std::is_standard_layout<Rpm>::value, "Sanity check failure: TypeAlias Rpm is not standard layout");
 	static_assert(std::is_standard_layout<SafeId>::value, "Sanity check failure: TypeAlias SafeId is not standard layout");
@@ -1983,7 +2044,6 @@ namespace xsim
 	static_assert(std::is_standard_layout<SurfaceFrictionBonus>::value, "Sanity check failure: TypeStruct SurfaceFrictionBonus is not standard layout");
 	static_assert(std::is_standard_layout<SystemAbsConfig>::value, "Sanity check failure: TypeStruct SystemAbsConfig is not standard layout");
 	static_assert(std::is_standard_layout<SystemAsrConfig>::value, "Sanity check failure: TypeStruct SystemAsrConfig is not standard layout");
-	static_assert(std::is_standard_layout<VehicleSetupInfo>::value, "Sanity check failure: TypeStruct VehicleSetupInfo is not standard layout");
 	static_assert(std::is_standard_layout<WheelTransformState>::value, "Sanity check failure: TypeStruct WheelTransformState is not standard layout");
 	static_assert(std::is_standard_layout<CatSegmentArray>::value, "Sanity check failure: TypeStruct CatSegmentArray is not standard layout");
 	static_assert(std::is_standard_layout<WheelBrakeData>::value, "Sanity check failure: TypeStruct WheelBrakeData is not standard layout");
@@ -2000,7 +2060,6 @@ namespace xsim
 	static_assert(std::is_standard_layout<VehicleState>::value, "Sanity check failure: TypeStruct VehicleState is not standard layout");
 	static_assert(std::is_standard_layout<DriveData>::value, "Sanity check failure: TypeStruct DriveData is not standard layout");
 	static_assert(std::is_standard_layout<DrivetrainData>::value, "Sanity check failure: TypeStruct DrivetrainData is not standard layout");
-	static_assert(std::is_standard_layout<RigidbodyState>::value, "Sanity check failure: TypeStruct RigidbodyState is not standard layout");
 	static_assert(std::is_standard_layout<WheelShapeState>::value, "Sanity check failure: TypeStruct WheelShapeState is not standard layout");
 	static_assert(std::is_standard_layout<WheelShapeData>::value, "Sanity check failure: TypeStruct WheelShapeData is not standard layout");
 	static_assert(std::is_standard_layout<CatShapeData>::value, "Sanity check failure: TypeStruct CatShapeData is not standard layout");
@@ -2016,6 +2075,8 @@ namespace xsim
 	static_assert(std::is_standard_layout<InOutState>::value, "Sanity check failure: TypeStruct InOutState is not standard layout");
 	static_assert(std::is_standard_layout<WheelOutput>::value, "Sanity check failure: TypeStruct WheelOutput is not standard layout");
 	static_assert(std::is_standard_layout<AxisOutput>::value, "Sanity check failure: TypeStruct AxisOutput is not standard layout");
+	static_assert(std::is_standard_layout<RigidTelemetryData>::value, "Sanity check failure: TypeStruct RigidTelemetryData is not standard layout");
+	static_assert(std::is_standard_layout<RigidbodyState>::value, "Sanity check failure: TypeStruct RigidbodyState is not standard layout");
 	static_assert(std::is_standard_layout<DriveOutput>::value, "Sanity check failure: TypeStruct DriveOutput is not standard layout");
 	static_assert(std::is_standard_layout<ManifoldState>::value, "Sanity check failure: TypeStruct ManifoldState is not standard layout");
 	static_assert(std::is_standard_layout<GearboxData>::value, "Sanity check failure: TypeStruct GearboxData is not standard layout");
@@ -2028,6 +2089,8 @@ namespace xsim
 	static_assert(std::is_standard_layout<WheelSatData>::value, "Sanity check failure: TypeStruct WheelSatData is not standard layout");
 	static_assert(std::is_standard_layout<WheelTireData>::value, "Sanity check failure: TypeStruct WheelTireData is not standard layout");
 	static_assert(std::is_standard_layout<WheelConfig>::value, "Sanity check failure: TypeStruct WheelConfig is not standard layout");
+	static_assert(std::is_standard_layout<VehicleConfigInfo>::value, "Sanity check failure: TypeStruct VehicleConfigInfo is not standard layout");
+	static_assert(std::is_standard_layout<TrailerVehicleConfigInfo>::value, "Sanity check failure: TypeStruct TrailerVehicleConfigInfo is not standard layout");
 	static_assert(std::is_standard_layout<RetarderData>::value, "Sanity check failure: TypeStruct RetarderData is not standard layout");
 	static_assert(std::is_standard_layout<ElectricEngineData>::value, "Sanity check failure: TypeStruct ElectricEngineData is not standard layout");
 	static_assert(std::is_standard_layout<CatPlateData>::value, "Sanity check failure: TypeStruct CatPlateData is not standard layout");
@@ -2038,7 +2101,10 @@ namespace xsim
 	static_assert(std::is_standard_layout<SurfaceData>::value, "Sanity check failure: TypeStruct SurfaceData is not standard layout");
 	static_assert(std::is_standard_layout<ShapeContact>::value, "Sanity check failure: TypeStruct ShapeContact is not standard layout");
 	static_assert(std::is_standard_layout<WheelState>::value, "Sanity check failure: TypeStruct WheelState is not standard layout");
+	static_assert(std::is_standard_layout<MirrorsConfig>::value, "Sanity check failure: TypeStruct MirrorsConfig is not standard layout");
 	static_assert(std::is_standard_layout<EngineStarterData>::value, "Sanity check failure: TypeStruct EngineStarterData is not standard layout");
 	static_assert(std::is_standard_layout<CombustionEngineData>::value, "Sanity check failure: TypeStruct CombustionEngineData is not standard layout");
 	static_assert(std::is_standard_layout<MotorEngineConfig>::value, "Sanity check failure: TypeStruct MotorEngineConfig is not standard layout");
+	static_assert(std::is_standard_layout<MotorVehicleConfigInfo>::value, "Sanity check failure: TypeStruct MotorVehicleConfigInfo is not standard layout");
+	static_assert(std::is_standard_layout<VehicleSetupInfo>::value, "Sanity check failure: TypeStruct VehicleSetupInfo is not standard layout");
 }

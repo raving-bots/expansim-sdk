@@ -21,8 +21,8 @@
 
 namespace fmt
 {
-	template <>
-	struct formatter<xsim::AutoBoxType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AutoBoxType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -37,26 +37,26 @@ namespace fmt
 			{
 				case xsim::AutoBoxType::FullOrSemi:
 				{
-					return format_to(ctx.out(), L"AutoBoxType(FullOrSemi)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxType(FullOrSemi)"));
 				}
 				case xsim::AutoBoxType::FullOnly:
 				{
-					return format_to(ctx.out(), L"AutoBoxType(FullOnly)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxType(FullOnly)"));
 				}
 				case xsim::AutoBoxType::SemiOnly:
 				{
-					return format_to(ctx.out(), L"AutoBoxType(SemiOnly)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxType(SemiOnly)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"AutoBoxType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AxisIndex, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AxisIndex, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -71,30 +71,30 @@ namespace fmt
 			{
 				case xsim::AxisIndex::Axis0:
 				{
-					return format_to(ctx.out(), L"AxisIndex(Axis0)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisIndex(Axis0)"));
 				}
 				case xsim::AxisIndex::Axis1:
 				{
-					return format_to(ctx.out(), L"AxisIndex(Axis1)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisIndex(Axis1)"));
 				}
 				case xsim::AxisIndex::Axis2:
 				{
-					return format_to(ctx.out(), L"AxisIndex(Axis2)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisIndex(Axis2)"));
 				}
 				case xsim::AxisIndex::Axis3:
 				{
-					return format_to(ctx.out(), L"AxisIndex(Axis3)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisIndex(Axis3)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"AxisIndex({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisIndex({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CouplerType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CouplerType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -109,26 +109,26 @@ namespace fmt
 			{
 				case xsim::CouplerType::Friction:
 				{
-					return format_to(ctx.out(), L"CouplerType(Friction)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerType(Friction)"));
 				}
 				case xsim::CouplerType::Hydraulic:
 				{
-					return format_to(ctx.out(), L"CouplerType(Hydraulic)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerType(Hydraulic)"));
 				}
 				case xsim::CouplerType::Direct:
 				{
-					return format_to(ctx.out(), L"CouplerType(Direct)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerType(Direct)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"CouplerType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DriveIndex, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::DriveIndex, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -143,22 +143,22 @@ namespace fmt
 			{
 				case xsim::DriveIndex::Front:
 				{
-					return format_to(ctx.out(), L"DriveIndex(Front)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveIndex(Front)"));
 				}
 				case xsim::DriveIndex::Rear:
 				{
-					return format_to(ctx.out(), L"DriveIndex(Rear)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveIndex(Rear)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"DriveIndex({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveIndex({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DriveType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::DriveType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -173,22 +173,22 @@ namespace fmt
 			{
 				case xsim::DriveType::Wheels:
 				{
-					return format_to(ctx.out(), L"DriveType(Wheels)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveType(Wheels)"));
 				}
 				case xsim::DriveType::Caterpillar:
 				{
-					return format_to(ctx.out(), L"DriveType(Caterpillar)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveType(Caterpillar)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"DriveType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::EngineState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::EngineState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -203,26 +203,26 @@ namespace fmt
 			{
 				case xsim::EngineState::Stalled:
 				{
-					return format_to(ctx.out(), L"EngineState(Stalled)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineState(Stalled)"));
 				}
 				case xsim::EngineState::Starting:
 				{
-					return format_to(ctx.out(), L"EngineState(Starting)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineState(Starting)"));
 				}
 				case xsim::EngineState::Running:
 				{
-					return format_to(ctx.out(), L"EngineState(Running)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineState(Running)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"EngineState({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineState({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::GearboxType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::GearboxType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -237,22 +237,22 @@ namespace fmt
 			{
 				case xsim::GearboxType::Manual:
 				{
-					return format_to(ctx.out(), L"GearboxType(Manual)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType(Manual)"));
 				}
 				case xsim::GearboxType::Automatic:
 				{
-					return format_to(ctx.out(), L"GearboxType(Automatic)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType(Automatic)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"GearboxType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::InOutBindMode, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::InOutBindMode, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -267,26 +267,26 @@ namespace fmt
 			{
 				case xsim::InOutBindMode::None:
 				{
-					return format_to(ctx.out(), L"InOutBindMode(None)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutBindMode(None)"));
 				}
 				case xsim::InOutBindMode::ParentDefault:
 				{
-					return format_to(ctx.out(), L"InOutBindMode(ParentDefault)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutBindMode(ParentDefault)"));
 				}
 				case xsim::InOutBindMode::ParentManifold:
 				{
-					return format_to(ctx.out(), L"InOutBindMode(ParentManifold)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutBindMode(ParentManifold)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"InOutBindMode({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutBindMode({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::InterpMethod, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::InterpMethod, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -301,34 +301,34 @@ namespace fmt
 			{
 				case xsim::InterpMethod::Step:
 				{
-					return format_to(ctx.out(), L"InterpMethod(Step)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod(Step)"));
 				}
 				case xsim::InterpMethod::Linear:
 				{
-					return format_to(ctx.out(), L"InterpMethod(Linear)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod(Linear)"));
 				}
 				case xsim::InterpMethod::Cosine:
 				{
-					return format_to(ctx.out(), L"InterpMethod(Cosine)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod(Cosine)"));
 				}
 				case xsim::InterpMethod::Cubic:
 				{
-					return format_to(ctx.out(), L"InterpMethod(Cubic)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod(Cubic)"));
 				}
 				case xsim::InterpMethod::Hermite:
 				{
-					return format_to(ctx.out(), L"InterpMethod(Hermite)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod(Hermite)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"InterpMethod({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("InterpMethod({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::MotorEngineType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::MotorEngineType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -343,30 +343,30 @@ namespace fmt
 			{
 				case xsim::MotorEngineType::Diesel:
 				{
-					return format_to(ctx.out(), L"MotorEngineType(Diesel)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineType(Diesel)"));
 				}
 				case xsim::MotorEngineType::Petrol:
 				{
-					return format_to(ctx.out(), L"MotorEngineType(Petrol)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineType(Petrol)"));
 				}
 				case xsim::MotorEngineType::Electric:
 				{
-					return format_to(ctx.out(), L"MotorEngineType(Electric)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineType(Electric)"));
 				}
 				case xsim::MotorEngineType::Hybrid:
 				{
-					return format_to(ctx.out(), L"MotorEngineType(Hybrid)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineType(Hybrid)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"MotorEngineType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::RetarderType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::RetarderType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -381,22 +381,22 @@ namespace fmt
 			{
 				case xsim::RetarderType::None:
 				{
-					return format_to(ctx.out(), L"RetarderType(None)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderType(None)"));
 				}
 				case xsim::RetarderType::Electric:
 				{
-					return format_to(ctx.out(), L"RetarderType(Electric)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderType(Electric)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"RetarderType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SurfaceType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SurfaceType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -411,54 +411,54 @@ namespace fmt
 			{
 				case xsim::SurfaceType::None:
 				{
-					return format_to(ctx.out(), L"SurfaceType(None)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(None)"));
 				}
 				case xsim::SurfaceType::Asphalt:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Asphalt)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Asphalt)"));
 				}
 				case xsim::SurfaceType::Concrete:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Concrete)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Concrete)"));
 				}
 				case xsim::SurfaceType::Stones:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Stones)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Stones)"));
 				}
 				case xsim::SurfaceType::DryGround:
 				{
-					return format_to(ctx.out(), L"SurfaceType(DryGround)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(DryGround)"));
 				}
 				case xsim::SurfaceType::WetMud:
 				{
-					return format_to(ctx.out(), L"SurfaceType(WetMud)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(WetMud)"));
 				}
 				case xsim::SurfaceType::Ice:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Ice)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Ice)"));
 				}
 				case xsim::SurfaceType::Wood:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Wood)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Wood)"));
 				}
 				case xsim::SurfaceType::Metal:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Metal)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Metal)"));
 				}
 				case xsim::SurfaceType::Other:
 				{
-					return format_to(ctx.out(), L"SurfaceType(Other)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Other)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"SurfaceType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleCategory, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleCategory, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -473,34 +473,34 @@ namespace fmt
 			{
 				case xsim::VehicleCategory::Car:
 				{
-					return format_to(ctx.out(), L"VehicleCategory(Car)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory(Car)"));
 				}
 				case xsim::VehicleCategory::Truck:
 				{
-					return format_to(ctx.out(), L"VehicleCategory(Truck)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory(Truck)"));
 				}
 				case xsim::VehicleCategory::Trailer:
 				{
-					return format_to(ctx.out(), L"VehicleCategory(Trailer)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory(Trailer)"));
 				}
 				case xsim::VehicleCategory::Groundwork:
 				{
-					return format_to(ctx.out(), L"VehicleCategory(Groundwork)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory(Groundwork)"));
 				}
 				case xsim::VehicleCategory::Military:
 				{
-					return format_to(ctx.out(), L"VehicleCategory(Military)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory(Military)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"VehicleCategory({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleCategory({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleSteeringType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleSteeringType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -515,22 +515,22 @@ namespace fmt
 			{
 				case xsim::VehicleSteeringType::Wheel:
 				{
-					return format_to(ctx.out(), L"VehicleSteeringType(Wheel)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringType(Wheel)"));
 				}
 				case xsim::VehicleSteeringType::Lever:
 				{
-					return format_to(ctx.out(), L"VehicleSteeringType(Lever)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringType(Lever)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"VehicleSteeringType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelIndex, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelIndex, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -545,22 +545,22 @@ namespace fmt
 			{
 				case xsim::WheelIndex::Left:
 				{
-					return format_to(ctx.out(), L"WheelIndex(Left)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelIndex(Left)"));
 				}
 				case xsim::WheelIndex::Right:
 				{
-					return format_to(ctx.out(), L"WheelIndex(Right)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelIndex(Right)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"WheelIndex({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelIndex({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelSuspensionType, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelSuspensionType, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -575,26 +575,26 @@ namespace fmt
 			{
 				case xsim::WheelSuspensionType::Independent:
 				{
-					return format_to(ctx.out(), L"WheelSuspensionType(Independent)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSuspensionType(Independent)"));
 				}
 				case xsim::WheelSuspensionType::SwingingHalfAxle:
 				{
-					return format_to(ctx.out(), L"WheelSuspensionType(SwingingHalfAxle)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSuspensionType(SwingingHalfAxle)"));
 				}
 				case xsim::WheelSuspensionType::RigidAxle:
 				{
-					return format_to(ctx.out(), L"WheelSuspensionType(RigidAxle)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSuspensionType(RigidAxle)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"WheelSuspensionType({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSuspensionType({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WrapMethod, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WrapMethod, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -609,30 +609,30 @@ namespace fmt
 			{
 				case xsim::WrapMethod::Clamp:
 				{
-					return format_to(ctx.out(), L"WrapMethod(Clamp)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WrapMethod(Clamp)"));
 				}
 				case xsim::WrapMethod::Extrapolate:
 				{
-					return format_to(ctx.out(), L"WrapMethod(Extrapolate)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WrapMethod(Extrapolate)"));
 				}
 				case xsim::WrapMethod::Mirror:
 				{
-					return format_to(ctx.out(), L"WrapMethod(Mirror)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WrapMethod(Mirror)"));
 				}
 				case xsim::WrapMethod::Repeat:
 				{
-					return format_to(ctx.out(), L"WrapMethod(Repeat)");
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WrapMethod(Repeat)"));
 				}
 				default:
 				{
-					return format_to(ctx.out(), L"WrapMethod({})", static_cast<uintmax_t>(value));
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("WrapMethod({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AdditiveForce, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AdditiveForce, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -643,12 +643,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AdditiveForce& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AdditiveForce");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AdditiveForce"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Angle, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Angle, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -659,12 +659,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Angle& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Angle({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Angle({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AngleDeg, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AngleDeg, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -675,12 +675,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AngleDeg& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AngleDeg({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AngleDeg({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AngularForce, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AngularForce, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -691,12 +691,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AngularForce& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AngularForce({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AngularForce({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AngularVelocity, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AngularVelocity, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -707,12 +707,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AngularVelocity& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AngularVelocity({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AngularVelocity({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::BatteryConsumptionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::BatteryConsumptionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -723,12 +723,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::BatteryConsumptionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"BatteryConsumptionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("BatteryConsumptionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatSegmentSuspensionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatSegmentSuspensionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -739,12 +739,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatSegmentSuspensionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatSegmentSuspensionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatSegmentSuspensionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CollisionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CollisionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -755,12 +755,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CollisionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CollisionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CollisionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DeltaTime, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::DeltaTime, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -771,12 +771,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::DeltaTime& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"DeltaTime({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DeltaTime({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Entity, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Entity, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -787,28 +787,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Entity& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Entity");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Entity"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Float16, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::Float16& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"Float16");
-		}
-	};
-
-	template <>
-	struct formatter<xsim::ForceFeedback, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ForceFeedback, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -819,12 +803,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ForceFeedback& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ForceFeedback");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ForceFeedback"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::FuelConsumptionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::FuelConsumptionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -835,12 +819,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::FuelConsumptionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"FuelConsumptionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("FuelConsumptionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::FuelInjectionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::FuelInjectionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -851,12 +835,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::FuelInjectionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"FuelInjectionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("FuelInjectionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Inertia, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Inertia, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -867,12 +851,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Inertia& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Inertia({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Inertia({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Length, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Length, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -883,12 +867,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Length& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Length({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Length({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::LinearForce, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::LinearForce, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -899,12 +883,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::LinearForce& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"LinearForce({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("LinearForce({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::LockupClutchData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::LockupClutchData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -915,12 +899,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::LockupClutchData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"LockupClutchData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("LockupClutchData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Mass, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Mass, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -931,12 +915,28 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Mass& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Mass({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Mass({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::PID, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::MirrorConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::MirrorConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MirrorConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::PID, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -947,12 +947,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::PID& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"PID");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("PID"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Power, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Power, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -963,12 +963,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Power& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Power({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Power({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::RigidAeroData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::RigidAeroData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -979,28 +979,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::RigidAeroData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"RigidAeroData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidAeroData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::RigidTelemetryData, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RigidTelemetryData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"RigidTelemetryData");
-		}
-	};
-
-	template <>
-	struct formatter<xsim::RigidTransform, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::RigidTransform, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1011,12 +995,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::RigidTransform& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"RigidTransform");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidTransform"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::Rpm, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::Rpm, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1027,12 +1011,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::Rpm& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"Rpm({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("Rpm({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SafeId, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SafeId, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1043,12 +1027,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SafeId& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SafeId({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SafeId({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SignalBipolar, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SignalBipolar, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1059,12 +1043,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SignalBipolar& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SignalBipolar({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SignalBipolar({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SignalUnipolar, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SignalUnipolar, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1075,12 +1059,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SignalUnipolar& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SignalUnipolar({})", value.Value());
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SignalUnipolar({})"), value.Value());
 		}
 	};
 
-	template <>
-	struct formatter<xsim::StabilizationForce, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::StabilizationForce, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1091,12 +1075,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::StabilizationForce& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"StabilizationForce");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("StabilizationForce"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SurfaceFrictionBonus, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SurfaceFrictionBonus, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1107,12 +1091,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SurfaceFrictionBonus& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SurfaceFrictionBonus");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceFrictionBonus"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SystemAbsConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SystemAbsConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1123,12 +1107,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SystemAbsConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SystemAbsConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAbsConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SystemAsrConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SystemAsrConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1139,28 +1123,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SystemAsrConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SystemAsrConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAsrConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleSetupInfo, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::VehicleSetupInfo& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"VehicleSetupInfo");
-		}
-	};
-
-	template <>
-	struct formatter<xsim::WheelTransformState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelTransformState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1171,12 +1139,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelTransformState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelTransformState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelTransformState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatSegmentArray, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatSegmentArray, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1187,12 +1155,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatSegmentArray& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatSegmentArray");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatSegmentArray"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelBrakeData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelBrakeData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1203,12 +1171,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelBrakeData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelBrakeData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelBrakeData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatBrakeData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatBrakeData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1219,12 +1187,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatBrakeData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatBrakeData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatBrakeData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatTrackState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatTrackState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1235,12 +1203,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatTrackState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatTrackState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatTrackState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ContactSlip, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ContactSlip, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1251,12 +1219,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ContactSlip& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ContactSlip");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactSlip"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ContactForces, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ContactForces, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1267,12 +1235,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ContactForces& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ContactForces");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactForces"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelTurnState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelTurnState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1283,12 +1251,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelTurnState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelTurnState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelTurnState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SatForce, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SatForce, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1299,12 +1267,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SatForce& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SatForce");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SatForce"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SystemAsrState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SystemAsrState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1315,12 +1283,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SystemAsrState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SystemAsrState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAsrState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SystemAbsState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SystemAbsState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1331,12 +1299,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SystemAbsState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SystemAbsState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAbsState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleControllerData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleControllerData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1347,12 +1315,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::VehicleControllerData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"VehicleControllerData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleControllerData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleGaugeData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleGaugeData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1363,12 +1331,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::VehicleGaugeData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"VehicleGaugeData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGaugeData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1379,12 +1347,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::VehicleState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"VehicleState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DriveData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::DriveData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1395,12 +1363,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::DriveData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"DriveData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DrivetrainData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::DrivetrainData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1411,28 +1379,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::DrivetrainData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"DrivetrainData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DrivetrainData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::RigidbodyState, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RigidbodyState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"RigidbodyState");
-		}
-	};
-
-	template <>
-	struct formatter<xsim::WheelShapeState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelShapeState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1443,12 +1395,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelShapeState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelShapeState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelShapeState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelShapeData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelShapeData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1459,12 +1411,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelShapeData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelShapeData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelShapeData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatShapeData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatShapeData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1475,12 +1427,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatShapeData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatShapeData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatShapeData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatTrackSuspensionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatTrackSuspensionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1491,12 +1443,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatTrackSuspensionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatTrackSuspensionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatTrackSuspensionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ManifoldIndex, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ManifoldIndex, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1507,12 +1459,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ManifoldIndex& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ManifoldIndex");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ManifoldIndex"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::InOutConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::InOutConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1523,12 +1475,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::InOutConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"InOutConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleSteeringData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleSteeringData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1539,12 +1491,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::VehicleSteeringData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"VehicleSteeringData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::VehicleConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1555,12 +1507,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::VehicleConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"VehicleConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ElectricEngineState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ElectricEngineState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1571,12 +1523,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ElectricEngineState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ElectricEngineState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectricEngineState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CombustionEngineState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CombustionEngineState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1587,12 +1539,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CombustionEngineState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CombustionEngineState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::MotorEngineState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::MotorEngineState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1603,12 +1555,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::MotorEngineState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"MotorEngineState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::InOutFeedback, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::InOutFeedback, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1619,12 +1571,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::InOutFeedback& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"InOutFeedback");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutFeedback"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::InOutState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::InOutState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1635,12 +1587,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::InOutState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"InOutState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("InOutState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelOutput, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelOutput, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1651,12 +1603,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelOutput& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelOutput");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelOutput"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AxisOutput, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AxisOutput, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1667,12 +1619,44 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AxisOutput& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AxisOutput");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisOutput"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::DriveOutput, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::RigidTelemetryData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::RigidTelemetryData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidTelemetryData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::RigidbodyState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::RigidbodyState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidbodyState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::DriveOutput, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1683,12 +1667,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::DriveOutput& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"DriveOutput");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DriveOutput"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ManifoldState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ManifoldState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1699,12 +1683,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ManifoldState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ManifoldState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ManifoldState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::GearboxData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::GearboxData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1715,12 +1699,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::GearboxData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"GearboxData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::AutoBoxData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::AutoBoxData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1731,12 +1715,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::AutoBoxData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"AutoBoxData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelSuspensionData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelSuspensionData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1747,12 +1731,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelSuspensionData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelSuspensionData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSuspensionData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ContactLoad, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ContactLoad, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1763,12 +1747,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ContactLoad& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ContactLoad");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactLoad"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ContactForceCommand, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ContactForceCommand, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1779,12 +1763,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ContactForceCommand& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ContactForceCommand");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactForceCommand"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CurveData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CurveData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1795,12 +1779,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CurveData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CurveData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CurveData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::FrictionClutchData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::FrictionClutchData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1811,12 +1795,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::FrictionClutchData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"FrictionClutchData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("FrictionClutchData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelSatData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelSatData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1827,12 +1811,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelSatData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelSatData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelSatData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelTireData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelTireData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1843,12 +1827,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelTireData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelTireData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelTireData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1859,12 +1843,44 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::RetarderData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::VehicleConfigInfo, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleConfigInfo& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleConfigInfo"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::TrailerVehicleConfigInfo, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::TrailerVehicleConfigInfo& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("TrailerVehicleConfigInfo"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::RetarderData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1875,12 +1891,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::RetarderData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"RetarderData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ElectricEngineData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ElectricEngineData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1891,12 +1907,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ElectricEngineData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ElectricEngineData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectricEngineData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatPlateData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatPlateData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1907,12 +1923,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatPlateData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatPlateData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatPlateData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CatTrackConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CatTrackConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1923,12 +1939,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CatTrackConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CatTrackConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatTrackConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::HydraulicTorqueConverterData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::HydraulicTorqueConverterData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1939,12 +1955,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::HydraulicTorqueConverterData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"HydraulicTorqueConverterData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("HydraulicTorqueConverterData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CouplerData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CouplerData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1955,12 +1971,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CouplerData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CouplerData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::TransmissionConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::TransmissionConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1971,12 +1987,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::TransmissionConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"TransmissionConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("TransmissionConfig"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::SurfaceData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::SurfaceData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1987,12 +2003,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::SurfaceData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"SurfaceData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::ShapeContact, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::ShapeContact, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -2003,12 +2019,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::ShapeContact& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"ShapeContact");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ShapeContact"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::WheelState, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::WheelState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -2019,12 +2035,28 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::WheelState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"WheelState");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelState"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::EngineStarterData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::MirrorsConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::MirrorsConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MirrorsConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::EngineStarterData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -2035,12 +2067,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::EngineStarterData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"EngineStarterData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineStarterData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::CombustionEngineData, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::CombustionEngineData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -2051,12 +2083,12 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::CombustionEngineData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"CombustionEngineData");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineData"));
 		}
 	};
 
-	template <>
-	struct formatter<xsim::MotorEngineConfig, wchar_t>
+	template <typename Char>
+	struct formatter<xsim::MotorEngineConfig, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -2067,7 +2099,39 @@ namespace fmt
 		template <typename FormatContext>
 		auto format(const xsim::MotorEngineConfig& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), L"MotorEngineConfig");
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::MotorVehicleConfigInfo, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::MotorVehicleConfigInfo& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorVehicleConfigInfo"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleSetupInfo, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleSetupInfo& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSetupInfo"));
 		}
 	};
 

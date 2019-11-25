@@ -26,17 +26,14 @@ namespace plugin
 		void Start(const xsim::VehicleSetupInfo& vehicleSetup);
 		void Record(
 			xsim::DeltaTime dt,
-			const xsim::VehicleConfig& vehicleConfig,
 			const xsim::VehicleState& vehicleState,
 			const xsim::RigidbodyState& rigidbody
 		);
 
 	private:
 		fs::path m_OutputPath{};
-		std::ofstream m_SetupFile{};
 		std::ofstream m_TelemetryFile{};
 		float m_Time{};
 		float m_FlushTime{};
-		bool m_FirstRow{};
 	};
 }

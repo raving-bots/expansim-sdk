@@ -123,6 +123,7 @@
     <ClInclude Include="Include\fmt\format.h" />
     <ClInclude Include="Include\fmt\ostream.h" />
     <ClInclude Include="Include\xsim\fmt.hpp" />
+    <ClInclude Include="Include\xsim\formatters.hpp" />
     <ClInclude Include="Include\xsim\generated\abi.hpp" />
     <ClInclude Include="Include\xsim\generated\exports.hpp" />
     <ClInclude Include="Include\xsim\generated\formatters.hpp" />

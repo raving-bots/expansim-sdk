@@ -18,7 +18,7 @@ namespace xsim
 	namespace abi
 	{
 		constexpr uint32_t Version = UINT32_C(0);
-		constexpr uint64_t Checksum = UINT64_C(1326358091331673708);
+		constexpr uint64_t Checksum = UINT64_C(8566976633345006626);
 	}
 
 	XSIM_EXPORT void CalculateCatTrackHub(

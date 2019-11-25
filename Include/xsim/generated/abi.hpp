@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <xsim/types.hpp>
 #include <xsim/generated/types.hpp>
 #include <xsim/generated/exports.hpp>
 #include <xsim/generated/formatters.hpp>
+#include <xsim/formatters.hpp>

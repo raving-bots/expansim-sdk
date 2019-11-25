@@ -9,6 +9,9 @@
 #include <type_traits>
 
 #define XSIM_EXPORT extern "C" __declspec(dllexport)
+#define XSIM_WIDE_LITERAL2(t) L ## t
+#define XSIM_WIDE_LITERAL(t) XSIM_WIDE_LITERAL2(t)
+#define XSIM_FMT_LITERAL(t) ::xsim::detail::SelectLiteral<Char>(t, XSIM_WIDE_LITERAL(t))
 
 #include <xsim/fmt.hpp>
 
@@ -19,6 +22,24 @@ namespace xsim
 
 	template <typename T, size_t N>
 	using Array = T[N];
+
+	namespace detail
+	{
+		template <typename Char>
+		constexpr const Char* SelectLiteral(const char* narrow, const wchar_t* wide) = delete;
+
+		template <>
+		constexpr const char* SelectLiteral<char>(const char* narrow, const wchar_t*)
+		{
+			return narrow;
+		}
+
+		template <>
+		constexpr const wchar_t* SelectLiteral<wchar_t>(const char*, const wchar_t* wide)
+		{
+			return wide;
+		}
+	}
 
 	struct Vector2F final
 	{
@@ -299,60 +320,3 @@ namespace xsim
 
 	// TODO: quaternion operations
 }
-
-// ReSharper disable CppInconsistentNaming
-// ReSharper disable CppMemberFunctionMayBeStatic
-
-namespace fmt
-{
-	template <>
-	struct formatter<xsim::Vector2F, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::Vector2F& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"[{:.2f}, {:.2f}]", value.m_X, value.m_Y);
-		}
-	};
-
-	template <>
-	struct formatter<xsim::Vector3F, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::Vector3F& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"[{:.2f}, {:.2f}, {:.2f}]", value.m_X, value.m_Y, value.m_Z);
-		}
-	};
-
-	template <>
-	struct formatter<xsim::Vector4F, wchar_t>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::Vector4F& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), L"[{:.2f}, {:.2f}, {:.2f}, {:.2f}]", value.m_X, value.m_Y, value.m_Z, value.m_W);
-		}
-	};
-}
-
-// ReSharper restore CppInconsistentNaming
-// ReSharper restore CppMemberFunctionMayBeStatic

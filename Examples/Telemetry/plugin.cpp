@@ -67,7 +67,7 @@ namespace xsim
 
 	XSIM_EXPORT void OnVehicleTelemetry(
 		DeltaTime dt,
-		Ptr<const VehicleConfig> vehicleConfig,
+		Ptr<const VehicleConfig> /*vehicleConfig*/,
 		Ptr<const VehicleState> vehicleState,
 		Ptr<const RigidbodyState> rigidbody,
 		bool /*hasTransmission*/,
@@ -86,7 +86,7 @@ namespace xsim
 				XSIM_FAIL(L"OnVehicleTelemetry before OnVehicleChanged");
 			}
 
-			g_TelemetryRecorder->Record(dt, *vehicleConfig, *vehicleState, *rigidbody);
+			g_TelemetryRecorder->Record(dt, *vehicleState, *rigidbody);
 		});
 	}
 }
