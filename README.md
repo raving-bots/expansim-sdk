@@ -1,5 +1,9 @@
 # eXpanSIM SDK
 
+[eXpanSIM][1] is a universal vehicle simulator supporting VR. The training mode lets you learn (eco-)driving cars and trucks. Racing fans can test their skills in driving vehicles with realistic physics. It is also a modern research testbed for engineers, designers and AI specialists working on autonomous vehicles. You can find it on [Steam][1].
+
+[1]: https://store.steampowered.com/app/1015370/eXpanSIM/
+
 **IMPORTANT**: this is an early preview release of the plugins feature and the SDK. Everything is subject to change.
 
 After installing eXpanSIM on Steam you can find the built SDK in the `<Steam directory>\steamapps\common\eXpanSIM\SDK` directory.
