@@ -102,7 +102,8 @@ namespace xsim
 		Ice = INT32_C(6),
 		Wood = INT32_C(7),
 		Metal = INT32_C(8),
-		Other = INT32_C(9)
+		Hedgehog = INT32_C(9),
+		Other = INT32_C(10)
 	};
 
 	enum class VehicleCategory : int32_t
@@ -844,6 +845,7 @@ namespace xsim
 		float m_Ice{};
 		float m_Wood{};
 		float m_Metal{};
+		float m_Hedgehog{};
 		float m_Other{};
 	};
 
@@ -1077,6 +1079,7 @@ namespace xsim
 		SignalUnipolar m_HandBrake{};
 		int32_t m_GearChange{};
 		bool m_GearboxSemiAutoChange{};
+		bool m_NeutralPivot{};
 		int32_t m_RetarderChange{};
 		bool m_SystemAbaChange{};
 		bool m_SystemAbsChange{};
@@ -1233,8 +1236,10 @@ namespace xsim
 		constexpr CatTrackSuspensionData& operator=(const CatTrackSuspensionData&) = default;
 		constexpr CatTrackSuspensionData& operator=(CatTrackSuspensionData&&) = default;
 
-		CatSegmentSuspensionData m_OuterSegments{};
-		CatSegmentSuspensionData m_InnerSegments{};
+		CatSegmentSuspensionData m_FrontSegment0{};
+		CatSegmentSuspensionData m_FrontSegment1{};
+		CatSegmentSuspensionData m_MiddleSegments{};
+		CatSegmentSuspensionData m_RearSegment{};
 	};
 
 	struct ManifoldIndex final
@@ -1496,6 +1501,7 @@ namespace xsim
 		GearboxType m_Type{};
 		int32_t m_ForwardGearCount{};
 		Array<float, 16> m_ForwardGearRatios{};
+		float m_PivotGearRatio{};
 		int32_t m_ReverseGearCount{};
 		Array<float, 16> m_ReverseGearRatios{};
 		float m_FinalGearRatio{};
@@ -1731,11 +1737,12 @@ namespace xsim
 		CurveData m_RpmToRegenTorque{};
 		AngularForce m_BrakeTorque{};
 		CurveData m_LoadToEfficiency{};
+		AngularForce m_PrecomputedMaxTorque{};
 		Rpm m_PrecomputedMaxTorqueRpm{};
 		float m_PrecomputedMaxTorqueRpmNorm{};
-		AngularForce m_PrecomputedMaxTorque{};
 		Power m_PrecomputedMaxPower{};
 		Rpm m_PrecomputedMaxPowerRpm{};
+		float m_PrecomputedMaxPowerRpmNorm{};
 		float m_PrecomputedMaxLoadEfficiency{};
 	};
 
@@ -1940,9 +1947,12 @@ namespace xsim
 		CurveData m_RpmToFuelConsumptionGpKwh{};
 		FuelInjectionData m_Injection{};
 		EngineStarterData m_Starter{};
+		AngularForce m_PrecomputedMaxTorque{};
 		Rpm m_PrecomputedMaxTorqueRpm{};
 		float m_PrecomputedMaxTorqueRpmNorm{};
-		AngularForce m_PrecomputedMaxTorque{};
+		Power m_PrecomputedMaxPower{};
+		Rpm m_PrecomputedMaxPowerRpm{};
+		float m_PrecomputedMaxPowerRpmNorm{};
 		float m_PrecomputedMaxFuelConsumptionGpKwh{};
 	};
 

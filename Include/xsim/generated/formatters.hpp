@@ -445,6 +445,10 @@ namespace fmt
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Metal)"));
 				}
+				case xsim::SurfaceType::Hedgehog:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Hedgehog)"));
+				}
 				case xsim::SurfaceType::Other:
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Other)"));

@@ -96,6 +96,8 @@ CatTrackState.0: AngularForce
 CatTrackSuspensionData: Struct
 CatTrackSuspensionData.0: CatSegmentSuspensionData
 CatTrackSuspensionData.1: CatSegmentSuspensionData
+CatTrackSuspensionData.2: CatSegmentSuspensionData
+CatTrackSuspensionData.3: CatSegmentSuspensionData
 CollisionData: Struct
 CollisionData.0: Int32
 CollisionData.1: Float
@@ -112,10 +114,13 @@ CombustionEngineData.5: CurveData
 CombustionEngineData.6: CurveData
 CombustionEngineData.7: FuelInjectionData
 CombustionEngineData.8: EngineStarterData
-CombustionEngineData.9: Rpm
-CombustionEngineData.10: Float
-CombustionEngineData.11: AngularForce
-CombustionEngineData.12: Float
+CombustionEngineData.9: AngularForce
+CombustionEngineData.10: Rpm
+CombustionEngineData.11: Float
+CombustionEngineData.12: Power
+CombustionEngineData.13: Rpm
+CombustionEngineData.14: Float
+CombustionEngineData.15: Float
 CombustionEngineState: Struct
 CombustionEngineState.0: PID
 ContactForceCommand: Struct
@@ -184,12 +189,13 @@ ElectricEngineData.6: CurveData
 ElectricEngineData.7: CurveData
 ElectricEngineData.8: AngularForce
 ElectricEngineData.9: CurveData
-ElectricEngineData.10: Rpm
-ElectricEngineData.11: Float
-ElectricEngineData.12: AngularForce
+ElectricEngineData.10: AngularForce
+ElectricEngineData.11: Rpm
+ElectricEngineData.12: Float
 ElectricEngineData.13: Power
 ElectricEngineData.14: Rpm
 ElectricEngineData.15: Float
+ElectricEngineData.16: Float
 ElectricEngineState: Struct
 ElectricEngineState.0: PID
 ElectricEngineState.1: Bool
@@ -228,10 +234,11 @@ GearboxData: Struct
 GearboxData.0: GearboxType
 GearboxData.1: Int32
 GearboxData.2: Float[16]
-GearboxData.3: Int32
-GearboxData.4: Float[16]
-GearboxData.5: Float
-GearboxData.6: Inertia
+GearboxData.3: Float
+GearboxData.4: Int32
+GearboxData.5: Float[16]
+GearboxData.6: Float
+GearboxData.7: Inertia
 HydraulicTorqueConverterData: Struct
 HydraulicTorqueConverterData.0: CurveData
 HydraulicTorqueConverterData.1: Float
@@ -414,6 +421,7 @@ SurfaceFrictionBonus.5: Float
 SurfaceFrictionBonus.6: Float
 SurfaceFrictionBonus.7: Float
 SurfaceFrictionBonus.8: Float
+SurfaceFrictionBonus.9: Float
 SystemAbsConfig: Struct
 SystemAbsConfig.0: Bool
 SystemAbsConfig.1: Float
@@ -470,8 +478,8 @@ VehicleControllerData.9: SignalUnipolar
 VehicleControllerData.10: SignalUnipolar
 VehicleControllerData.11: Int32
 VehicleControllerData.12: Bool
-VehicleControllerData.13: Int32
-VehicleControllerData.14: Bool
+VehicleControllerData.13: Bool
+VehicleControllerData.14: Int32
 VehicleControllerData.15: Bool
 VehicleControllerData.16: Bool
 VehicleControllerData.17: Bool
@@ -480,6 +488,7 @@ VehicleControllerData.19: Bool
 VehicleControllerData.20: Bool
 VehicleControllerData.21: Bool
 VehicleControllerData.22: Bool
+VehicleControllerData.23: Bool
 VehicleGaugeData: Struct
 VehicleGaugeData.0: Float
 VehicleGaugeData.1: Float
@@ -673,7 +682,8 @@ SurfaceType.WetMud = 5
 SurfaceType.Ice = 6
 SurfaceType.Wood = 7
 SurfaceType.Metal = 8
-SurfaceType.Other = 9
+SurfaceType.Hedgehog = 9
+SurfaceType.Other = 10
 VehicleCategory: Enum Int32
 VehicleCategory.Car = 0
 VehicleCategory.Truck = 1
@@ -757,4 +767,4 @@ OnVehicleTelemetry.6: TransmissionConfig
 OnVehicleTelemetry.7: Bool
 OnVehicleTelemetry.8: MotorEngineState
 
-Checksum: 8566976633345006626
+Checksum: 9417357015995828797

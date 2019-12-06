@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ABI Version="0" Checksum="8566976633345006626">
+<ABI Version="0" Checksum="9417357015995828797">
 	<Types>
 		<Enum Name="AutoBoxType" Type="Int32">
 			<Item Name="FullOrSemi" Value="0" />
@@ -66,7 +66,8 @@
 			<Item Name="Ice" Value="6" />
 			<Item Name="Wood" Value="7" />
 			<Item Name="Metal" Value="8" />
-			<Item Name="Other" Value="9" />
+			<Item Name="Hedgehog" Value="9" />
+			<Item Name="Other" Value="10" />
 		</Enum>
 		<Enum Name="VehicleCategory" Type="Int32">
 			<Item Name="Car" Value="0" />
@@ -199,8 +200,10 @@
 			<Field Name="MaintainTorque" Type="AngularForce" />
 		</Struct>
 		<Struct Name="CatTrackSuspensionData">
-			<Field Name="OuterSegments" Type="CatSegmentSuspensionData" />
-			<Field Name="InnerSegments" Type="CatSegmentSuspensionData" />
+			<Field Name="FrontSegment0" Type="CatSegmentSuspensionData" />
+			<Field Name="FrontSegment1" Type="CatSegmentSuspensionData" />
+			<Field Name="MiddleSegments" Type="CatSegmentSuspensionData" />
+			<Field Name="RearSegment" Type="CatSegmentSuspensionData" />
 		</Struct>
 		<Struct Name="CollisionData">
 			<Field Name="EventCounter" Type="Int32" />
@@ -219,9 +222,12 @@
 			<Field Name="RpmToFuelConsumptionGpKwh" Type="CurveData" />
 			<Field Name="Injection" Type="FuelInjectionData" />
 			<Field Name="Starter" Type="EngineStarterData" />
+			<Field Name="PrecomputedMaxTorque" Type="AngularForce" />
 			<Field Name="PrecomputedMaxTorqueRpm" Type="Rpm" />
 			<Field Name="PrecomputedMaxTorqueRpmNorm" Type="Float" />
-			<Field Name="PrecomputedMaxTorque" Type="AngularForce" />
+			<Field Name="PrecomputedMaxPower" Type="Power" />
+			<Field Name="PrecomputedMaxPowerRpm" Type="Rpm" />
+			<Field Name="PrecomputedMaxPowerRpmNorm" Type="Float" />
 			<Field Name="PrecomputedMaxFuelConsumptionGpKwh" Type="Float" />
 		</Struct>
 		<Struct Name="CombustionEngineState">
@@ -301,11 +307,12 @@
 			<Field Name="RpmToRegenTorque" Type="CurveData" />
 			<Field Name="BrakeTorque" Type="AngularForce" />
 			<Field Name="LoadToEfficiency" Type="CurveData" />
+			<Field Name="PrecomputedMaxTorque" Type="AngularForce" />
 			<Field Name="PrecomputedMaxTorqueRpm" Type="Rpm" />
 			<Field Name="PrecomputedMaxTorqueRpmNorm" Type="Float" />
-			<Field Name="PrecomputedMaxTorque" Type="AngularForce" />
 			<Field Name="PrecomputedMaxPower" Type="Power" />
 			<Field Name="PrecomputedMaxPowerRpm" Type="Rpm" />
+			<Field Name="PrecomputedMaxPowerRpmNorm" Type="Float" />
 			<Field Name="PrecomputedMaxLoadEfficiency" Type="Float" />
 		</Struct>
 		<Struct Name="ElectricEngineState">
@@ -353,6 +360,7 @@
 			<Field Name="Type" Type="GearboxType" />
 			<Field Name="ForwardGearCount" Type="Int32" />
 			<Field Name="ForwardGearRatios" Type="Float" ArrayLength="16" />
+			<Field Name="PivotGearRatio" Type="Float" />
 			<Field Name="ReverseGearCount" Type="Int32" />
 			<Field Name="ReverseGearRatios" Type="Float" ArrayLength="16" />
 			<Field Name="FinalGearRatio" Type="Float" />
@@ -553,6 +561,7 @@
 			<Field Name="Ice" Type="Float" />
 			<Field Name="Wood" Type="Float" />
 			<Field Name="Metal" Type="Float" />
+			<Field Name="Hedgehog" Type="Float" />
 			<Field Name="Other" Type="Float" />
 		</Struct>
 		<Struct Name="SystemAbsConfig">
@@ -619,6 +628,7 @@
 			<Field Name="HandBrake" Type="SignalUnipolar" />
 			<Field Name="GearChange" Type="Int32" />
 			<Field Name="GearboxSemiAutoChange" Type="Bool" />
+			<Field Name="NeutralPivot" Type="Bool" />
 			<Field Name="RetarderChange" Type="Int32" />
 			<Field Name="SystemAbaChange" Type="Bool" />
 			<Field Name="SystemAbsChange" Type="Bool" />
@@ -1172,6 +1182,7 @@
 			<DependsOn Name="EngineStarterData" />
 			<DependsOn Name="FuelInjectionData" />
 			<DependsOn Name="Inertia" />
+			<DependsOn Name="Power" />
 			<DependsOn Name="Rpm" />
 		</Type>
 		<Type Name="MotorEngineConfig">
