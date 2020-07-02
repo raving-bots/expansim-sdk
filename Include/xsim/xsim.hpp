@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2019
+// Copyright Raving Bots 2018-2020
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -11,3 +11,4 @@
 #include <xsim/logs.hpp>
 
 #include <xsim/generated/abi.hpp>
+#include <xsim/generated/types.hpp>

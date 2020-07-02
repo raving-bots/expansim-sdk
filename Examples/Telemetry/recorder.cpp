@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2019
+// Copyright Raving Bots 2018-2020
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -101,13 +101,13 @@ namespace plugin
 	void TelemetryRecorder::Record(
 		xsim::DeltaTime dt,
 		const xsim::VehicleState& vehicleState,
-		const xsim::RigidbodyState& rigidbody)
+		const xsim::RigidTransform& transform,
+		const xsim::BodyTelemetryData& telemetry)
 	{
 		m_Time += dt.Value();
 		m_FlushTime += dt.Value();
 
-		const auto& telemetry = rigidbody.m_RigidTelemetry;
-		const auto& position = rigidbody.m_RigidTransform.m_pos;
+		const auto& position = transform.m_pos;
 		const auto& gauge = vehicleState.m_Gauge;
 
 		csv::WriteRow(m_TelemetryFile,

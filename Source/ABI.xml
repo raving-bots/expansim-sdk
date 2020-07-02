@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ABI Version="0" Checksum="9417357015995828797">
+<ABI Version="0" Checksum="1337507121753179911">
 	<Types>
 		<Enum Name="AutoBoxType" Type="Int32">
 			<Item Name="FullOrSemi" Value="0" />
@@ -33,6 +33,7 @@
 		<Enum Name="GearboxType" Type="Int32">
 			<Item Name="Manual" Value="0" />
 			<Item Name="Automatic" Value="1" />
+			<Item Name="Cvt" Value="2" />
 		</Enum>
 		<Enum Name="InOutBindMode" Type="Int32">
 			<Item Name="None" Value="0" />
@@ -67,7 +68,8 @@
 			<Item Name="Wood" Value="7" />
 			<Item Name="Metal" Value="8" />
 			<Item Name="Hedgehog" Value="9" />
-			<Item Name="Other" Value="10" />
+			<Item Name="SandGravel" Value="10" />
+			<Item Name="Other" Value="11" />
 		</Enum>
 		<Enum Name="VehicleCategory" Type="Int32">
 			<Item Name="Car" Value="0" />
@@ -118,6 +120,7 @@
 			<Field Name="GearDownCondDuration" Type="Float" />
 			<Field Name="ShiftCooldown" Type="Float" />
 			<Field Name="ManualInputCooldown" Type="Float" />
+			<Field Name="CvtSmooth" Type="Float" />
 		</Struct>
 		<Struct Name="AxisOutput">
 			<Field Name="LeftOutput" Type="WheelOutput" />
@@ -131,6 +134,26 @@
 			<Field Name="ConsumedKwh" Type="Float" />
 			<Field Name="KwhPer100Km" Type="Float" />
 			<Field Name="IsValidKwhPer100Km" Type="Bool" />
+		</Struct>
+		<Struct Name="BodyInterpData">
+			<Field Name="T" Type="Float" />
+			<Field Name="PrevRigidTransform" Type="RigidTransform" />
+			<Field Name="InterpRigidTransform" Type="RigidTransform" />
+		</Struct>
+		<Struct Name="BodyTelemetryData">
+			<Field Name="CenterOfMass" Type="Vector3F" />
+			<Field Name="PitchYawRoll" Type="PitchYawRoll" />
+			<Field Name="LinearVelocity" Type="Vector3F" />
+			<Field Name="AngularVelocity" Type="Vector3F" />
+			<Field Name="LocalLinearVelocity" Type="Vector3F" />
+			<Field Name="LocalLinearAcceleration" Type="Vector3F" />
+			<Field Name="LinearAcceleration" Type="Vector3F" />
+			<Field Name="AngularAcceleration" Type="Vector3F" />
+			<Field Name="LocalAngularVelocity" Type="Vector3F" />
+			<Field Name="LocalAngularAcceleration" Type="Vector3F" />
+		</Struct>
+		<Struct Name="BodyTransformData">
+			<Field Name="RigidTransform" Type="RigidTransform" />
 		</Struct>
 		<Struct Name="CatBrakeData">
 			<Field Name="BrakeTorque" Type="AngularForce" />
@@ -204,13 +227,6 @@
 			<Field Name="FrontSegment1" Type="CatSegmentSuspensionData" />
 			<Field Name="MiddleSegments" Type="CatSegmentSuspensionData" />
 			<Field Name="RearSegment" Type="CatSegmentSuspensionData" />
-		</Struct>
-		<Struct Name="CollisionData">
-			<Field Name="EventCounter" Type="Int32" />
-			<Field Name="LastEventTime" Type="Float" />
-			<Field Name="LastContactRelativeVelocity" Type="Vector3F" />
-			<Field Name="LastContactImpulse" Type="Vector3F" />
-			<Field Name="LastContactPoint" Type="Vector3F" />
 		</Struct>
 		<Struct Name="CombustionEngineData">
 			<Field Name="Inertia" Type="Inertia" />
@@ -403,6 +419,7 @@
 			<Field Name="WheelIndex" Type="WheelIndex" />
 		</Struct>
 		<Struct Name="ManifoldState">
+			<Field Name="VehicleEntity" Type="Entity" />
 			<Field Name="Precomputed" Type="Bool" />
 			<Field Name="HasTransmission" Type="Bool" />
 			<Field Name="LockInter" Type="Bool" />
@@ -473,31 +490,6 @@
 			<Field Name="MaxBrakeTorque" Type="AngularForce" />
 			<Field Name="RpmToTorqueNormalized" Type="CurveData" />
 		</Struct>
-		<Struct Name="RigidAeroData">
-			<Field Name="Coefficients" Type="Vector3F" />
-			<Field Name="Areas" Type="Vector3F" />
-		</Struct>
-		<Struct Name="RigidbodyState">
-			<Field Name="RigidTransform" Type="RigidTransform" />
-			<Field Name="RigidTelemetry" Type="RigidTelemetryData" />
-			<Field Name="PrevRigidTelemetry" Type="RigidTelemetryData" />
-			<Field Name="RigidAero" Type="RigidAeroData" />
-			<Field Name="LocalAeroForce" Type="Vector3F" />
-			<Field Name="Collision" Type="CollisionData" />
-		</Struct>
-		<Struct Name="RigidTelemetryData">
-			<Field Name="CenterOfMass" Type="Vector3F" />
-			<Field Name="LocalCenterOfMass" Type="Vector3F" />
-			<Field Name="PitchYawRoll" Type="PitchYawRoll" />
-			<Field Name="LinearVelocity" Type="Vector3F" />
-			<Field Name="AngularVelocity" Type="Vector3F" />
-			<Field Name="LinearAcceleration" Type="Vector3F" />
-			<Field Name="AngularAcceleration" Type="Vector3F" />
-			<Field Name="LocalLinearVelocity" Type="Vector3F" />
-			<Field Name="LocalLinearAcceleration" Type="Vector3F" />
-			<Field Name="LocalAngularVelocity" Type="Vector3F" />
-			<Field Name="LocalAngularAcceleration" Type="Vector3F" />
-		</Struct>
 		<Struct Name="RigidTransform">
 			<Field Name="rot" Type="Quaternion" />
 			<Field Name="pos" Type="Vector3F" />
@@ -562,10 +554,16 @@
 			<Field Name="Wood" Type="Float" />
 			<Field Name="Metal" Type="Float" />
 			<Field Name="Hedgehog" Type="Float" />
+			<Field Name="SandGravel" Type="Float" />
 			<Field Name="Other" Type="Float" />
+		</Struct>
+		<Struct Name="SystemAbaConfig">
+			<Field Name="Default" Type="Bool" />
+			<Field Name="Selectable" Type="Bool" />
 		</Struct>
 		<Struct Name="SystemAbsConfig">
 			<Field Name="Default" Type="Bool" />
+			<Field Name="Selectable" Type="Bool" />
 			<Field Name="SmoothTime" Type="Float" />
 			<Field Name="SlipRangeOffset" Type="Float" />
 		</Struct>
@@ -575,6 +573,7 @@
 		</Struct>
 		<Struct Name="SystemAsrConfig">
 			<Field Name="Default" Type="Bool" />
+			<Field Name="Selectable" Type="Bool" />
 			<Field Name="MinEngineRpmNorm" Type="Float" />
 			<Field Name="SmoothTime" Type="Float" />
 			<Field Name="SlipRangeOffset" Type="Float" />
@@ -582,6 +581,10 @@
 		<Struct Name="SystemAsrState">
 			<Field Name="Signal" Type="SignalUnipolar" />
 			<Field Name="SmoothVelocity" Type="Float" />
+		</Struct>
+		<Struct Name="SystemEscConfig">
+			<Field Name="Default" Type="Bool" />
+			<Field Name="Selectable" Type="Bool" />
 		</Struct>
 		<Struct Name="TrailerVehicleConfigInfo">
 			<Field Name="Vehicle" Type="VehicleConfigInfo" />
@@ -595,15 +598,17 @@
 			<Field Name="Drivetrain" Type="DrivetrainData" />
 		</Struct>
 		<Struct Name="VehicleConfig">
+			<Field Name="InstanceId" Type="Int32" />
 			<Field Name="ApiId" Type="Int32" />
 			<Field Name="EngineEntity" Type="Entity" />
 			<Field Name="TransmissionEntity" Type="Entity" />
 			<Field Name="Category" Type="VehicleCategory" />
 			<Field Name="Mass" Type="Mass" />
-			<Field Name="Aero" Type="RigidAeroData" />
 			<Field Name="Steering" Type="VehicleSteeringData" />
+			<Field Name="SystemAba" Type="SystemAbaConfig" />
 			<Field Name="SystemAbs" Type="SystemAbsConfig" />
 			<Field Name="SystemAsr" Type="SystemAsrConfig" />
+			<Field Name="SystemEsc" Type="SystemEscConfig" />
 			<Field Name="FuelTankCapacity" Type="Float" />
 			<Field Name="BatteryCapacityKwh" Type="Float" />
 			<Field Name="SoundPresetId" Type="UInt8" />
@@ -615,7 +620,8 @@
 			<Field Name="RearWheels" Type="WheelConfig" />
 		</Struct>
 		<Struct Name="VehicleControllerData">
-			<Field Name="PlayerID" Type="Int32" />
+			<Field Name="PlayerId" Type="Int32" />
+			<Field Name="DebugAiControl" Type="Bool" />
 			<Field Name="DebugForceFeedback" Type="Bool" />
 			<Field Name="SteeringWheelInput" Type="SignalBipolar" />
 			<Field Name="SteeringWheelAngle" Type="Angle" />
@@ -851,7 +857,9 @@
 			<Parameter Name="dt" Type="DeltaTime" />
 			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
 			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
-			<Parameter Name="rigidbody" Type="RigidbodyState" Pointer="readonly" />
+			<Parameter Name="bodyTransform" Type="BodyTransformData" Pointer="readonly" />
+			<Parameter Name="bodyInterp" Type="BodyInterpData" Pointer="readonly" />
+			<Parameter Name="bodyTelemetry" Type="BodyTelemetryData" Pointer="readonly" />
 			<Parameter Name="hasTransmission" Type="Bool" />
 			<Parameter Name="manifoldState" Type="ManifoldState" Pointer="readonly" />
 			<Parameter Name="transmissionConfig" Type="TransmissionConfig" Pointer="readonly" />
@@ -885,7 +893,6 @@
 		<Type Name="AngularVelocity" />
 		<Type Name="BatteryConsumptionData" />
 		<Type Name="CatSegmentSuspensionData" />
-		<Type Name="CollisionData" />
 		<Type Name="DeltaTime" />
 		<Type Name="Entity" />
 		<Type Name="ForceFeedback" />
@@ -900,7 +907,6 @@
 		<Type Name="PID" />
 		<Type Name="PitchYawRoll" />
 		<Type Name="Power" />
-		<Type Name="RigidAeroData" />
 		<Type Name="RigidTransform" />
 		<Type Name="Rpm" />
 		<Type Name="SafeId" />
@@ -908,8 +914,10 @@
 		<Type Name="SignalUnipolar" />
 		<Type Name="StabilizationForce" />
 		<Type Name="SurfaceFrictionBonus" />
+		<Type Name="SystemAbaConfig" />
 		<Type Name="SystemAbsConfig" />
 		<Type Name="SystemAsrConfig" />
+		<Type Name="SystemEscConfig" />
 		<Type Name="WheelTransformState" />
 		<Type Name="CatSegmentArray">
 			<DependsOn Name="Entity" />
@@ -964,6 +972,15 @@
 		<Type Name="DrivetrainData">
 			<DependsOn Name="DriveData" />
 		</Type>
+		<Type Name="BodyInterpData">
+			<DependsOn Name="RigidTransform" />
+		</Type>
+		<Type Name="BodyTransformData">
+			<DependsOn Name="RigidTransform" />
+		</Type>
+		<Type Name="BodyTelemetryData">
+			<DependsOn Name="PitchYawRoll" />
+		</Type>
 		<Type Name="WheelShapeState">
 			<DependsOn Name="Length" />
 		</Type>
@@ -997,9 +1014,10 @@
 		<Type Name="VehicleConfig">
 			<DependsOn Name="Entity" />
 			<DependsOn Name="Mass" />
-			<DependsOn Name="RigidAeroData" />
+			<DependsOn Name="SystemAbaConfig" />
 			<DependsOn Name="SystemAbsConfig" />
 			<DependsOn Name="SystemAsrConfig" />
+			<DependsOn Name="SystemEscConfig" />
 			<DependsOn Name="VehicleCategory" />
 			<DependsOn Name="VehicleSteeringData" />
 		</Type>
@@ -1036,15 +1054,6 @@
 			<DependsOn Name="InOutFeedback" />
 			<DependsOn Name="WheelOutput" />
 		</Type>
-		<Type Name="RigidTelemetryData">
-			<DependsOn Name="PitchYawRoll" />
-		</Type>
-		<Type Name="RigidbodyState">
-			<DependsOn Name="CollisionData" />
-			<DependsOn Name="RigidAeroData" />
-			<DependsOn Name="RigidTelemetryData" />
-			<DependsOn Name="RigidTransform" />
-		</Type>
 		<Type Name="DriveOutput">
 			<DependsOn Name="AxisOutput" />
 			<DependsOn Name="DriveType" />
@@ -1052,6 +1061,7 @@
 		</Type>
 		<Type Name="ManifoldState">
 			<DependsOn Name="DriveOutput" />
+			<DependsOn Name="Entity" />
 			<DependsOn Name="InOutState" />
 		</Type>
 		<Type Name="GearboxData">

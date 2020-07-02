@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2019
+// Copyright Raving Bots 2018-2020
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,7 @@ namespace xsim
 	namespace abi
 	{
 		constexpr uint32_t Version = UINT32_C(0);
-		constexpr uint64_t Checksum = UINT64_C(9417357015995828797);
+		constexpr uint64_t Checksum = UINT64_C(1337507121753179911);
 	}
 
 	XSIM_EXPORT void CalculateCatTrackHub(
@@ -79,7 +79,9 @@ namespace xsim
 		DeltaTime dt,
 		Ptr<const VehicleConfig> vehicleConfig,
 		Ptr<const VehicleState> vehicleState,
-		Ptr<const RigidbodyState> rigidbody,
+		Ptr<const BodyTransformData> bodyTransform,
+		Ptr<const BodyInterpData> bodyInterp,
+		Ptr<const BodyTelemetryData> bodyTelemetry,
 		bool hasTransmission,
 		Ptr<const ManifoldState> manifoldState,
 		Ptr<const TransmissionConfig> transmissionConfig,

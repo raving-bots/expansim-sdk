@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2019
+// Copyright Raving Bots 2018-2020
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -243,6 +243,10 @@ namespace fmt
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType(Automatic)"));
 				}
+				case xsim::GearboxType::Cvt:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType(Cvt)"));
+				}
 				default:
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxType({})"), static_cast<uintmax_t>(value));
@@ -448,6 +452,10 @@ namespace fmt
 				case xsim::SurfaceType::Hedgehog:
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(Hedgehog)"));
+				}
+				case xsim::SurfaceType::SandGravel:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("SurfaceType(SandGravel)"));
 				}
 				case xsim::SurfaceType::Other:
 				{
@@ -748,22 +756,6 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::CollisionData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CollisionData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CollisionData"));
-		}
-	};
-
-	template <typename Char>
 	struct formatter<xsim::DeltaTime, Char>
 	{
 		template <typename ParseContext>
@@ -972,22 +964,6 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::RigidAeroData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RigidAeroData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidAeroData"));
-		}
-	};
-
-	template <typename Char>
 	struct formatter<xsim::RigidTransform, Char>
 	{
 		template <typename ParseContext>
@@ -1100,6 +1076,22 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::SystemAbaConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::SystemAbaConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAbaConfig"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::SystemAbsConfig, Char>
 	{
 		template <typename ParseContext>
@@ -1128,6 +1120,22 @@ namespace fmt
 		auto format(const xsim::SystemAsrConfig& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemAsrConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::SystemEscConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::SystemEscConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SystemEscConfig"));
 		}
 	};
 
@@ -1388,6 +1396,54 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::BodyInterpData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::BodyInterpData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("BodyInterpData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::BodyTransformData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::BodyTransformData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("BodyTransformData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::BodyTelemetryData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::BodyTelemetryData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("BodyTelemetryData"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::WheelShapeState, Char>
 	{
 		template <typename ParseContext>
@@ -1624,38 +1680,6 @@ namespace fmt
 		auto format(const xsim::AxisOutput& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("AxisOutput"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::RigidTelemetryData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RigidTelemetryData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidTelemetryData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::RigidbodyState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RigidbodyState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("RigidbodyState"));
 		}
 	};
 

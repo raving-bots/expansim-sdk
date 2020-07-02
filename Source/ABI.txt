@@ -22,6 +22,7 @@ AutoBoxData.6: Float
 AutoBoxData.7: Float
 AutoBoxData.8: Float
 AutoBoxData.9: Float
+AutoBoxData.10: Float
 AxisOutput: Struct
 AxisOutput.0: WheelOutput
 AxisOutput.1: WheelOutput
@@ -33,6 +34,23 @@ BatteryConsumptionData.2: Float
 BatteryConsumptionData.3: Float
 BatteryConsumptionData.4: Float
 BatteryConsumptionData.5: Bool
+BodyInterpData: Struct
+BodyInterpData.0: Float
+BodyInterpData.1: RigidTransform
+BodyInterpData.2: RigidTransform
+BodyTelemetryData: Struct
+BodyTelemetryData.0: Vector3F
+BodyTelemetryData.1: PitchYawRoll
+BodyTelemetryData.2: Vector3F
+BodyTelemetryData.3: Vector3F
+BodyTelemetryData.4: Vector3F
+BodyTelemetryData.5: Vector3F
+BodyTelemetryData.6: Vector3F
+BodyTelemetryData.7: Vector3F
+BodyTelemetryData.8: Vector3F
+BodyTelemetryData.9: Vector3F
+BodyTransformData: Struct
+BodyTransformData.0: RigidTransform
 CatBrakeData: Struct
 CatBrakeData.0: AngularForce
 CatBrakeData.1: AngularForce
@@ -98,12 +116,6 @@ CatTrackSuspensionData.0: CatSegmentSuspensionData
 CatTrackSuspensionData.1: CatSegmentSuspensionData
 CatTrackSuspensionData.2: CatSegmentSuspensionData
 CatTrackSuspensionData.3: CatSegmentSuspensionData
-CollisionData: Struct
-CollisionData.0: Int32
-CollisionData.1: Float
-CollisionData.2: Vector3F
-CollisionData.3: Vector3F
-CollisionData.4: Vector3F
 CombustionEngineData: Struct
 CombustionEngineData.0: Inertia
 CombustionEngineData.1: Rpm
@@ -273,14 +285,15 @@ ManifoldIndex.0: DriveIndex
 ManifoldIndex.1: AxisIndex
 ManifoldIndex.2: WheelIndex
 ManifoldState: Struct
-ManifoldState.0: Bool
+ManifoldState.0: Entity
 ManifoldState.1: Bool
 ManifoldState.2: Bool
-ManifoldState.3: DriveOutput
+ManifoldState.3: Bool
 ManifoldState.4: DriveOutput
-ManifoldState.5: InOutState
-ManifoldState.6: Float
+ManifoldState.5: DriveOutput
+ManifoldState.6: InOutState
 ManifoldState.7: Float
+ManifoldState.8: Float
 Mass: Struct
 Mass.0: Float
 MirrorConfig: Struct
@@ -336,28 +349,6 @@ RetarderData.2: Float
 RetarderData.3: Float
 RetarderData.4: AngularForce
 RetarderData.5: CurveData
-RigidAeroData: Struct
-RigidAeroData.0: Vector3F
-RigidAeroData.1: Vector3F
-RigidbodyState: Struct
-RigidbodyState.0: RigidTransform
-RigidbodyState.1: RigidTelemetryData
-RigidbodyState.2: RigidTelemetryData
-RigidbodyState.3: RigidAeroData
-RigidbodyState.4: Vector3F
-RigidbodyState.5: CollisionData
-RigidTelemetryData: Struct
-RigidTelemetryData.0: Vector3F
-RigidTelemetryData.1: Vector3F
-RigidTelemetryData.2: PitchYawRoll
-RigidTelemetryData.3: Vector3F
-RigidTelemetryData.4: Vector3F
-RigidTelemetryData.5: Vector3F
-RigidTelemetryData.6: Vector3F
-RigidTelemetryData.7: Vector3F
-RigidTelemetryData.8: Vector3F
-RigidTelemetryData.9: Vector3F
-RigidTelemetryData.10: Vector3F
 RigidTransform: Struct
 RigidTransform.0: Quaternion
 RigidTransform.1: Vector3F
@@ -422,21 +413,30 @@ SurfaceFrictionBonus.6: Float
 SurfaceFrictionBonus.7: Float
 SurfaceFrictionBonus.8: Float
 SurfaceFrictionBonus.9: Float
+SurfaceFrictionBonus.10: Float
+SystemAbaConfig: Struct
+SystemAbaConfig.0: Bool
+SystemAbaConfig.1: Bool
 SystemAbsConfig: Struct
 SystemAbsConfig.0: Bool
-SystemAbsConfig.1: Float
+SystemAbsConfig.1: Bool
 SystemAbsConfig.2: Float
+SystemAbsConfig.3: Float
 SystemAbsState: Struct
 SystemAbsState.0: SignalUnipolar
 SystemAbsState.1: Float
 SystemAsrConfig: Struct
 SystemAsrConfig.0: Bool
-SystemAsrConfig.1: Float
+SystemAsrConfig.1: Bool
 SystemAsrConfig.2: Float
 SystemAsrConfig.3: Float
+SystemAsrConfig.4: Float
 SystemAsrState: Struct
 SystemAsrState.0: SignalUnipolar
 SystemAsrState.1: Float
+SystemEscConfig: Struct
+SystemEscConfig.0: Bool
+SystemEscConfig.1: Bool
 TrailerVehicleConfigInfo: Struct
 TrailerVehicleConfigInfo.0: VehicleConfigInfo
 TransmissionConfig: Struct
@@ -448,17 +448,19 @@ TransmissionConfig.4: RetarderData
 TransmissionConfig.5: DrivetrainData
 VehicleConfig: Struct
 VehicleConfig.0: Int32
-VehicleConfig.1: Entity
+VehicleConfig.1: Int32
 VehicleConfig.2: Entity
-VehicleConfig.3: VehicleCategory
-VehicleConfig.4: Mass
-VehicleConfig.5: RigidAeroData
+VehicleConfig.3: Entity
+VehicleConfig.4: VehicleCategory
+VehicleConfig.5: Mass
 VehicleConfig.6: VehicleSteeringData
-VehicleConfig.7: SystemAbsConfig
-VehicleConfig.8: SystemAsrConfig
-VehicleConfig.9: Float
-VehicleConfig.10: Float
-VehicleConfig.11: UInt8
+VehicleConfig.7: SystemAbaConfig
+VehicleConfig.8: SystemAbsConfig
+VehicleConfig.9: SystemAsrConfig
+VehicleConfig.10: SystemEscConfig
+VehicleConfig.11: Float
+VehicleConfig.12: Float
+VehicleConfig.13: UInt8
 VehicleConfigInfo: Struct
 VehicleConfigInfo.0: String
 VehicleConfigInfo.1: VehicleConfig
@@ -467,20 +469,20 @@ VehicleConfigInfo.3: WheelConfig
 VehicleControllerData: Struct
 VehicleControllerData.0: Int32
 VehicleControllerData.1: Bool
-VehicleControllerData.2: SignalBipolar
-VehicleControllerData.3: Angle
-VehicleControllerData.4: SatForce
-VehicleControllerData.5: ForceFeedback
-VehicleControllerData.6: Bool
-VehicleControllerData.7: SignalUnipolar
+VehicleControllerData.2: Bool
+VehicleControllerData.3: SignalBipolar
+VehicleControllerData.4: Angle
+VehicleControllerData.5: SatForce
+VehicleControllerData.6: ForceFeedback
+VehicleControllerData.7: Bool
 VehicleControllerData.8: SignalUnipolar
 VehicleControllerData.9: SignalUnipolar
 VehicleControllerData.10: SignalUnipolar
-VehicleControllerData.11: Int32
-VehicleControllerData.12: Bool
+VehicleControllerData.11: SignalUnipolar
+VehicleControllerData.12: Int32
 VehicleControllerData.13: Bool
-VehicleControllerData.14: Int32
-VehicleControllerData.15: Bool
+VehicleControllerData.14: Bool
+VehicleControllerData.15: Int32
 VehicleControllerData.16: Bool
 VehicleControllerData.17: Bool
 VehicleControllerData.18: Bool
@@ -489,6 +491,7 @@ VehicleControllerData.20: Bool
 VehicleControllerData.21: Bool
 VehicleControllerData.22: Bool
 VehicleControllerData.23: Bool
+VehicleControllerData.24: Bool
 VehicleGaugeData: Struct
 VehicleGaugeData.0: Float
 VehicleGaugeData.1: Float
@@ -654,6 +657,7 @@ EngineState.Running = 2
 GearboxType: Enum Int32
 GearboxType.Manual = 0
 GearboxType.Automatic = 1
+GearboxType.Cvt = 2
 InOutBindMode: Enum Int32
 InOutBindMode.None = 0
 InOutBindMode.ParentDefault = 1
@@ -683,7 +687,8 @@ SurfaceType.Ice = 6
 SurfaceType.Wood = 7
 SurfaceType.Metal = 8
 SurfaceType.Hedgehog = 9
-SurfaceType.Other = 10
+SurfaceType.SandGravel = 10
+SurfaceType.Other = 11
 VehicleCategory: Enum Int32
 VehicleCategory.Car = 0
 VehicleCategory.Truck = 1
@@ -760,11 +765,13 @@ OnVehicleTelemetry: Export Void
 OnVehicleTelemetry.0: DeltaTime
 OnVehicleTelemetry.1: VehicleConfig
 OnVehicleTelemetry.2: VehicleState
-OnVehicleTelemetry.3: RigidbodyState
-OnVehicleTelemetry.4: Bool
-OnVehicleTelemetry.5: ManifoldState
-OnVehicleTelemetry.6: TransmissionConfig
-OnVehicleTelemetry.7: Bool
-OnVehicleTelemetry.8: MotorEngineState
+OnVehicleTelemetry.3: BodyTransformData
+OnVehicleTelemetry.4: BodyInterpData
+OnVehicleTelemetry.5: BodyTelemetryData
+OnVehicleTelemetry.6: Bool
+OnVehicleTelemetry.7: ManifoldState
+OnVehicleTelemetry.8: TransmissionConfig
+OnVehicleTelemetry.9: Bool
+OnVehicleTelemetry.10: MotorEngineState
 
-Checksum: 9417357015995828797
+Checksum: 1337507121753179911

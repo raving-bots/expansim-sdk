@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2019
+// Copyright Raving Bots 2018-2020
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -67,14 +67,16 @@ namespace xsim
 
 	XSIM_EXPORT void OnVehicleTelemetry(
 		DeltaTime dt,
-		Ptr<const VehicleConfig> /*vehicleConfig*/,
+		Ptr<const VehicleConfig> vehicleConfig,
 		Ptr<const VehicleState> vehicleState,
-		Ptr<const RigidbodyState> rigidbody,
-		bool /*hasTransmission*/,
-		Ptr<const ManifoldState> /*manifoldState*/,
-		Ptr<const TransmissionConfig> /*transmissionConfig*/,
-		bool /*hasEngine*/,
-		Ptr<const MotorEngineState> /*engineState*/
+		Ptr<const BodyTransformData> bodyTransform,
+		Ptr<const BodyInterpData> bodyInterp,
+		Ptr<const BodyTelemetryData> bodyTelemetry,
+		bool hasTransmission,
+		Ptr<const ManifoldState> manifoldState,
+		Ptr<const TransmissionConfig> transmissionConfig,
+		bool hasEngine,
+		Ptr<const MotorEngineState> engineState
 	) noexcept
 	{
 		Protect([&]
@@ -86,7 +88,7 @@ namespace xsim
 				XSIM_FAIL(L"OnVehicleTelemetry before OnVehicleChanged");
 			}
 
-			g_TelemetryRecorder->Record(dt, *vehicleState, *rigidbody);
+			g_TelemetryRecorder->Record(dt, *vehicleState, bodyInterp->m_InterpRigidTransform, *bodyTelemetry);
 		});
 	}
 }
