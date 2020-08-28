@@ -65,18 +65,22 @@ namespace xsim
 		});
 	}
 
-	XSIM_EXPORT void OnVehicleTelemetry(
+	XSIM_EXPORT void OnTelemetry(
 		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
 		Ptr<const VehicleConfig> vehicleConfig,
 		Ptr<const VehicleState> vehicleState,
-		Ptr<const BodyTransformData> bodyTransform,
-		Ptr<const BodyInterpData> bodyInterp,
-		Ptr<const BodyTelemetryData> bodyTelemetry,
-		bool hasTransmission,
-		Ptr<const ManifoldState> manifoldState,
-		Ptr<const TransmissionConfig> transmissionConfig,
-		bool hasEngine,
-		Ptr<const MotorEngineState> engineState
+		Ptr<const BodyTransformData> bodyTransformData,
+		Ptr<const BodyInterpData> bodyInterpData,
+		Ptr<const BodyTelemetryData> bodyTelemetryData,
+		Ptr<const BodyCollisionData> bodyCollisionData,
+		bool hasCamera,
+		Ptr<const CameraState> cameraState,
+		bool hasCabin,
+		Ptr<const BodyTransformData> cabinTransformData,
+		Ptr<const BodyInterpData> cabinInterpData,
+		Ptr<const BodyTelemetryData> cabinTelemetryData,
+		Ptr<const BodyCollisionData> cabinCollisionData
 	) noexcept
 	{
 		Protect([&]
@@ -85,10 +89,43 @@ namespace xsim
 
 			if (!g_TelemetryRecorder)
 			{
-				XSIM_FAIL(L"OnVehicleTelemetry before OnVehicleChanged");
+				XSIM_FAIL(L"OnTelemetry before OnVehicleChanged");
 			}
 
-			g_TelemetryRecorder->Record(dt, *vehicleState, bodyInterp->m_InterpRigidTransform, *bodyTelemetry);
+			g_TelemetryRecorder->RecordTelemetry(dt, bodyInterpData->m_InterpRigidTransform, *bodyTelemetryData);
+		});
+	}
+
+	XSIM_EXPORT void OnDashboard(
+		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const VehicleConfig> vehicleConfig,
+		Ptr<VehicleState> vehicleState,
+		Ptr<const DashboardConfig> dashboardConfig,
+		Ptr<DashboardState> dashboardState,
+		Ptr<const MotorEngineState> motorEngineState,
+		Ptr<const TransmissionConfig> transmissionConfig,
+		Ptr<const TransmissionState> transmissionState,
+		Ptr<const ManifoldState> manifoldState,
+		bool hasElectrics,
+		Ptr<const ElectricsState> electricsState,
+		bool hasElectronics,
+		Ptr<const ElectronicsState> electronicsState,
+		bool hasPneumatics,
+		Ptr<const PneumaticsState> pneumaticsState
+	) noexcept
+	{
+		Protect([&]
+		{
+			std::lock_guard<std::mutex> lock(g_TelemetryRecorderMutex);
+
+			if (!g_TelemetryRecorder)
+			{
+				XSIM_FAIL(L"OnDashboard before OnVehicleChanged");
+			}
+
+			g_TelemetryRecorder->RecordDashboard(dt, *dashboardState);
 		});
 	}
 }

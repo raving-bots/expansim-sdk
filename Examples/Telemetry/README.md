@@ -1,10 +1,10 @@
 # Example: Telemetry
 
-This plugin example shows how to use `OnVehicleTelemetry` to gather vehicle telemetry and save it to a file for later processing.
+This plugin example shows how to use `OnTelemetry` and `OnDashboard` to gather vehicle telemetry and save it to a file for later processing.
 
 ## Usage
 
-Edit `API_v1.json`, set `PluginPath` correctly and `VehiclePlugin.VehicleTelemetryPlugin` to `1`, for example:
+Edit `API_v1.json`, set `PluginPath` correctly and `VehiclePlugin.TelemetryPlugin` and `VehiclePlugin.DashboardPlugin` to `1`, for example:
 
 ```json
 {
@@ -12,10 +12,12 @@ Edit `API_v1.json`, set `PluginPath` correctly and `VehiclePlugin.VehicleTelemet
     "PluginDebug": false,
     "VehicleControllerPlugin": 0,
     "VehiclePlugin": {
-        "MainEnginePlugin": 0,
+        "MotorEnginePlugin": 0,
+        "TransmissionPlugin": 0,
         "WheelHubPlugin": 0,
         "CatTrackHubPlugin": 0,
-        "VehicleTelemetryPlugin": 1
+        "TelemetryPlugin": 1,
+        "DashboardPlugin": 1
     }
 }
 ```

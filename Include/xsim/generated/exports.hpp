@@ -18,75 +18,109 @@ namespace xsim
 	namespace abi
 	{
 		constexpr uint32_t Version = UINT32_C(0);
-		constexpr uint64_t Checksum = UINT64_C(1337507121753179911);
+		constexpr uint64_t Checksum = UINT64_C(14422718685158762490);
 	}
 
-	XSIM_EXPORT void CalculateCatTrackHub(
-		Entity entity,
-		int32_t index,
+	XSIM_EXPORT void OnCatTrackHub(
 		DeltaTime dt,
-		Ptr<const CatTrackConfig> config,
-		Ptr<const CatTrackState> state,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const TransmissionConfig> transmissionConfig,
+		Ptr<const CatTrackConfig> catTrackConfig,
 		Ptr<const InOutConfig> inputConfig,
-		Ptr<const VehicleControllerData> controller,
-		Ptr<const VehicleConfig> vehicleConfig,
-		Ptr<const VehicleState> vehicleState,
-		Ptr<const MotorEngineConfig> engineConfig,
-		Ptr<const MotorEngineState> engineState,
 		Ptr<InOutState> inputState
 	) noexcept;
 
-	XSIM_EXPORT void CalculateMotorEngine(
-		Entity entity,
-		int32_t index,
+	XSIM_EXPORT void OnDashboard(
 		DeltaTime dt,
-		Ptr<const MotorEngineConfig> config,
-		Ptr<const InOutConfig> outputConfig,
-		Ptr<const VehicleControllerData> controller,
-		Ptr<MotorEngineState> state,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const VehicleConfig> vehicleConfig,
+		Ptr<VehicleState> vehicleState,
+		Ptr<const DashboardConfig> dashboardConfig,
+		Ptr<DashboardState> dashboardState,
+		Ptr<const MotorEngineState> motorEngineState,
+		Ptr<const TransmissionConfig> transmissionConfig,
+		Ptr<const TransmissionState> transmissionState,
+		Ptr<const ManifoldState> manifoldState,
+		bool hasElectrics,
+		Ptr<const ElectricsState> electricsState,
+		bool hasElectronics,
+		Ptr<const ElectronicsState> electronicsState,
+		bool hasPneumatics,
+		Ptr<const PneumaticsState> pneumaticsState
+	) noexcept;
+
+	XSIM_EXPORT void OnMotorEngine(
+		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const VehicleState> vehicleState,
+		Ptr<const MotorEngineConfig> engineConfig,
+		Ptr<MotorEngineState> engineState,
 		Ptr<InOutState> outputState
-	) noexcept;
-
-	XSIM_EXPORT void CalculateVehicleController(
-		Ptr<VehicleControllerData> controller,
-		Ptr<ForceFeedback> forceFeedback
-	) noexcept;
-
-	XSIM_EXPORT void CalculateWheelHub(
-		Entity entity,
-		int32_t index,
-		DeltaTime dt,
-		Ptr<const WheelConfig> config,
-		Ptr<const WheelState> state,
-		Ptr<const InOutConfig> inputConfig,
-		Ptr<const VehicleControllerData> controller,
-		Ptr<const VehicleConfig> vehicleConfig,
-		Ptr<const VehicleState> vehicleState,
-		Ptr<const MotorEngineConfig> engineConfig,
-		Ptr<const MotorEngineState> engineState,
-		Ptr<InOutState> inputState
 	) noexcept;
 
 	XSIM_EXPORT void OnPluginLoad(
 		LogSinkFn logSink
 	) noexcept;
 
+	XSIM_EXPORT void OnTelemetry(
+		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleConfig> vehicleConfig,
+		Ptr<const VehicleState> vehicleState,
+		Ptr<const BodyTransformData> bodyTransformData,
+		Ptr<const BodyInterpData> bodyInterpData,
+		Ptr<const BodyTelemetryData> bodyTelemetryData,
+		Ptr<const BodyCollisionData> bodyCollisionData,
+		bool hasCamera,
+		Ptr<const CameraState> cameraState,
+		bool hasCabin,
+		Ptr<const BodyTransformData> cabinTransformData,
+		Ptr<const BodyInterpData> cabinInterpData,
+		Ptr<const BodyTelemetryData> cabinTelemetryData,
+		Ptr<const BodyCollisionData> cabinCollisionData
+	) noexcept;
+
+	XSIM_EXPORT void OnTransmission(
+		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const MotorEngineConfig> engineConfig,
+		Ptr<const MotorEngineState> engineState,
+		Ptr<const InOutState> engineOutput,
+		Ptr<const TransmissionConfig> transmissionConfig,
+		Ptr<TransmissionState> transmissionState,
+		Ptr<const InOutConfig> inputConfig,
+		Ptr<InOutState> gearboxInput,
+		Ptr<ManifoldState> manifoldState
+	) noexcept;
+
+	XSIM_EXPORT void OnVehicleController(
+		DeltaTime dt,
+		Ptr<const VehicleApiData> api,
+		Ptr<VehicleControllerData> vehicleController,
+		Ptr<ForceFeedback> forceFeedback
+	) noexcept;
+
 	XSIM_EXPORT void OnVehicleSpawned(
 		Ptr<const VehicleSetupInfo> vehicleSetup
 	) noexcept;
 
-	XSIM_EXPORT void OnVehicleTelemetry(
+	XSIM_EXPORT void OnWheelHub(
 		DeltaTime dt,
-		Ptr<const VehicleConfig> vehicleConfig,
-		Ptr<const VehicleState> vehicleState,
-		Ptr<const BodyTransformData> bodyTransform,
-		Ptr<const BodyInterpData> bodyInterp,
-		Ptr<const BodyTelemetryData> bodyTelemetry,
-		bool hasTransmission,
-		Ptr<const ManifoldState> manifoldState,
-		Ptr<const TransmissionConfig> transmissionConfig,
-		bool hasEngine,
-		Ptr<const MotorEngineState> engineState
+		Ptr<const VehicleApiData> api,
+		Ptr<const VehicleControllerData> vehicleController,
+		Ptr<const ElectronicsConfig> electronicsConfig,
+		Ptr<const ElectronicsState> electronicsState,
+		bool hasPowertrain,
+		Ptr<const MotorEngineState> engineState,
+		Ptr<const TransmissionState> transmissionState,
+		Ptr<const WheelConfig> wheelConfig,
+		Ptr<WheelState> wheelState,
+		Ptr<const InOutConfig> inputConfig,
+		Ptr<InOutState> inputState
 	) noexcept;
 
 	XSIM_EXPORT inline uint64_t GetABIChecksum() noexcept

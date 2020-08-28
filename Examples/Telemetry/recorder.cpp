@@ -45,8 +45,13 @@ namespace plugin
 
 	void TelemetryRecorder::Start(const xsim::VehicleSetupInfo& vehicleSetup)
 	{
-		m_Time = 0;
+		m_TelemetryTime = 0;
+		m_TelemetryFlushTime = 0;
 		m_TelemetryFile = CreateOutputFile(m_OutputPath, L"Telemetry.csv");
+
+		m_DashboardTime = 0;
+		m_DashboardFlushTime = 0;
+		m_DashboardFile = CreateOutputFile(m_OutputPath, L"Dashboard.csv");
 
 		auto setupFile = CreateOutputFile(m_OutputPath, L"VehicleSetup.txt");
 		setupFile << "Vehicle: " << xsim::ToUTF8(vehicleSetup.m_MotorVehicle.m_Vehicle.m_Name) << "\n";
@@ -87,7 +92,11 @@ namespace plugin
 			"AngularAcceleration.Z",
 			"CenterOfMass.X",
 			"CenterOfMass.Y",
-			"CenterOfMass.Z",
+			"CenterOfMass.Z"
+		);
+
+		csv::WriteHeader(m_DashboardFile,
+			"Time",
 			"Speed",
 			"RPM",
 			"DistanceTraveled",
@@ -98,20 +107,18 @@ namespace plugin
 		m_TelemetryFile.flush();
 	}
 
-	void TelemetryRecorder::Record(
+	void TelemetryRecorder::RecordTelemetry(
 		xsim::DeltaTime dt,
-		const xsim::VehicleState& vehicleState,
 		const xsim::RigidTransform& transform,
 		const xsim::BodyTelemetryData& telemetry)
 	{
-		m_Time += dt.Value();
-		m_FlushTime += dt.Value();
+		m_TelemetryTime += dt.Value();
+		m_TelemetryFlushTime += dt.Value();
 
 		const auto& position = transform.m_pos;
-		const auto& gauge = vehicleState.m_Gauge;
 
 		csv::WriteRow(m_TelemetryFile,
-			m_Time,
+			m_TelemetryTime,
 			position.m_X,
 			position.m_Y,
 			position.m_Z,
@@ -132,17 +139,35 @@ namespace plugin
 			telemetry.m_AngularAcceleration.m_Z,
 			telemetry.m_CenterOfMass.m_X,
 			telemetry.m_CenterOfMass.m_Y,
-			telemetry.m_CenterOfMass.m_Z,
-			gauge.m_Speed,
-			gauge.m_Rpm,
-			gauge.m_DistanceTraveled,
-			gauge.m_FuelConsumption.m_LitersPerHour,
-			gauge.m_FuelTankReserveNorm
+			telemetry.m_CenterOfMass.m_Z
 		);
 
-		if (m_FlushTime >= 1.0f)
+		if (m_TelemetryFlushTime >= 1.0f)
 		{
-			m_FlushTime = 0;
+			m_TelemetryFlushTime = 0;
+			m_TelemetryFile.flush();
+		}
+	}
+
+	void TelemetryRecorder::RecordDashboard(
+		xsim::DeltaTime dt,
+		const xsim::DashboardState& dashboard)
+	{
+		m_DashboardTime += dt.Value();
+		m_DashboardFlushTime += dt.Value();
+
+		csv::WriteRow(m_DashboardFile,
+			m_DashboardTime,
+			dashboard.m_Speed,
+			dashboard.m_Rpm,
+			dashboard.m_DistanceTraveled,
+			dashboard.m_FuelConsumption.m_LitersPerHour,
+			dashboard.m_FuelTankReserveNorm
+		);
+
+		if (m_DashboardFlushTime >= 1.0f)
+		{
+			m_DashboardFlushTime = 0;
 			m_TelemetryFile.flush();
 		}
 	}

@@ -24,17 +24,25 @@ namespace plugin
 		~TelemetryRecorder();
 
 		void Start(const xsim::VehicleSetupInfo& vehicleSetup);
-		void Record(
+
+		void RecordTelemetry(
 			xsim::DeltaTime dt,
-			const xsim::VehicleState& vehicleState,
 			const xsim::RigidTransform& transform,
 			const xsim::BodyTelemetryData& telemetry
+		);
+
+		void RecordDashboard(
+			xsim::DeltaTime dt,
+			const xsim::DashboardState& dashboard
 		);
 
 	private:
 		fs::path m_OutputPath{};
 		std::ofstream m_TelemetryFile{};
-		float m_Time{};
-		float m_FlushTime{};
+		std::ofstream m_DashboardFile{};
+		float m_TelemetryTime{};
+		float m_TelemetryFlushTime{};
+		float m_DashboardTime{};
+		float m_DashboardFlushTime{};
 	};
 }

@@ -25,7 +25,7 @@ Building plugins with the current version of the SDK requires:
 4. Edit `Documents\eXpanSIM\Configs\vXX\API_vYY.json` (the version numbers might vary, use the highest one):
   1. Set `PluginPath` to the **absolute** path to your DLL. **IMPORTANT**: JSON strings support escapes, so paths must use a doubled backslash (`C:\\foo\\bar.dll`) or a forward slash (`C:/foo/bar.dll`).
   2. Set `PluginDebug` to `true` to make plugin loading more verbose.
-  3. Set any of the `VehicleControllerPlugin`, `MainEnginePlugin`, `WheelHubPlugin`, `CatTrackHubPlugin` and `VehicleTelemetryPlugin` as needed.
+  3. Set any of the `VehicleControllerPlugin`, `MotorEnginePlugin`, `WheelHubPlugin`, `CatTrackHubPlugin`, `TelemetryPlugin`, `DashboardPlugin` and `TransmissionPlugin` as needed.
 5. Run eXpanSIM again. Your plugin should now be loaded.
 
 The plugin switches (`VehicleControllerPlugin` etc.) can have the following values:
@@ -87,11 +87,13 @@ Additionally several functions are called regardless of the plugin settings abov
 
 The rest of the exports are dependent on the configuration file:
 
-- `XSIM_EXPORT void CalculateCatTrackHub(...)` - called when `CatTrackHubPlugin` is configured.
-- `XSIM_EXPORT void CalculateMotorEngine(...)` - called when `MainEnginePlugin` is configured.
-- `XSIM_EXPORT void CalculateVehicleController(...)` - called when `VehicleControllerPlugin` is configured.
-- `XSIM_EXPORT void CalculateWheelHub(...)` - called when `WheelHubPlugin` is configured.
-- `XSIM_EXPORT void OnVehicleTelemetry(...)` - called when `VehicleTelemetryPlugin` is configured (you probably want `DllInherit` when using this).
+- `XSIM_EXPORT void OnCatTrackHub(...)` - called when `CatTrackHubPlugin` is configured.
+- `XSIM_EXPORT void OnMotorEngine(...)` - called when `MotorEnginePlugin` is configured.
+- `XSIM_EXPORT void OnVehicleController(...)` - called when `VehicleControllerPlugin` is configured.
+- `XSIM_EXPORT void OnWheelHub(...)` - called when `WheelHubPlugin` is configured.
+- `XSIM_EXPORT void OnTransmission(...)` - called when `TransmissionPlugin` is configured.
+- `XSIM_EXPORT void OnTelemetry(...)` - called when `TelemetryPlugin` is configured (you probably want `DllInherit` when using this).
+- `XSIM_EXPORT void OnDashboard(...)` - called when `DashboardPlugin` is configured (you probably want `DllInherit` when using this).
 
 Note: this list might not be comprehensive. The simulator is under heavy development, and new features are being implemented all the time.
 Always check the SDK headers and the newest configuration file for an up-to-date list of available calls.

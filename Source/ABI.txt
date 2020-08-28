@@ -23,6 +23,20 @@ AutoBoxData.7: Float
 AutoBoxData.8: Float
 AutoBoxData.9: Float
 AutoBoxData.10: Float
+AutoBoxState: Struct
+AutoBoxState.0: AutoBoxDriveMode
+AutoBoxState.1: Bool
+AutoBoxState.2: Int32
+AutoBoxState.3: Float
+AutoBoxState.4: AutoShiftCond
+AutoBoxState.5: AutoShiftCond
+AutoBoxState.6: Float
+AutoBoxState.7: Float
+AutoBoxState.8: Float
+AutoShiftCond: Struct
+AutoShiftCond.0: Float
+AutoShiftCond.1: Int32
+AutoShiftCond.2: Int32
 AxisOutput: Struct
 AxisOutput.0: WheelOutput
 AxisOutput.1: WheelOutput
@@ -34,6 +48,12 @@ BatteryConsumptionData.2: Float
 BatteryConsumptionData.3: Float
 BatteryConsumptionData.4: Float
 BatteryConsumptionData.5: Bool
+BodyCollisionData: Struct
+BodyCollisionData.0: Int32
+BodyCollisionData.1: Float
+BodyCollisionData.2: Vector3F
+BodyCollisionData.3: Vector3F
+BodyCollisionData.4: Vector3F
 BodyInterpData: Struct
 BodyInterpData.0: Float
 BodyInterpData.1: RigidTransform
@@ -51,6 +71,29 @@ BodyTelemetryData.8: Vector3F
 BodyTelemetryData.9: Vector3F
 BodyTransformData: Struct
 BodyTransformData.0: RigidTransform
+CameraState: Struct
+CameraState.0: Vector3F
+CameraState.1: Vector3F
+CameraState.2: Vector3F
+CameraState.3: Quaternion
+CameraState.4: Quaternion
+CameraState.5: Quaternion
+CameraState.6: Vector3F
+CameraState.7: Vector3F
+CameraState.8: Vector3F
+CameraState.9: Vector3F
+CameraState.10: Vector3F
+CameraState.11: Quaternion
+CameraState.12: Vector3F
+CameraState.13: Vector3F
+CameraState.14: Vector3F
+CameraState.15: Vector3F
+CameraState.16: Vector3F
+CameraState.17: Quaternion
+CameraState.18: Vector3F
+CameraState.19: Quaternion
+CameraState.20: Vector3F
+CameraState.21: Quaternion
 CatBrakeData: Struct
 CatBrakeData.0: AngularForce
 CatBrakeData.1: AngularForce
@@ -109,8 +152,6 @@ CatTrackConfig.5: CatTrackSuspensionData
 CatTrackConfig.6: CatSegmentArray
 CatTrackConfig.7: UInt8
 CatTrackConfig.8: UInt8
-CatTrackState: Struct
-CatTrackState.0: AngularForce
 CatTrackSuspensionData: Struct
 CatTrackSuspensionData.0: CatSegmentSuspensionData
 CatTrackSuspensionData.1: CatSegmentSuspensionData
@@ -124,7 +165,7 @@ CombustionEngineData.3: Rpm
 CombustionEngineData.4: CurveData
 CombustionEngineData.5: CurveData
 CombustionEngineData.6: CurveData
-CombustionEngineData.7: FuelInjectionData
+CombustionEngineData.7: ThrottleControlData
 CombustionEngineData.8: EngineStarterData
 CombustionEngineData.9: AngularForce
 CombustionEngineData.10: Rpm
@@ -135,6 +176,8 @@ CombustionEngineData.14: Float
 CombustionEngineData.15: Float
 CombustionEngineState: Struct
 CombustionEngineState.0: PID
+CombustionEngineState.1: PID
+CombustionEngineState.2: Float
 ContactForceCommand: Struct
 ContactForceCommand.0: AngularForce
 ContactForceCommand.1: StabilizationForce
@@ -159,6 +202,14 @@ CouplerData: Struct
 CouplerData.0: CouplerType
 CouplerData.1: FrictionClutchData
 CouplerData.2: HydraulicTorqueConverterData
+CouplerState: Struct
+CouplerState.0: Bool
+CouplerState.1: Float
+CouplerState.2: Float
+CouplerState.3: Float
+CouplerState.4: Float
+CouplerState.5: Float
+CouplerState.6: AngularForce
 CurveData: Struct
 CurveData.0: Float
 CurveData.1: Float
@@ -170,6 +221,57 @@ CurveData.6: Float
 CurveData.7: Float
 CurveData.8: Float
 CurveData.9: Float[32]
+DashboardConfig: Struct
+DashboardConfig.0: Entity
+DashboardConfig.1: Float
+DashboardConfig.2: Float
+DashboardConfig.3: Float
+DashboardConfig.4: Float
+DashboardConfig.5: Float
+DashboardConfig.6: Float
+DashboardConfig.7: Float
+DashboardState: Struct
+DashboardState.0: Float
+DashboardState.1: Float
+DashboardState.2: Float
+DashboardState.3: Float
+DashboardState.4: Float
+DashboardState.5: Float
+DashboardState.6: Float
+DashboardState.7: Float
+DashboardState.8: Float
+DashboardState.9: VehicleGearboxMode
+DashboardState.10: Int32
+DashboardState.11: Bool
+DashboardState.12: Bool
+DashboardState.13: Bool
+DashboardState.14: Int32
+DashboardState.15: Float
+DashboardState.16: VehicleHeadlampsMode
+DashboardState.17: VehicleSignalMode
+DashboardState.18: Bool
+DashboardState.19: Bool
+DashboardState.20: Bool
+DashboardState.21: Bool
+DashboardState.22: Bool
+DashboardState.23: Bool
+DashboardState.24: Float
+DashboardState.25: Float
+DashboardState.26: FuelConsumptionData
+DashboardState.27: FuelConsumptionData
+DashboardState.28: FuelConsumptionData
+DashboardState.29: Float
+DashboardState.30: Float
+DashboardState.31: Float
+DashboardState.32: BatteryConsumptionData
+DashboardState.33: BatteryConsumptionData
+DashboardState.34: BatteryConsumptionData
+DashboardState.35: Float
+DashboardState.36: VehicleSystemState
+DashboardState.37: VehicleSystemState
+DashboardState.38: VehicleSystemState
+DashboardState.39: VehicleSystemState
+DashboardState.40: VehicleDoorStateArray
 DeltaTime: Struct
 DeltaTime.0: Float
 DriveData: Struct
@@ -211,6 +313,36 @@ ElectricEngineData.16: Float
 ElectricEngineState: Struct
 ElectricEngineState.0: PID
 ElectricEngineState.1: Bool
+ElectricsState: Struct
+ElectricsState.0: Bool
+ElectricsState.1: Bool
+ElectricsState.2: HeadlampsModeType
+ElectricsState.3: Bool
+ElectricsState.4: Bool
+ElectricsState.5: HeadlampsBeamType
+ElectricsState.6: Bool
+ElectricsState.7: Bool
+ElectricsState.8: Bool
+ElectricsState.9: Bool
+ElectricsState.10: Bool
+ElectricsState.11: Bool
+ElectricsState.12: Float
+ElectronicsConfig: Struct
+ElectronicsConfig.0: Entity
+ElectronicsConfig.1: SystemAbaConfig
+ElectronicsConfig.2: SystemAbsConfig
+ElectronicsConfig.3: SystemAsrConfig
+ElectronicsConfig.4: SystemEscConfig
+ElectronicsState: Struct
+ElectronicsState.0: Bool
+ElectronicsState.1: Bool
+ElectronicsState.2: Bool
+ElectronicsState.3: Bool
+ElectronicsState.4: Bool
+ElectronicsState.5: Float
+ElectronicsState.6: Float
+ElectronicsState.7: Float
+ElectronicsState.8: Float
 EngineStarterData: Struct
 EngineStarterData.0: AngularForce
 Entity: Struct
@@ -238,10 +370,6 @@ FuelConsumptionData.2: Float
 FuelConsumptionData.3: Float
 FuelConsumptionData.4: Float
 FuelConsumptionData.5: Bool
-FuelInjectionData: Struct
-FuelInjectionData.0: Float
-FuelInjectionData.1: Vector3F
-FuelInjectionData.2: Float
 GearboxData: Struct
 GearboxData.0: GearboxType
 GearboxData.1: Int32
@@ -251,6 +379,10 @@ GearboxData.4: Int32
 GearboxData.5: Float[16]
 GearboxData.6: Float
 GearboxData.7: Inertia
+GearboxState: Struct
+GearboxState.0: Int32
+GearboxState.1: Float
+GearboxState.2: Bool
 HydraulicTorqueConverterData: Struct
 HydraulicTorqueConverterData.0: CurveData
 HydraulicTorqueConverterData.1: Float
@@ -340,6 +472,18 @@ PitchYawRoll: Struct
 PitchYawRoll.0: Float
 PitchYawRoll.1: Float
 PitchYawRoll.2: Float
+PneumaticDoorState: Struct
+PneumaticDoorState.0: PneumaticDoorSignalType
+PneumaticDoorState.1: Float
+PneumaticDoorState.2: Float
+PneumaticDoorStateArray: Struct
+PneumaticDoorStateArray.0: Int32
+PneumaticDoorStateArray.1: PneumaticDoorState
+PneumaticDoorStateArray.2: PneumaticDoorState
+PneumaticDoorStateArray.3: PneumaticDoorState
+PneumaticDoorStateArray.4: PneumaticDoorState
+PneumaticsState: Struct
+PneumaticsState.0: PneumaticDoorStateArray
 Power: Struct
 Power.0: Float
 RetarderData: Struct
@@ -349,6 +493,11 @@ RetarderData.2: Float
 RetarderData.3: Float
 RetarderData.4: AngularForce
 RetarderData.5: CurveData
+RetarderState: Struct
+RetarderState.0: Int32
+RetarderState.1: Float
+RetarderState.2: Float
+RetarderState.3: AngularForce
 RigidTransform: Struct
 RigidTransform.0: Quaternion
 RigidTransform.1: Vector3F
@@ -437,6 +586,10 @@ SystemAsrState.1: Float
 SystemEscConfig: Struct
 SystemEscConfig.0: Bool
 SystemEscConfig.1: Bool
+ThrottleControlData: Struct
+ThrottleControlData.0: ThrottleControlType
+ThrottleControlData.1: Vector3F
+ThrottleControlData.2: Float
 TrailerVehicleConfigInfo: Struct
 TrailerVehicleConfigInfo.0: VehicleConfigInfo
 TransmissionConfig: Struct
@@ -446,21 +599,27 @@ TransmissionConfig.2: CouplerData
 TransmissionConfig.3: AutoBoxData
 TransmissionConfig.4: RetarderData
 TransmissionConfig.5: DrivetrainData
+TransmissionState: Struct
+TransmissionState.0: GearboxState
+TransmissionState.1: CouplerState
+TransmissionState.2: AutoBoxState
+TransmissionState.3: RetarderState
+VehicleApiData: Struct
+VehicleApiData.0: Int32
 VehicleConfig: Struct
 VehicleConfig.0: Int32
-VehicleConfig.1: Int32
+VehicleConfig.1: Entity
 VehicleConfig.2: Entity
-VehicleConfig.3: Entity
-VehicleConfig.4: VehicleCategory
-VehicleConfig.5: Mass
-VehicleConfig.6: VehicleSteeringData
-VehicleConfig.7: SystemAbaConfig
-VehicleConfig.8: SystemAbsConfig
-VehicleConfig.9: SystemAsrConfig
-VehicleConfig.10: SystemEscConfig
+VehicleConfig.3: VehicleCategory
+VehicleConfig.4: Mass
+VehicleConfig.5: VehicleSteeringData
+VehicleConfig.6: SystemAbaConfig
+VehicleConfig.7: SystemAbsConfig
+VehicleConfig.8: SystemAsrConfig
+VehicleConfig.9: SystemEscConfig
+VehicleConfig.10: Float
 VehicleConfig.11: Float
-VehicleConfig.12: Float
-VehicleConfig.13: UInt8
+VehicleConfig.12: UInt8
 VehicleConfigInfo: Struct
 VehicleConfigInfo.0: String
 VehicleConfigInfo.1: VehicleConfig
@@ -479,11 +638,11 @@ VehicleControllerData.8: SignalUnipolar
 VehicleControllerData.9: SignalUnipolar
 VehicleControllerData.10: SignalUnipolar
 VehicleControllerData.11: SignalUnipolar
-VehicleControllerData.12: Int32
-VehicleControllerData.13: Bool
+VehicleControllerData.12: Bool
+VehicleControllerData.13: Int32
 VehicleControllerData.14: Bool
-VehicleControllerData.15: Int32
-VehicleControllerData.16: Bool
+VehicleControllerData.15: Bool
+VehicleControllerData.16: Int32
 VehicleControllerData.17: Bool
 VehicleControllerData.18: Bool
 VehicleControllerData.19: Bool
@@ -492,43 +651,30 @@ VehicleControllerData.21: Bool
 VehicleControllerData.22: Bool
 VehicleControllerData.23: Bool
 VehicleControllerData.24: Bool
-VehicleGaugeData: Struct
-VehicleGaugeData.0: Float
-VehicleGaugeData.1: Float
-VehicleGaugeData.2: Float
-VehicleGaugeData.3: Float
-VehicleGaugeData.4: Float
-VehicleGaugeData.5: Float
-VehicleGaugeData.6: Float
-VehicleGaugeData.7: Float
-VehicleGaugeData.8: Float
-VehicleGaugeData.9: FuelConsumptionData
-VehicleGaugeData.10: FuelConsumptionData
-VehicleGaugeData.11: BatteryConsumptionData
-VehicleGaugeData.12: BatteryConsumptionData
-VehicleGaugeData.13: Float
-VehicleGaugeData.14: Float
-VehicleGaugeData.15: FuelConsumptionData
-VehicleGaugeData.16: Float
-VehicleGaugeData.17: BatteryConsumptionData
-VehicleGaugeData.18: Float
+VehicleControllerData.25: Bool
+VehicleControllerData.26: Bool
+VehicleControllerData.27: Bool
+VehicleControllerData.28: Bool
+VehicleControllerData.29: Bool
+VehicleControllerData.30: Bool
+VehicleControllerData.31: Bool
+VehicleControllerData.32: Bool
+VehicleControllerData.33: Bool
+VehicleControllerData.34: Bool
+VehicleDoorStateArray: Struct
+VehicleDoorStateArray.0: Int32
+VehicleDoorStateArray.1: VehicleDoorState
+VehicleDoorStateArray.2: VehicleDoorState
+VehicleDoorStateArray.3: VehicleDoorState
+VehicleDoorStateArray.4: VehicleDoorState
 VehicleSetupInfo: Struct
 VehicleSetupInfo.0: MotorVehicleConfigInfo
 VehicleSetupInfo.1: TrailerVehicleConfigInfo
 VehicleSetupInfo.2: Bool
 VehicleState: Struct
 VehicleState.0: Bool
-VehicleState.1: VehicleGaugeData
-VehicleState.2: Bool
-VehicleState.3: Bool
-VehicleState.4: Bool
-VehicleState.5: Bool
-VehicleState.6: Float
-VehicleState.7: Float
-VehicleState.8: Float
-VehicleState.9: Float
-VehicleState.10: Float
-VehicleState.11: Float
+VehicleState.1: Float
+VehicleState.2: Float
 VehicleSteeringData: Struct
 VehicleSteeringData.0: VehicleSteeringType
 VehicleSteeringData.1: AngleDeg
@@ -631,6 +777,10 @@ WheelTurnState.0: Angle
 WheelTurnState.1: Angle
 WheelTurnState.2: Angle
 
+AutoBoxDriveMode: Enum Int32
+AutoBoxDriveMode.Neutral = 0
+AutoBoxDriveMode.Drive = 1
+AutoBoxDriveMode.Reverse = -1
 AutoBoxType: Enum Int32
 AutoBoxType.FullOrSemi = 0
 AutoBoxType.FullOnly = 1
@@ -658,6 +808,13 @@ GearboxType: Enum Int32
 GearboxType.Manual = 0
 GearboxType.Automatic = 1
 GearboxType.Cvt = 2
+HeadlampsBeamType: Enum Int32
+HeadlampsBeamType.Low = 0
+HeadlampsBeamType.High = 1
+HeadlampsModeType: Enum Int32
+HeadlampsModeType.None = 0
+HeadlampsModeType.Position = 1
+HeadlampsModeType.Beam = 2
 InOutBindMode: Enum Int32
 InOutBindMode.None = 0
 InOutBindMode.ParentDefault = 1
@@ -673,6 +830,9 @@ MotorEngineType.Diesel = 0
 MotorEngineType.Petrol = 1
 MotorEngineType.Electric = 2
 MotorEngineType.Hybrid = 3
+PneumaticDoorSignalType: Enum Int32
+PneumaticDoorSignalType.Close = 0
+PneumaticDoorSignalType.Open = 1
 RetarderType: Enum Int32
 RetarderType.None = 0
 RetarderType.Electric = 1
@@ -689,15 +849,41 @@ SurfaceType.Metal = 8
 SurfaceType.Hedgehog = 9
 SurfaceType.SandGravel = 10
 SurfaceType.Other = 11
+ThrottleControlType: Enum Int32
+ThrottleControlType.ThrottleToPower = 0
+ThrottleControlType.ThrottleToRpm = 1
 VehicleCategory: Enum Int32
 VehicleCategory.Car = 0
 VehicleCategory.Truck = 1
 VehicleCategory.Trailer = 2
 VehicleCategory.Groundwork = 3
 VehicleCategory.Military = 4
+VehicleDoorState: Enum Int32
+VehicleDoorState.Closed = 0
+VehicleDoorState.Open = 1
+VehicleGearboxMode: Enum Int32
+VehicleGearboxMode.Manual = 0
+VehicleGearboxMode.Direct = 1
+VehicleGearboxMode.SemiAuto = 2
+VehicleGearboxMode.FullAuto = 3
+VehicleGearboxMode.Cvt = 4
+VehicleHeadlampsMode: Enum Int32
+VehicleHeadlampsMode.None = 0
+VehicleHeadlampsMode.Position = 1
+VehicleHeadlampsMode.LowBeam = 2
+VehicleHeadlampsMode.HighBeam = 3
+VehicleSignalMode: Enum Int32
+VehicleSignalMode.None = 0
+VehicleSignalMode.TurnLeft = 1
+VehicleSignalMode.TurnRight = 2
+VehicleSignalMode.HazardWarning = 3
 VehicleSteeringType: Enum Int32
 VehicleSteeringType.Wheel = 0
 VehicleSteeringType.Lever = 1
+VehicleSystemState: Enum Int32
+VehicleSystemState.Disabled = 0
+VehicleSystemState.Enabled = 1
+VehicleSystemState.Active = 2
 WheelIndex: Enum Int32
 WheelIndex.Left = 0
 WheelIndex.Right = 1
@@ -715,63 +901,93 @@ LogSinkFn: Callback Void
 LogSinkFn.0: String
 LogSinkFn.1: Int32
 
-CalculateCatTrackHub: Export Void
-CalculateCatTrackHub.0: Entity
-CalculateCatTrackHub.1: Int32
-CalculateCatTrackHub.2: DeltaTime
-CalculateCatTrackHub.3: CatTrackConfig
-CalculateCatTrackHub.4: CatTrackState
-CalculateCatTrackHub.5: InOutConfig
-CalculateCatTrackHub.6: VehicleControllerData
-CalculateCatTrackHub.7: VehicleConfig
-CalculateCatTrackHub.8: VehicleState
-CalculateCatTrackHub.9: MotorEngineConfig
-CalculateCatTrackHub.10: MotorEngineState
-CalculateCatTrackHub.11: InOutState
-CalculateMotorEngine: Export Void
-CalculateMotorEngine.0: Entity
-CalculateMotorEngine.1: Int32
-CalculateMotorEngine.2: DeltaTime
-CalculateMotorEngine.3: MotorEngineConfig
-CalculateMotorEngine.4: InOutConfig
-CalculateMotorEngine.5: VehicleControllerData
-CalculateMotorEngine.6: MotorEngineState
-CalculateMotorEngine.7: InOutState
-CalculateVehicleController: Export Void
-CalculateVehicleController.0: VehicleControllerData
-CalculateVehicleController.1: ForceFeedback
-CalculateWheelHub: Export Void
-CalculateWheelHub.0: Entity
-CalculateWheelHub.1: Int32
-CalculateWheelHub.2: DeltaTime
-CalculateWheelHub.3: WheelConfig
-CalculateWheelHub.4: WheelState
-CalculateWheelHub.5: InOutConfig
-CalculateWheelHub.6: VehicleControllerData
-CalculateWheelHub.7: VehicleConfig
-CalculateWheelHub.8: VehicleState
-CalculateWheelHub.9: MotorEngineConfig
-CalculateWheelHub.10: MotorEngineState
-CalculateWheelHub.11: InOutState
 GetABIChecksum: Export UInt64
 GetABIVersion: Export UInt32
+OnCatTrackHub: Export Void
+OnCatTrackHub.0: DeltaTime
+OnCatTrackHub.1: VehicleApiData
+OnCatTrackHub.2: VehicleControllerData
+OnCatTrackHub.3: TransmissionConfig
+OnCatTrackHub.4: CatTrackConfig
+OnCatTrackHub.5: InOutConfig
+OnCatTrackHub.6: InOutState
+OnDashboard: Export Void
+OnDashboard.0: DeltaTime
+OnDashboard.1: VehicleApiData
+OnDashboard.2: VehicleControllerData
+OnDashboard.3: VehicleConfig
+OnDashboard.4: VehicleState
+OnDashboard.5: DashboardConfig
+OnDashboard.6: DashboardState
+OnDashboard.7: MotorEngineState
+OnDashboard.8: TransmissionConfig
+OnDashboard.9: TransmissionState
+OnDashboard.10: ManifoldState
+OnDashboard.11: Bool
+OnDashboard.12: ElectricsState
+OnDashboard.13: Bool
+OnDashboard.14: ElectronicsState
+OnDashboard.15: Bool
+OnDashboard.16: PneumaticsState
+OnMotorEngine: Export Void
+OnMotorEngine.0: DeltaTime
+OnMotorEngine.1: VehicleApiData
+OnMotorEngine.2: VehicleControllerData
+OnMotorEngine.3: VehicleState
+OnMotorEngine.4: MotorEngineConfig
+OnMotorEngine.5: MotorEngineState
+OnMotorEngine.6: InOutState
 OnPluginLoad: Export Void
 OnPluginLoad.0: LogSinkFn
 OnPluginUnload: Export Void
+OnTelemetry: Export Void
+OnTelemetry.0: DeltaTime
+OnTelemetry.1: VehicleApiData
+OnTelemetry.2: VehicleConfig
+OnTelemetry.3: VehicleState
+OnTelemetry.4: BodyTransformData
+OnTelemetry.5: BodyInterpData
+OnTelemetry.6: BodyTelemetryData
+OnTelemetry.7: BodyCollisionData
+OnTelemetry.8: Bool
+OnTelemetry.9: CameraState
+OnTelemetry.10: Bool
+OnTelemetry.11: BodyTransformData
+OnTelemetry.12: BodyInterpData
+OnTelemetry.13: BodyTelemetryData
+OnTelemetry.14: BodyCollisionData
+OnTransmission: Export Void
+OnTransmission.0: DeltaTime
+OnTransmission.1: VehicleApiData
+OnTransmission.2: VehicleControllerData
+OnTransmission.3: MotorEngineConfig
+OnTransmission.4: MotorEngineState
+OnTransmission.5: InOutState
+OnTransmission.6: TransmissionConfig
+OnTransmission.7: TransmissionState
+OnTransmission.8: InOutConfig
+OnTransmission.9: InOutState
+OnTransmission.10: ManifoldState
+OnVehicleController: Export Void
+OnVehicleController.0: DeltaTime
+OnVehicleController.1: VehicleApiData
+OnVehicleController.2: VehicleControllerData
+OnVehicleController.3: ForceFeedback
 OnVehicleDespawned: Export Void
 OnVehicleSpawned: Export Void
 OnVehicleSpawned.0: VehicleSetupInfo
-OnVehicleTelemetry: Export Void
-OnVehicleTelemetry.0: DeltaTime
-OnVehicleTelemetry.1: VehicleConfig
-OnVehicleTelemetry.2: VehicleState
-OnVehicleTelemetry.3: BodyTransformData
-OnVehicleTelemetry.4: BodyInterpData
-OnVehicleTelemetry.5: BodyTelemetryData
-OnVehicleTelemetry.6: Bool
-OnVehicleTelemetry.7: ManifoldState
-OnVehicleTelemetry.8: TransmissionConfig
-OnVehicleTelemetry.9: Bool
-OnVehicleTelemetry.10: MotorEngineState
+OnWheelHub: Export Void
+OnWheelHub.0: DeltaTime
+OnWheelHub.1: VehicleApiData
+OnWheelHub.2: VehicleControllerData
+OnWheelHub.3: ElectronicsConfig
+OnWheelHub.4: ElectronicsState
+OnWheelHub.5: Bool
+OnWheelHub.6: MotorEngineState
+OnWheelHub.7: TransmissionState
+OnWheelHub.8: WheelConfig
+OnWheelHub.9: WheelState
+OnWheelHub.10: InOutConfig
+OnWheelHub.11: InOutState
 
-Checksum: 1337507121753179911
+Checksum: 14422718685158762490

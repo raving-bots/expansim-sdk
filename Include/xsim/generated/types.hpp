@@ -14,6 +14,13 @@
 
 namespace xsim
 {
+	enum class AutoBoxDriveMode : int32_t
+	{
+		Neutral = INT32_C(0),
+		Drive = INT32_C(1),
+		Reverse = INT32_C(-1)
+	};
+
 	enum class AutoBoxType : int32_t
 	{
 		FullOrSemi = INT32_C(0),
@@ -62,6 +69,19 @@ namespace xsim
 		Cvt = INT32_C(2)
 	};
 
+	enum class HeadlampsBeamType : int32_t
+	{
+		Low = INT32_C(0),
+		High = INT32_C(1)
+	};
+
+	enum class HeadlampsModeType : int32_t
+	{
+		None = INT32_C(0),
+		Position = INT32_C(1),
+		Beam = INT32_C(2)
+	};
+
 	enum class InOutBindMode : int32_t
 	{
 		None = INT32_C(0),
@@ -86,6 +106,12 @@ namespace xsim
 		Hybrid = INT32_C(3)
 	};
 
+	enum class PneumaticDoorSignalType : int32_t
+	{
+		Close = INT32_C(0),
+		Open = INT32_C(1)
+	};
+
 	enum class RetarderType : int32_t
 	{
 		None = INT32_C(0),
@@ -108,6 +134,12 @@ namespace xsim
 		Other = INT32_C(11)
 	};
 
+	enum class ThrottleControlType : int32_t
+	{
+		ThrottleToPower = INT32_C(0),
+		ThrottleToRpm = INT32_C(1)
+	};
+
 	enum class VehicleCategory : int32_t
 	{
 		Car = INT32_C(0),
@@ -117,10 +149,48 @@ namespace xsim
 		Military = INT32_C(4)
 	};
 
+	enum class VehicleDoorState : int32_t
+	{
+		Closed = INT32_C(0),
+		Open = INT32_C(1)
+	};
+
+	enum class VehicleGearboxMode : int32_t
+	{
+		Manual = INT32_C(0),
+		Direct = INT32_C(1),
+		SemiAuto = INT32_C(2),
+		FullAuto = INT32_C(3),
+		Cvt = INT32_C(4)
+	};
+
+	enum class VehicleHeadlampsMode : int32_t
+	{
+		None = INT32_C(0),
+		Position = INT32_C(1),
+		LowBeam = INT32_C(2),
+		HighBeam = INT32_C(3)
+	};
+
+	enum class VehicleSignalMode : int32_t
+	{
+		None = INT32_C(0),
+		TurnLeft = INT32_C(1),
+		TurnRight = INT32_C(2),
+		HazardWarning = INT32_C(3)
+	};
+
 	enum class VehicleSteeringType : int32_t
 	{
 		Wheel = INT32_C(0),
 		Lever = INT32_C(1)
+	};
+
+	enum class VehicleSystemState : int32_t
+	{
+		Disabled = INT32_C(0),
+		Enabled = INT32_C(1),
+		Active = INT32_C(2)
 	};
 
 	enum class WheelIndex : int32_t
@@ -290,6 +360,20 @@ namespace xsim
 		float m_Value;
 	};
 
+	struct AutoShiftCond final
+	{
+		constexpr AutoShiftCond() = default;
+		constexpr AutoShiftCond(const AutoShiftCond&) = default;
+		constexpr AutoShiftCond(AutoShiftCond&&) = default;
+		~AutoShiftCond() = default;
+		constexpr AutoShiftCond& operator=(const AutoShiftCond&) = default;
+		constexpr AutoShiftCond& operator=(AutoShiftCond&&) = default;
+
+		float m_State{};
+		int32_t m_ShiftSum{};
+		int32_t m_SampleCount{};
+	};
+
 	struct BatteryConsumptionData final
 	{
 		constexpr BatteryConsumptionData() = default;
@@ -305,6 +389,55 @@ namespace xsim
 		float m_ConsumedKwh{};
 		float m_KwhPer100Km{};
 		bool m_IsValidKwhPer100Km{};
+	};
+
+	struct BodyCollisionData final
+	{
+		constexpr BodyCollisionData() = default;
+		constexpr BodyCollisionData(const BodyCollisionData&) = default;
+		constexpr BodyCollisionData(BodyCollisionData&&) = default;
+		~BodyCollisionData() = default;
+		constexpr BodyCollisionData& operator=(const BodyCollisionData&) = default;
+		constexpr BodyCollisionData& operator=(BodyCollisionData&&) = default;
+
+		int32_t m_EventCounter{};
+		float m_LastEventTime{};
+		Vector3F m_LastContactRelativeVelocity{};
+		Vector3F m_LastContactImpulse{};
+		Vector3F m_LastContactPoint{};
+	};
+
+	struct CameraState final
+	{
+		constexpr CameraState() = default;
+		constexpr CameraState(const CameraState&) = default;
+		constexpr CameraState(CameraState&&) = default;
+		~CameraState() = default;
+		constexpr CameraState& operator=(const CameraState&) = default;
+		constexpr CameraState& operator=(CameraState&&) = default;
+
+		Vector3F m_InsideFloorPosition{};
+		Vector3F m_InsideCockpitPosition{};
+		Vector3F m_InsideHeadPosition{};
+		Quaternion m_InsideFloorRotation{};
+		Quaternion m_InsideCockpitRotation{};
+		Quaternion m_InsideHeadRotation{};
+		Vector3F m_InsideLinearVelocity{};
+		Vector3F m_InsideAngularVelocity{};
+		Vector3F m_InsideLinearAcceleration{};
+		Vector3F m_InsideAngularAcceleration{};
+		Vector3F m_OutsidePosition{};
+		Quaternion m_OutsideRotation{};
+		Vector3F m_OutsideLinearVelocity{};
+		Vector3F m_OutsideAngularVelocity{};
+		Vector3F m_OutsideLinearAcceleration{};
+		Vector3F m_OutsideAngularAcceleration{};
+		Vector3F m_TopSidePosition{};
+		Quaternion m_TopSideRotation{};
+		Vector3F m_LeftSidePosition{};
+		Quaternion m_LeftSideRotation{};
+		Vector3F m_RightSidePosition{};
+		Quaternion m_RightSideRotation{};
 	};
 
 	struct CatSegmentSuspensionData final
@@ -353,6 +486,26 @@ namespace xsim
 
 	private:
 		float m_Value;
+	};
+
+	struct ElectronicsState final
+	{
+		constexpr ElectronicsState() = default;
+		constexpr ElectronicsState(const ElectronicsState&) = default;
+		constexpr ElectronicsState(ElectronicsState&&) = default;
+		~ElectronicsState() = default;
+		constexpr ElectronicsState& operator=(const ElectronicsState&) = default;
+		constexpr ElectronicsState& operator=(ElectronicsState&&) = default;
+
+		bool m_Precomputed{};
+		bool m_SystemAbaEnabled{};
+		bool m_SystemAbsEnabled{};
+		bool m_SystemAsrEnabled{};
+		bool m_SystemEscEnabled{};
+		float m_SystemAbaState{};
+		float m_SystemAbsState{};
+		float m_SystemAsrState{};
+		float m_SystemEscState{};
 	};
 
 	struct Entity final
@@ -407,18 +560,18 @@ namespace xsim
 		bool m_IsValidLitersPer100Km{};
 	};
 
-	struct FuelInjectionData final
+	struct GearboxState final
 	{
-		constexpr FuelInjectionData() = default;
-		constexpr FuelInjectionData(const FuelInjectionData&) = default;
-		constexpr FuelInjectionData(FuelInjectionData&&) = default;
-		~FuelInjectionData() = default;
-		constexpr FuelInjectionData& operator=(const FuelInjectionData&) = default;
-		constexpr FuelInjectionData& operator=(FuelInjectionData&&) = default;
+		constexpr GearboxState() = default;
+		constexpr GearboxState(const GearboxState&) = default;
+		constexpr GearboxState(GearboxState&&) = default;
+		~GearboxState() = default;
+		constexpr GearboxState& operator=(const GearboxState&) = default;
+		constexpr GearboxState& operator=(GearboxState&&) = default;
 
-		float m_Min{};
-		Vector3F m_Pid{};
-		float m_Lag{};
+		int32_t m_Gear{};
+		float m_Ratio{};
+		bool m_Pivot{};
 	};
 
 	struct Inertia final
@@ -880,6 +1033,32 @@ namespace xsim
 		bool m_Selectable{};
 	};
 
+	struct VehicleApiData final
+	{
+		constexpr VehicleApiData() = default;
+		constexpr VehicleApiData(const VehicleApiData&) = default;
+		constexpr VehicleApiData(VehicleApiData&&) = default;
+		~VehicleApiData() = default;
+		constexpr VehicleApiData& operator=(const VehicleApiData&) = default;
+		constexpr VehicleApiData& operator=(VehicleApiData&&) = default;
+
+		int32_t m_Id{};
+	};
+
+	struct VehicleState final
+	{
+		constexpr VehicleState() = default;
+		constexpr VehicleState(const VehicleState&) = default;
+		constexpr VehicleState(VehicleState&&) = default;
+		~VehicleState() = default;
+		constexpr VehicleState& operator=(const VehicleState&) = default;
+		constexpr VehicleState& operator=(VehicleState&&) = default;
+
+		bool m_Precomputed{};
+		float m_FuelTankReserve{};
+		float m_BatteryReserveKwh{};
+	};
+
 	struct WheelTransformState final
 	{
 		constexpr WheelTransformState() = default;
@@ -904,6 +1083,60 @@ namespace xsim
 		Vector3F m_SusAnchorPosition{};
 		float m_SuspensionCompression{};
 		Vector3F m_ConstraintForce{};
+	};
+
+	struct ContactSlip final
+	{
+		constexpr ContactSlip() = default;
+		constexpr ContactSlip(const ContactSlip&) = default;
+		constexpr ContactSlip(ContactSlip&&) = default;
+		~ContactSlip() = default;
+		constexpr ContactSlip& operator=(const ContactSlip&) = default;
+		constexpr ContactSlip& operator=(ContactSlip&&) = default;
+
+		Vector2F m_Velocity{};
+		float m_Ratio{};
+		Angle m_Angle{};
+	};
+
+	struct WheelTurnState final
+	{
+		constexpr WheelTurnState() = default;
+		constexpr WheelTurnState(const WheelTurnState&) = default;
+		constexpr WheelTurnState(WheelTurnState&&) = default;
+		~WheelTurnState() = default;
+		constexpr WheelTurnState& operator=(const WheelTurnState&) = default;
+		constexpr WheelTurnState& operator=(WheelTurnState&&) = default;
+
+		Angle m_AngleMin{};
+		Angle m_Angle{};
+		Angle m_AngleMax{};
+	};
+
+	struct SystemAsrState final
+	{
+		constexpr SystemAsrState() = default;
+		constexpr SystemAsrState(const SystemAsrState&) = default;
+		constexpr SystemAsrState(SystemAsrState&&) = default;
+		~SystemAsrState() = default;
+		constexpr SystemAsrState& operator=(const SystemAsrState&) = default;
+		constexpr SystemAsrState& operator=(SystemAsrState&&) = default;
+
+		SignalUnipolar m_Signal{};
+		float m_SmoothVelocity{};
+	};
+
+	struct SystemAbsState final
+	{
+		constexpr SystemAbsState() = default;
+		constexpr SystemAbsState(const SystemAbsState&) = default;
+		constexpr SystemAbsState(SystemAbsState&&) = default;
+		~SystemAbsState() = default;
+		constexpr SystemAbsState& operator=(const SystemAbsState&) = default;
+		constexpr SystemAbsState& operator=(SystemAbsState&&) = default;
+
+		SignalUnipolar m_Signal{};
+		float m_SmoothVelocity{};
 	};
 
 	struct CatSegmentArray final
@@ -934,56 +1167,35 @@ namespace xsim
 		Entity m_Entity15{};
 	};
 
-	struct WheelBrakeData final
+	struct DashboardConfig final
 	{
-		constexpr WheelBrakeData() = default;
-		constexpr WheelBrakeData(const WheelBrakeData&) = default;
-		constexpr WheelBrakeData(WheelBrakeData&&) = default;
-		~WheelBrakeData() = default;
-		constexpr WheelBrakeData& operator=(const WheelBrakeData&) = default;
-		constexpr WheelBrakeData& operator=(WheelBrakeData&&) = default;
+		constexpr DashboardConfig() = default;
+		constexpr DashboardConfig(const DashboardConfig&) = default;
+		constexpr DashboardConfig(DashboardConfig&&) = default;
+		~DashboardConfig() = default;
+		constexpr DashboardConfig& operator=(const DashboardConfig&) = default;
+		constexpr DashboardConfig& operator=(DashboardConfig&&) = default;
 
-		AngularForce m_BrakeTorque{};
-		AngularForce m_StaticBrakeTorque{};
+		Entity m_VehicleEntity{};
+		float m_GaugeShortSmooth{};
+		float m_HandBrakeThreshold{};
+		float m_ConsumptionMediumSmooth{};
+		float m_ConsumptionLongSmooth{};
+		float m_ConsumptionMinSpeed{};
+		float m_SystemActiveThreshold{};
+		float m_DoorThreshold{};
 	};
 
-	struct CatBrakeData final
+	struct EngineStarterData final
 	{
-		constexpr CatBrakeData() = default;
-		constexpr CatBrakeData(const CatBrakeData&) = default;
-		constexpr CatBrakeData(CatBrakeData&&) = default;
-		~CatBrakeData() = default;
-		constexpr CatBrakeData& operator=(const CatBrakeData&) = default;
-		constexpr CatBrakeData& operator=(CatBrakeData&&) = default;
+		constexpr EngineStarterData() = default;
+		constexpr EngineStarterData(const EngineStarterData&) = default;
+		constexpr EngineStarterData(EngineStarterData&&) = default;
+		~EngineStarterData() = default;
+		constexpr EngineStarterData& operator=(const EngineStarterData&) = default;
+		constexpr EngineStarterData& operator=(EngineStarterData&&) = default;
 
-		AngularForce m_BrakeTorque{};
-		AngularForce m_StaticBrakeTorque{};
-	};
-
-	struct CatTrackState final
-	{
-		constexpr CatTrackState() = default;
-		constexpr CatTrackState(const CatTrackState&) = default;
-		constexpr CatTrackState(CatTrackState&&) = default;
-		~CatTrackState() = default;
-		constexpr CatTrackState& operator=(const CatTrackState&) = default;
-		constexpr CatTrackState& operator=(CatTrackState&&) = default;
-
-		AngularForce m_MaintainTorque{};
-	};
-
-	struct ContactSlip final
-	{
-		constexpr ContactSlip() = default;
-		constexpr ContactSlip(const ContactSlip&) = default;
-		constexpr ContactSlip(ContactSlip&&) = default;
-		~ContactSlip() = default;
-		constexpr ContactSlip& operator=(const ContactSlip&) = default;
-		constexpr ContactSlip& operator=(ContactSlip&&) = default;
-
-		Vector2F m_Velocity{};
-		float m_Ratio{};
-		Angle m_Angle{};
+		AngularForce m_Torque{};
 	};
 
 	struct ContactForces final
@@ -1003,18 +1215,63 @@ namespace xsim
 		AngularForce m_ReactTorque{};
 	};
 
-	struct WheelTurnState final
+	struct WheelBrakeData final
 	{
-		constexpr WheelTurnState() = default;
-		constexpr WheelTurnState(const WheelTurnState&) = default;
-		constexpr WheelTurnState(WheelTurnState&&) = default;
-		~WheelTurnState() = default;
-		constexpr WheelTurnState& operator=(const WheelTurnState&) = default;
-		constexpr WheelTurnState& operator=(WheelTurnState&&) = default;
+		constexpr WheelBrakeData() = default;
+		constexpr WheelBrakeData(const WheelBrakeData&) = default;
+		constexpr WheelBrakeData(WheelBrakeData&&) = default;
+		~WheelBrakeData() = default;
+		constexpr WheelBrakeData& operator=(const WheelBrakeData&) = default;
+		constexpr WheelBrakeData& operator=(WheelBrakeData&&) = default;
 
-		Angle m_AngleMin{};
-		Angle m_Angle{};
-		Angle m_AngleMax{};
+		AngularForce m_BrakeTorque{};
+		AngularForce m_StaticBrakeTorque{};
+	};
+
+	struct RetarderState final
+	{
+		constexpr RetarderState() = default;
+		constexpr RetarderState(const RetarderState&) = default;
+		constexpr RetarderState(RetarderState&&) = default;
+		~RetarderState() = default;
+		constexpr RetarderState& operator=(const RetarderState&) = default;
+		constexpr RetarderState& operator=(RetarderState&&) = default;
+
+		int32_t m_Level{};
+		float m_LevelNorm{};
+		float m_Progress{};
+		AngularForce m_BrakeTorque{};
+	};
+
+	struct CouplerState final
+	{
+		constexpr CouplerState() = default;
+		constexpr CouplerState(const CouplerState&) = default;
+		constexpr CouplerState(CouplerState&&) = default;
+		~CouplerState() = default;
+		constexpr CouplerState& operator=(const CouplerState&) = default;
+		constexpr CouplerState& operator=(CouplerState&&) = default;
+
+		bool m_Coupled{};
+		float m_SpeedRatio{};
+		float m_TorqueRatio{};
+		float m_Capacity{};
+		float m_CollarClutch{};
+		float m_LockupClutch{};
+		AngularForce m_CouplingTorque{};
+	};
+
+	struct CatBrakeData final
+	{
+		constexpr CatBrakeData() = default;
+		constexpr CatBrakeData(const CatBrakeData&) = default;
+		constexpr CatBrakeData(CatBrakeData&&) = default;
+		~CatBrakeData() = default;
+		constexpr CatBrakeData& operator=(const CatBrakeData&) = default;
+		constexpr CatBrakeData& operator=(CatBrakeData&&) = default;
+
+		AngularForce m_BrakeTorque{};
+		AngularForce m_StaticBrakeTorque{};
 	};
 
 	struct SatForce final
@@ -1031,32 +1288,6 @@ namespace xsim
 		AngularForce m_ContactForce{};
 		AngularForce m_VibrationForce{};
 		AngularForce m_FrictionForce{};
-	};
-
-	struct SystemAsrState final
-	{
-		constexpr SystemAsrState() = default;
-		constexpr SystemAsrState(const SystemAsrState&) = default;
-		constexpr SystemAsrState(SystemAsrState&&) = default;
-		~SystemAsrState() = default;
-		constexpr SystemAsrState& operator=(const SystemAsrState&) = default;
-		constexpr SystemAsrState& operator=(SystemAsrState&&) = default;
-
-		SignalUnipolar m_Signal{};
-		float m_SmoothVelocity{};
-	};
-
-	struct SystemAbsState final
-	{
-		constexpr SystemAbsState() = default;
-		constexpr SystemAbsState(const SystemAbsState&) = default;
-		constexpr SystemAbsState(SystemAbsState&&) = default;
-		~SystemAbsState() = default;
-		constexpr SystemAbsState& operator=(const SystemAbsState&) = default;
-		constexpr SystemAbsState& operator=(SystemAbsState&&) = default;
-
-		SignalUnipolar m_Signal{};
-		float m_SmoothVelocity{};
 	};
 
 	struct VehicleControllerData final
@@ -1076,76 +1307,33 @@ namespace xsim
 		SatForce m_SatForce{};
 		ForceFeedback m_ForceFeedback{};
 		bool m_EngineStarter{};
-		SignalUnipolar m_ThrottlePedal{};
-		SignalUnipolar m_BrakePedal{};
-		SignalUnipolar m_ClutchPedal{};
+		SignalUnipolar m_Throttle{};
+		SignalUnipolar m_Brake{};
+		SignalUnipolar m_Clutch{};
 		SignalUnipolar m_HandBrake{};
+		bool m_HandBrakeToggle{};
 		int32_t m_GearChange{};
 		bool m_GearboxSemiAutoChange{};
 		bool m_NeutralPivot{};
 		int32_t m_RetarderChange{};
-		bool m_SystemAbaChange{};
-		bool m_SystemAbsChange{};
-		bool m_SystemAsrChange{};
-		bool m_SystemEscChange{};
 		bool m_DriveFrontChange{};
 		bool m_DriveRearChange{};
 		bool m_DiffLockFrontChange{};
 		bool m_DiffLockInterChange{};
 		bool m_DiffLockRearChange{};
-	};
-
-	struct VehicleGaugeData final
-	{
-		constexpr VehicleGaugeData() = default;
-		constexpr VehicleGaugeData(const VehicleGaugeData&) = default;
-		constexpr VehicleGaugeData(VehicleGaugeData&&) = default;
-		~VehicleGaugeData() = default;
-		constexpr VehicleGaugeData& operator=(const VehicleGaugeData&) = default;
-		constexpr VehicleGaugeData& operator=(VehicleGaugeData&&) = default;
-
-		float m_Speed{};
-		float m_SpeedSmoothed{};
-		float m_Rpm{};
-		float m_RpmSmoothed{};
-		float m_DistanceTraveled{};
-		float m_FuelTankReserve{};
-		float m_FuelTankReserveNorm{};
-		float m_BatteryReserveKwh{};
-		float m_BatteryReserveNorm{};
-		FuelConsumptionData m_FuelConsumption{};
-		FuelConsumptionData m_FuelConsumptionSmoothed{};
-		BatteryConsumptionData m_BatteryConsumption{};
-		BatteryConsumptionData m_BatteryConsumptionSmoothed{};
-		float m_RpmSmoothVel{};
-		float m_SpeedSmoothVel{};
-		FuelConsumptionData m_FuelConsumptionSmoothVel{};
-		float m_FuelLongDuration{};
-		BatteryConsumptionData m_BatteryConsumptionSmoothVel{};
-		float m_BatteryLongDuration{};
-	};
-
-	struct VehicleState final
-	{
-		constexpr VehicleState() = default;
-		constexpr VehicleState(const VehicleState&) = default;
-		constexpr VehicleState(VehicleState&&) = default;
-		~VehicleState() = default;
-		constexpr VehicleState& operator=(const VehicleState&) = default;
-		constexpr VehicleState& operator=(VehicleState&&) = default;
-
-		bool m_Precomputed{};
-		VehicleGaugeData m_Gauge{};
-		bool m_SystemAbaEnabled{};
-		bool m_SystemAbsEnabled{};
-		bool m_SystemAsrEnabled{};
-		bool m_SystemEscEnabled{};
-		float m_SystemAbaState{};
-		float m_SystemAbsState{};
-		float m_SystemAsrState{};
-		float m_SystemEscState{};
-		float m_FuelTankReserve{};
-		float m_BatteryReserveKwh{};
+		bool m_Horn{};
+		bool m_HeadlampsChange{};
+		bool m_HeadlampsBeamChange{};
+		bool m_TurnLeftChange{};
+		bool m_TurnRightChange{};
+		bool m_HazardWarningChange{};
+		bool m_EmergencyLightsChange{};
+		bool m_EmergencySirenChange{};
+		bool m_SystemAbaChange{};
+		bool m_SystemAbsChange{};
+		bool m_SystemAsrChange{};
+		bool m_SystemEscChange{};
+		bool m_PneumaticDoorChange{};
 	};
 
 	struct DriveData final
@@ -1174,6 +1362,46 @@ namespace xsim
 
 		DriveData m_Front{};
 		DriveData m_Rear{};
+	};
+
+	struct ElectronicsConfig final
+	{
+		constexpr ElectronicsConfig() = default;
+		constexpr ElectronicsConfig(const ElectronicsConfig&) = default;
+		constexpr ElectronicsConfig(ElectronicsConfig&&) = default;
+		~ElectronicsConfig() = default;
+		constexpr ElectronicsConfig& operator=(const ElectronicsConfig&) = default;
+		constexpr ElectronicsConfig& operator=(ElectronicsConfig&&) = default;
+
+		Entity m_VehicleEntity{};
+		SystemAbaConfig m_SystemAba{};
+		SystemAbsConfig m_SystemAbs{};
+		SystemAsrConfig m_SystemAsr{};
+		SystemEscConfig m_SystemEsc{};
+	};
+
+	struct ElectricsState final
+	{
+		constexpr ElectricsState() = default;
+		constexpr ElectricsState(const ElectricsState&) = default;
+		constexpr ElectricsState(ElectricsState&&) = default;
+		~ElectricsState() = default;
+		constexpr ElectricsState& operator=(const ElectricsState&) = default;
+		constexpr ElectricsState& operator=(ElectricsState&&) = default;
+
+		bool m_Horn{};
+		bool m_Drl{};
+		HeadlampsModeType m_Headlamps{};
+		bool m_BrakeLights{};
+		bool m_ReverseLights{};
+		HeadlampsBeamType m_HeadlampsBeam{};
+		bool m_TurnLeftSignal{};
+		bool m_TurnRightSignal{};
+		bool m_HazardWarningSignal{};
+		bool m_EmergencyVehicleLights{};
+		bool m_EmergencyVehicleSiren{};
+		bool m_Interrupt{};
+		float m_InterruptTime{};
 	};
 
 	struct BodyInterpData final
@@ -1221,6 +1449,47 @@ namespace xsim
 		Vector3F m_AngularAcceleration{};
 		Vector3F m_LocalAngularVelocity{};
 		Vector3F m_LocalAngularAcceleration{};
+	};
+
+	struct GearboxData final
+	{
+		constexpr GearboxData() = default;
+		constexpr GearboxData(const GearboxData&) = default;
+		constexpr GearboxData(GearboxData&&) = default;
+		~GearboxData() = default;
+		constexpr GearboxData& operator=(const GearboxData&) = default;
+		constexpr GearboxData& operator=(GearboxData&&) = default;
+
+		GearboxType m_Type{};
+		int32_t m_ForwardGearCount{};
+		Array<float, 16> m_ForwardGearRatios{};
+		float m_PivotGearRatio{};
+		int32_t m_ReverseGearCount{};
+		Array<float, 16> m_ReverseGearRatios{};
+		float m_FinalGearRatio{};
+		Inertia m_Inertia{};
+	};
+
+	struct AutoBoxData final
+	{
+		constexpr AutoBoxData() = default;
+		constexpr AutoBoxData(const AutoBoxData&) = default;
+		constexpr AutoBoxData(AutoBoxData&&) = default;
+		~AutoBoxData() = default;
+		constexpr AutoBoxData& operator=(const AutoBoxData&) = default;
+		constexpr AutoBoxData& operator=(AutoBoxData&&) = default;
+
+		AutoBoxType m_Type{};
+		float m_FirstGearSwitchDuration{};
+		float m_DefaultGearSwitchDuration{};
+		float m_Hysteresis{};
+		float m_Margin{};
+		float m_MinSpeedRatio{};
+		float m_GearUpCondDuration{};
+		float m_GearDownCondDuration{};
+		float m_ShiftCooldown{};
+		float m_ManualInputCooldown{};
+		float m_CvtSmooth{};
 	};
 
 	struct WheelShapeState final
@@ -1321,92 +1590,6 @@ namespace xsim
 		ManifoldIndex m_ManifoldIndex{};
 	};
 
-	struct VehicleSteeringData final
-	{
-		constexpr VehicleSteeringData() = default;
-		constexpr VehicleSteeringData(const VehicleSteeringData&) = default;
-		constexpr VehicleSteeringData(VehicleSteeringData&&) = default;
-		~VehicleSteeringData() = default;
-		constexpr VehicleSteeringData& operator=(const VehicleSteeringData&) = default;
-		constexpr VehicleSteeringData& operator=(VehicleSteeringData&&) = default;
-
-		VehicleSteeringType m_Type{};
-		AngleDeg m_LeverTurnAngle{};
-		AngleDeg m_FrontWheelTurnAngle{};
-		float m_ForceFeedbackScale{};
-	};
-
-	struct VehicleConfig final
-	{
-		constexpr VehicleConfig() = default;
-		constexpr VehicleConfig(const VehicleConfig&) = default;
-		constexpr VehicleConfig(VehicleConfig&&) = default;
-		~VehicleConfig() = default;
-		constexpr VehicleConfig& operator=(const VehicleConfig&) = default;
-		constexpr VehicleConfig& operator=(VehicleConfig&&) = default;
-
-		int32_t m_InstanceId{};
-		int32_t m_ApiId{};
-		Entity m_EngineEntity{};
-		Entity m_TransmissionEntity{};
-		VehicleCategory m_Category{};
-		Mass m_Mass{};
-		VehicleSteeringData m_Steering{};
-		SystemAbaConfig m_SystemAba{};
-		SystemAbsConfig m_SystemAbs{};
-		SystemAsrConfig m_SystemAsr{};
-		SystemEscConfig m_SystemEsc{};
-		float m_FuelTankCapacity{};
-		float m_BatteryCapacityKwh{};
-		uint8_t m_SoundPresetId{};
-	};
-
-	struct ElectricEngineState final
-	{
-		constexpr ElectricEngineState() = default;
-		constexpr ElectricEngineState(const ElectricEngineState&) = default;
-		constexpr ElectricEngineState(ElectricEngineState&&) = default;
-		~ElectricEngineState() = default;
-		constexpr ElectricEngineState& operator=(const ElectricEngineState&) = default;
-		constexpr ElectricEngineState& operator=(ElectricEngineState&&) = default;
-
-		PID m_ControllerPid{};
-		bool m_Reverse{};
-	};
-
-	struct CombustionEngineState final
-	{
-		constexpr CombustionEngineState() = default;
-		constexpr CombustionEngineState(const CombustionEngineState&) = default;
-		constexpr CombustionEngineState(CombustionEngineState&&) = default;
-		~CombustionEngineState() = default;
-		constexpr CombustionEngineState& operator=(const CombustionEngineState&) = default;
-		constexpr CombustionEngineState& operator=(CombustionEngineState&&) = default;
-
-		PID m_InjectionRqv{};
-	};
-
-	struct MotorEngineState final
-	{
-		constexpr MotorEngineState() = default;
-		constexpr MotorEngineState(const MotorEngineState&) = default;
-		constexpr MotorEngineState(MotorEngineState&&) = default;
-		~MotorEngineState() = default;
-		constexpr MotorEngineState& operator=(const MotorEngineState&) = default;
-		constexpr MotorEngineState& operator=(MotorEngineState&&) = default;
-
-		EngineState m_EngineState{};
-		Rpm m_Rpm{};
-		float m_RpmNorm{};
-		AngularForce m_Torque{};
-		Power m_Power{};
-		float m_Load{};
-		FuelConsumptionData m_FuelConsumption{};
-		BatteryConsumptionData m_BatteryConsumption{};
-		CombustionEngineState m_CombustionEngine{};
-		ElectricEngineState m_ElectricEngine{};
-	};
-
 	struct InOutFeedback final
 	{
 		constexpr InOutFeedback() = default;
@@ -1463,6 +1646,196 @@ namespace xsim
 		InOutFeedback m_FeedbackState{};
 	};
 
+	struct VehicleSteeringData final
+	{
+		constexpr VehicleSteeringData() = default;
+		constexpr VehicleSteeringData(const VehicleSteeringData&) = default;
+		constexpr VehicleSteeringData(VehicleSteeringData&&) = default;
+		~VehicleSteeringData() = default;
+		constexpr VehicleSteeringData& operator=(const VehicleSteeringData&) = default;
+		constexpr VehicleSteeringData& operator=(VehicleSteeringData&&) = default;
+
+		VehicleSteeringType m_Type{};
+		AngleDeg m_LeverTurnAngle{};
+		AngleDeg m_FrontWheelTurnAngle{};
+		float m_ForceFeedbackScale{};
+	};
+
+	struct VehicleConfig final
+	{
+		constexpr VehicleConfig() = default;
+		constexpr VehicleConfig(const VehicleConfig&) = default;
+		constexpr VehicleConfig(VehicleConfig&&) = default;
+		~VehicleConfig() = default;
+		constexpr VehicleConfig& operator=(const VehicleConfig&) = default;
+		constexpr VehicleConfig& operator=(VehicleConfig&&) = default;
+
+		int32_t m_InstanceId{};
+		Entity m_EngineEntity{};
+		Entity m_TransmissionEntity{};
+		VehicleCategory m_Category{};
+		Mass m_Mass{};
+		VehicleSteeringData m_Steering{};
+		SystemAbaConfig m_SystemAba{};
+		SystemAbsConfig m_SystemAbs{};
+		SystemAsrConfig m_SystemAsr{};
+		SystemEscConfig m_SystemEsc{};
+		float m_FuelTankCapacity{};
+		float m_BatteryCapacityKwh{};
+		uint8_t m_SoundPresetId{};
+	};
+
+	struct VehicleDoorStateArray final
+	{
+		constexpr VehicleDoorStateArray() = default;
+		constexpr VehicleDoorStateArray(const VehicleDoorStateArray&) = default;
+		constexpr VehicleDoorStateArray(VehicleDoorStateArray&&) = default;
+		~VehicleDoorStateArray() = default;
+		constexpr VehicleDoorStateArray& operator=(const VehicleDoorStateArray&) = default;
+		constexpr VehicleDoorStateArray& operator=(VehicleDoorStateArray&&) = default;
+
+		int32_t m_Count{};
+		VehicleDoorState m_State0{};
+		VehicleDoorState m_State1{};
+		VehicleDoorState m_State2{};
+		VehicleDoorState m_State3{};
+	};
+
+	struct DashboardState final
+	{
+		constexpr DashboardState() = default;
+		constexpr DashboardState(const DashboardState&) = default;
+		constexpr DashboardState(DashboardState&&) = default;
+		~DashboardState() = default;
+		constexpr DashboardState& operator=(const DashboardState&) = default;
+		constexpr DashboardState& operator=(DashboardState&&) = default;
+
+		float m_Speed{};
+		float m_SpeedSmoothed{};
+		float m_SpeedSmoothVel{};
+		float m_DistanceTraveled{};
+		float m_Rpm{};
+		float m_RpmSmoothed{};
+		float m_RpmSmoothVel{};
+		float m_Torque{};
+		float m_Power{};
+		VehicleGearboxMode m_GearboxMode{};
+		int32_t m_Gear{};
+		bool m_MotorReverse{};
+		bool m_NeutralPivot{};
+		bool m_HandBrake{};
+		int32_t m_Retarder{};
+		float m_RetarderNorm{};
+		VehicleHeadlampsMode m_Headlamps{};
+		VehicleSignalMode m_SignalMode{};
+		bool m_SignalInterrupt{};
+		bool m_DriveFront{};
+		bool m_DriveRear{};
+		bool m_DiffLockFront{};
+		bool m_DiffLockInter{};
+		bool m_DiffLockRear{};
+		float m_FuelTankReserve{};
+		float m_FuelTankReserveNorm{};
+		FuelConsumptionData m_FuelConsumption{};
+		FuelConsumptionData m_FuelConsumptionSmoothed{};
+		FuelConsumptionData m_FuelConsumptionSmoothVel{};
+		float m_FuelLongDuration{};
+		float m_BatteryReserveKwh{};
+		float m_BatteryReserveNorm{};
+		BatteryConsumptionData m_BatteryConsumption{};
+		BatteryConsumptionData m_BatteryConsumptionSmoothed{};
+		BatteryConsumptionData m_BatteryConsumptionSmoothVel{};
+		float m_BatteryLongDuration{};
+		VehicleSystemState m_SystemAbaState{};
+		VehicleSystemState m_SystemAbsState{};
+		VehicleSystemState m_SystemAsrState{};
+		VehicleSystemState m_SystemEscState{};
+		VehicleDoorStateArray m_Doors{};
+	};
+
+	struct ElectricEngineState final
+	{
+		constexpr ElectricEngineState() = default;
+		constexpr ElectricEngineState(const ElectricEngineState&) = default;
+		constexpr ElectricEngineState(ElectricEngineState&&) = default;
+		~ElectricEngineState() = default;
+		constexpr ElectricEngineState& operator=(const ElectricEngineState&) = default;
+		constexpr ElectricEngineState& operator=(ElectricEngineState&&) = default;
+
+		PID m_ControllerPid{};
+		bool m_Reverse{};
+	};
+
+	struct CombustionEngineState final
+	{
+		constexpr CombustionEngineState() = default;
+		constexpr CombustionEngineState(const CombustionEngineState&) = default;
+		constexpr CombustionEngineState(CombustionEngineState&&) = default;
+		~CombustionEngineState() = default;
+		constexpr CombustionEngineState& operator=(const CombustionEngineState&) = default;
+		constexpr CombustionEngineState& operator=(CombustionEngineState&&) = default;
+
+		PID m_InjectionRqv{};
+		PID m_ThrottlePid{};
+		float m_Throttle{};
+	};
+
+	struct MotorEngineState final
+	{
+		constexpr MotorEngineState() = default;
+		constexpr MotorEngineState(const MotorEngineState&) = default;
+		constexpr MotorEngineState(MotorEngineState&&) = default;
+		~MotorEngineState() = default;
+		constexpr MotorEngineState& operator=(const MotorEngineState&) = default;
+		constexpr MotorEngineState& operator=(MotorEngineState&&) = default;
+
+		EngineState m_EngineState{};
+		Rpm m_Rpm{};
+		float m_RpmNorm{};
+		AngularForce m_Torque{};
+		Power m_Power{};
+		float m_Load{};
+		FuelConsumptionData m_FuelConsumption{};
+		BatteryConsumptionData m_BatteryConsumption{};
+		CombustionEngineState m_CombustionEngine{};
+		ElectricEngineState m_ElectricEngine{};
+	};
+
+	struct AutoBoxState final
+	{
+		constexpr AutoBoxState() = default;
+		constexpr AutoBoxState(const AutoBoxState&) = default;
+		constexpr AutoBoxState(AutoBoxState&&) = default;
+		~AutoBoxState() = default;
+		constexpr AutoBoxState& operator=(const AutoBoxState&) = default;
+		constexpr AutoBoxState& operator=(AutoBoxState&&) = default;
+
+		AutoBoxDriveMode m_DriveMode{};
+		bool m_SemiAuto{};
+		int32_t m_DeltaGear{};
+		float m_ShiftRegress{};
+		AutoShiftCond m_ShiftUp{};
+		AutoShiftCond m_ShiftDown{};
+		float m_Cooldown{};
+		float m_CvtProgress{};
+		float m_CvtProgressVel{};
+	};
+
+	struct TransmissionState final
+	{
+		constexpr TransmissionState() = default;
+		constexpr TransmissionState(const TransmissionState&) = default;
+		constexpr TransmissionState(TransmissionState&&) = default;
+		~TransmissionState() = default;
+		constexpr TransmissionState& operator=(const TransmissionState&) = default;
+		constexpr TransmissionState& operator=(TransmissionState&&) = default;
+
+		GearboxState m_Gearbox{};
+		CouplerState m_Coupler{};
+		AutoBoxState m_AutoBox{};
+		RetarderState m_Retarder{};
+	};
+
 	struct DriveOutput final
 	{
 		constexpr DriveOutput() = default;
@@ -1501,47 +1874,6 @@ namespace xsim
 		InOutState m_InOutState{};
 		float m_PrecomputedFrontGeometryCenter{};
 		float m_PrecomputedRearGeometryCenter{};
-	};
-
-	struct GearboxData final
-	{
-		constexpr GearboxData() = default;
-		constexpr GearboxData(const GearboxData&) = default;
-		constexpr GearboxData(GearboxData&&) = default;
-		~GearboxData() = default;
-		constexpr GearboxData& operator=(const GearboxData&) = default;
-		constexpr GearboxData& operator=(GearboxData&&) = default;
-
-		GearboxType m_Type{};
-		int32_t m_ForwardGearCount{};
-		Array<float, 16> m_ForwardGearRatios{};
-		float m_PivotGearRatio{};
-		int32_t m_ReverseGearCount{};
-		Array<float, 16> m_ReverseGearRatios{};
-		float m_FinalGearRatio{};
-		Inertia m_Inertia{};
-	};
-
-	struct AutoBoxData final
-	{
-		constexpr AutoBoxData() = default;
-		constexpr AutoBoxData(const AutoBoxData&) = default;
-		constexpr AutoBoxData(AutoBoxData&&) = default;
-		~AutoBoxData() = default;
-		constexpr AutoBoxData& operator=(const AutoBoxData&) = default;
-		constexpr AutoBoxData& operator=(AutoBoxData&&) = default;
-
-		AutoBoxType m_Type{};
-		float m_FirstGearSwitchDuration{};
-		float m_DefaultGearSwitchDuration{};
-		float m_Hysteresis{};
-		float m_Margin{};
-		float m_MinSpeedRatio{};
-		float m_GearUpCondDuration{};
-		float m_GearDownCondDuration{};
-		float m_ShiftCooldown{};
-		float m_ManualInputCooldown{};
-		float m_CvtSmooth{};
 	};
 
 	struct WheelSuspensionData final
@@ -1615,6 +1947,21 @@ namespace xsim
 		Array<float, 32> m_Values{};
 	};
 
+	struct HydraulicTorqueConverterData final
+	{
+		constexpr HydraulicTorqueConverterData() = default;
+		constexpr HydraulicTorqueConverterData(const HydraulicTorqueConverterData&) = default;
+		constexpr HydraulicTorqueConverterData(HydraulicTorqueConverterData&&) = default;
+		~HydraulicTorqueConverterData() = default;
+		constexpr HydraulicTorqueConverterData& operator=(const HydraulicTorqueConverterData&) = default;
+		constexpr HydraulicTorqueConverterData& operator=(HydraulicTorqueConverterData&&) = default;
+
+		CurveData m_SpeedRatioToTorqueRatio{};
+		float m_CapacityScale{};
+		CurveData m_SpeedRatioToCapacityNormalized{};
+		LockupClutchData m_Lockup{};
+	};
+
 	struct FrictionClutchData final
 	{
 		constexpr FrictionClutchData() = default;
@@ -1626,6 +1973,20 @@ namespace xsim
 
 		CurveData m_InputToPressure{};
 		float m_EngineMaxTorqueScale{};
+	};
+
+	struct CouplerData final
+	{
+		constexpr CouplerData() = default;
+		constexpr CouplerData(const CouplerData&) = default;
+		constexpr CouplerData(CouplerData&&) = default;
+		~CouplerData() = default;
+		constexpr CouplerData& operator=(const CouplerData&) = default;
+		constexpr CouplerData& operator=(CouplerData&&) = default;
+
+		CouplerType m_Type{};
+		FrictionClutchData m_Friction{};
+		HydraulicTorqueConverterData m_Hydraulic{};
 	};
 
 	struct WheelSatData final
@@ -1716,23 +2077,6 @@ namespace xsim
 		VehicleConfigInfo m_Vehicle{};
 	};
 
-	struct RetarderData final
-	{
-		constexpr RetarderData() = default;
-		constexpr RetarderData(const RetarderData&) = default;
-		constexpr RetarderData(RetarderData&&) = default;
-		~RetarderData() = default;
-		constexpr RetarderData& operator=(const RetarderData&) = default;
-		constexpr RetarderData& operator=(RetarderData&&) = default;
-
-		RetarderType m_Type{};
-		int32_t m_LevelCount{};
-		float m_LevelDuration{};
-		float m_MaxThrottleInput{};
-		AngularForce m_MaxBrakeTorque{};
-		CurveData m_RpmToTorqueNormalized{};
-	};
-
 	struct ElectricEngineData final
 	{
 		constexpr ElectricEngineData() = default;
@@ -1804,33 +2148,21 @@ namespace xsim
 		uint8_t m_FxPresetId{};
 	};
 
-	struct HydraulicTorqueConverterData final
+	struct RetarderData final
 	{
-		constexpr HydraulicTorqueConverterData() = default;
-		constexpr HydraulicTorqueConverterData(const HydraulicTorqueConverterData&) = default;
-		constexpr HydraulicTorqueConverterData(HydraulicTorqueConverterData&&) = default;
-		~HydraulicTorqueConverterData() = default;
-		constexpr HydraulicTorqueConverterData& operator=(const HydraulicTorqueConverterData&) = default;
-		constexpr HydraulicTorqueConverterData& operator=(HydraulicTorqueConverterData&&) = default;
+		constexpr RetarderData() = default;
+		constexpr RetarderData(const RetarderData&) = default;
+		constexpr RetarderData(RetarderData&&) = default;
+		~RetarderData() = default;
+		constexpr RetarderData& operator=(const RetarderData&) = default;
+		constexpr RetarderData& operator=(RetarderData&&) = default;
 
-		CurveData m_SpeedRatioToTorqueRatio{};
-		float m_CapacityScale{};
-		CurveData m_SpeedRatioToCapacityNormalized{};
-		LockupClutchData m_Lockup{};
-	};
-
-	struct CouplerData final
-	{
-		constexpr CouplerData() = default;
-		constexpr CouplerData(const CouplerData&) = default;
-		constexpr CouplerData(CouplerData&&) = default;
-		~CouplerData() = default;
-		constexpr CouplerData& operator=(const CouplerData&) = default;
-		constexpr CouplerData& operator=(CouplerData&&) = default;
-
-		CouplerType m_Type{};
-		FrictionClutchData m_Friction{};
-		HydraulicTorqueConverterData m_Hydraulic{};
+		RetarderType m_Type{};
+		int32_t m_LevelCount{};
+		float m_LevelDuration{};
+		float m_MaxThrottleInput{};
+		AngularForce m_MaxBrakeTorque{};
+		CurveData m_RpmToTorqueNormalized{};
 	};
 
 	struct TransmissionConfig final
@@ -1848,6 +2180,106 @@ namespace xsim
 		AutoBoxData m_AutoBox{};
 		RetarderData m_Retarder{};
 		DrivetrainData m_Drivetrain{};
+	};
+
+	struct PneumaticDoorState final
+	{
+		constexpr PneumaticDoorState() = default;
+		constexpr PneumaticDoorState(const PneumaticDoorState&) = default;
+		constexpr PneumaticDoorState(PneumaticDoorState&&) = default;
+		~PneumaticDoorState() = default;
+		constexpr PneumaticDoorState& operator=(const PneumaticDoorState&) = default;
+		constexpr PneumaticDoorState& operator=(PneumaticDoorState&&) = default;
+
+		PneumaticDoorSignalType m_Signal{};
+		float m_Progress{};
+		float m_ProgressVel{};
+	};
+
+	struct PneumaticDoorStateArray final
+	{
+		constexpr PneumaticDoorStateArray() = default;
+		constexpr PneumaticDoorStateArray(const PneumaticDoorStateArray&) = default;
+		constexpr PneumaticDoorStateArray(PneumaticDoorStateArray&&) = default;
+		~PneumaticDoorStateArray() = default;
+		constexpr PneumaticDoorStateArray& operator=(const PneumaticDoorStateArray&) = default;
+		constexpr PneumaticDoorStateArray& operator=(PneumaticDoorStateArray&&) = default;
+
+		int32_t m_Count{};
+		PneumaticDoorState m_State0{};
+		PneumaticDoorState m_State1{};
+		PneumaticDoorState m_State2{};
+		PneumaticDoorState m_State3{};
+	};
+
+	struct PneumaticsState final
+	{
+		constexpr PneumaticsState() = default;
+		constexpr PneumaticsState(const PneumaticsState&) = default;
+		constexpr PneumaticsState(PneumaticsState&&) = default;
+		~PneumaticsState() = default;
+		constexpr PneumaticsState& operator=(const PneumaticsState&) = default;
+		constexpr PneumaticsState& operator=(PneumaticsState&&) = default;
+
+		PneumaticDoorStateArray m_Doors{};
+	};
+
+	struct ThrottleControlData final
+	{
+		constexpr ThrottleControlData() = default;
+		constexpr ThrottleControlData(const ThrottleControlData&) = default;
+		constexpr ThrottleControlData(ThrottleControlData&&) = default;
+		~ThrottleControlData() = default;
+		constexpr ThrottleControlData& operator=(const ThrottleControlData&) = default;
+		constexpr ThrottleControlData& operator=(ThrottleControlData&&) = default;
+
+		ThrottleControlType m_Type{};
+		Vector3F m_Pid{};
+		float m_Lag{};
+	};
+
+	struct CombustionEngineData final
+	{
+		constexpr CombustionEngineData() = default;
+		constexpr CombustionEngineData(const CombustionEngineData&) = default;
+		constexpr CombustionEngineData(CombustionEngineData&&) = default;
+		~CombustionEngineData() = default;
+		constexpr CombustionEngineData& operator=(const CombustionEngineData&) = default;
+		constexpr CombustionEngineData& operator=(CombustionEngineData&&) = default;
+
+		Inertia m_Inertia{};
+		Rpm m_StallRpm{};
+		Rpm m_MinRpm{};
+		Rpm m_MaxRpm{};
+		CurveData m_RpmToMotorTorque{};
+		CurveData m_RpmToBrakeTorque{};
+		CurveData m_RpmToFuelConsumptionGpKwh{};
+		ThrottleControlData m_ThrottleControl{};
+		EngineStarterData m_Starter{};
+		AngularForce m_PrecomputedMaxTorque{};
+		Rpm m_PrecomputedMaxTorqueRpm{};
+		float m_PrecomputedMaxTorqueRpmNorm{};
+		Power m_PrecomputedMaxPower{};
+		Rpm m_PrecomputedMaxPowerRpm{};
+		float m_PrecomputedMaxPowerRpmNorm{};
+		float m_PrecomputedMaxFuelConsumptionGpKwh{};
+	};
+
+	struct MotorEngineConfig final
+	{
+		constexpr MotorEngineConfig() = default;
+		constexpr MotorEngineConfig(const MotorEngineConfig&) = default;
+		constexpr MotorEngineConfig(MotorEngineConfig&&) = default;
+		~MotorEngineConfig() = default;
+		constexpr MotorEngineConfig& operator=(const MotorEngineConfig&) = default;
+		constexpr MotorEngineConfig& operator=(MotorEngineConfig&&) = default;
+
+		Entity m_VehicleEntity{};
+		bool m_Precomputed{};
+		MotorEngineType m_Type{};
+		CombustionEngineData m_CombustionEngine{};
+		ElectricEngineData m_ElectricEngine{};
+		uint8_t m_SoundPresetId{};
 	};
 
 	struct SurfaceData final
@@ -1932,62 +2364,6 @@ namespace xsim
 		MirrorConfig m_RightMirror{};
 	};
 
-	struct EngineStarterData final
-	{
-		constexpr EngineStarterData() = default;
-		constexpr EngineStarterData(const EngineStarterData&) = default;
-		constexpr EngineStarterData(EngineStarterData&&) = default;
-		~EngineStarterData() = default;
-		constexpr EngineStarterData& operator=(const EngineStarterData&) = default;
-		constexpr EngineStarterData& operator=(EngineStarterData&&) = default;
-
-		AngularForce m_Torque{};
-	};
-
-	struct CombustionEngineData final
-	{
-		constexpr CombustionEngineData() = default;
-		constexpr CombustionEngineData(const CombustionEngineData&) = default;
-		constexpr CombustionEngineData(CombustionEngineData&&) = default;
-		~CombustionEngineData() = default;
-		constexpr CombustionEngineData& operator=(const CombustionEngineData&) = default;
-		constexpr CombustionEngineData& operator=(CombustionEngineData&&) = default;
-
-		Inertia m_Inertia{};
-		Rpm m_StallRpm{};
-		Rpm m_MinRpm{};
-		Rpm m_MaxRpm{};
-		CurveData m_RpmToMotorTorque{};
-		CurveData m_RpmToBrakeTorque{};
-		CurveData m_RpmToFuelConsumptionGpKwh{};
-		FuelInjectionData m_Injection{};
-		EngineStarterData m_Starter{};
-		AngularForce m_PrecomputedMaxTorque{};
-		Rpm m_PrecomputedMaxTorqueRpm{};
-		float m_PrecomputedMaxTorqueRpmNorm{};
-		Power m_PrecomputedMaxPower{};
-		Rpm m_PrecomputedMaxPowerRpm{};
-		float m_PrecomputedMaxPowerRpmNorm{};
-		float m_PrecomputedMaxFuelConsumptionGpKwh{};
-	};
-
-	struct MotorEngineConfig final
-	{
-		constexpr MotorEngineConfig() = default;
-		constexpr MotorEngineConfig(const MotorEngineConfig&) = default;
-		constexpr MotorEngineConfig(MotorEngineConfig&&) = default;
-		~MotorEngineConfig() = default;
-		constexpr MotorEngineConfig& operator=(const MotorEngineConfig&) = default;
-		constexpr MotorEngineConfig& operator=(MotorEngineConfig&&) = default;
-
-		Entity m_VehicleEntity{};
-		bool m_Precomputed{};
-		MotorEngineType m_Type{};
-		CombustionEngineData m_CombustionEngine{};
-		ElectricEngineData m_ElectricEngine{};
-		uint8_t m_SoundPresetId{};
-	};
-
 	struct MotorVehicleConfigInfo final
 	{
 		constexpr MotorVehicleConfigInfo() = default;
@@ -2019,6 +2395,7 @@ namespace xsim
 		bool m_HasTrailer{};
 	};
 
+	static_assert(std::is_standard_layout<AutoBoxDriveMode>::value, "Sanity check failure: TypeEnum AutoBoxDriveMode is not standard layout");
 	static_assert(std::is_standard_layout<AutoBoxType>::value, "Sanity check failure: TypeEnum AutoBoxType is not standard layout");
 	static_assert(std::is_standard_layout<AxisIndex>::value, "Sanity check failure: TypeEnum AxisIndex is not standard layout");
 	static_assert(std::is_standard_layout<CouplerType>::value, "Sanity check failure: TypeEnum CouplerType is not standard layout");
@@ -2026,13 +2403,22 @@ namespace xsim
 	static_assert(std::is_standard_layout<DriveType>::value, "Sanity check failure: TypeEnum DriveType is not standard layout");
 	static_assert(std::is_standard_layout<EngineState>::value, "Sanity check failure: TypeEnum EngineState is not standard layout");
 	static_assert(std::is_standard_layout<GearboxType>::value, "Sanity check failure: TypeEnum GearboxType is not standard layout");
+	static_assert(std::is_standard_layout<HeadlampsBeamType>::value, "Sanity check failure: TypeEnum HeadlampsBeamType is not standard layout");
+	static_assert(std::is_standard_layout<HeadlampsModeType>::value, "Sanity check failure: TypeEnum HeadlampsModeType is not standard layout");
 	static_assert(std::is_standard_layout<InOutBindMode>::value, "Sanity check failure: TypeEnum InOutBindMode is not standard layout");
 	static_assert(std::is_standard_layout<InterpMethod>::value, "Sanity check failure: TypeEnum InterpMethod is not standard layout");
 	static_assert(std::is_standard_layout<MotorEngineType>::value, "Sanity check failure: TypeEnum MotorEngineType is not standard layout");
+	static_assert(std::is_standard_layout<PneumaticDoorSignalType>::value, "Sanity check failure: TypeEnum PneumaticDoorSignalType is not standard layout");
 	static_assert(std::is_standard_layout<RetarderType>::value, "Sanity check failure: TypeEnum RetarderType is not standard layout");
 	static_assert(std::is_standard_layout<SurfaceType>::value, "Sanity check failure: TypeEnum SurfaceType is not standard layout");
+	static_assert(std::is_standard_layout<ThrottleControlType>::value, "Sanity check failure: TypeEnum ThrottleControlType is not standard layout");
 	static_assert(std::is_standard_layout<VehicleCategory>::value, "Sanity check failure: TypeEnum VehicleCategory is not standard layout");
+	static_assert(std::is_standard_layout<VehicleDoorState>::value, "Sanity check failure: TypeEnum VehicleDoorState is not standard layout");
+	static_assert(std::is_standard_layout<VehicleGearboxMode>::value, "Sanity check failure: TypeEnum VehicleGearboxMode is not standard layout");
+	static_assert(std::is_standard_layout<VehicleHeadlampsMode>::value, "Sanity check failure: TypeEnum VehicleHeadlampsMode is not standard layout");
+	static_assert(std::is_standard_layout<VehicleSignalMode>::value, "Sanity check failure: TypeEnum VehicleSignalMode is not standard layout");
 	static_assert(std::is_standard_layout<VehicleSteeringType>::value, "Sanity check failure: TypeEnum VehicleSteeringType is not standard layout");
+	static_assert(std::is_standard_layout<VehicleSystemState>::value, "Sanity check failure: TypeEnum VehicleSystemState is not standard layout");
 	static_assert(std::is_standard_layout<WheelIndex>::value, "Sanity check failure: TypeEnum WheelIndex is not standard layout");
 	static_assert(std::is_standard_layout<WheelSuspensionType>::value, "Sanity check failure: TypeEnum WheelSuspensionType is not standard layout");
 	static_assert(std::is_standard_layout<WrapMethod>::value, "Sanity check failure: TypeEnum WrapMethod is not standard layout");
@@ -2042,13 +2428,17 @@ namespace xsim
 	static_assert(std::is_standard_layout<AngleDeg>::value, "Sanity check failure: TypeAlias AngleDeg is not standard layout");
 	static_assert(std::is_standard_layout<AngularForce>::value, "Sanity check failure: TypeAlias AngularForce is not standard layout");
 	static_assert(std::is_standard_layout<AngularVelocity>::value, "Sanity check failure: TypeAlias AngularVelocity is not standard layout");
+	static_assert(std::is_standard_layout<AutoShiftCond>::value, "Sanity check failure: TypeStruct AutoShiftCond is not standard layout");
 	static_assert(std::is_standard_layout<BatteryConsumptionData>::value, "Sanity check failure: TypeStruct BatteryConsumptionData is not standard layout");
+	static_assert(std::is_standard_layout<BodyCollisionData>::value, "Sanity check failure: TypeStruct BodyCollisionData is not standard layout");
+	static_assert(std::is_standard_layout<CameraState>::value, "Sanity check failure: TypeStruct CameraState is not standard layout");
 	static_assert(std::is_standard_layout<CatSegmentSuspensionData>::value, "Sanity check failure: TypeStruct CatSegmentSuspensionData is not standard layout");
 	static_assert(std::is_standard_layout<DeltaTime>::value, "Sanity check failure: TypeAlias DeltaTime is not standard layout");
+	static_assert(std::is_standard_layout<ElectronicsState>::value, "Sanity check failure: TypeStruct ElectronicsState is not standard layout");
 	static_assert(std::is_standard_layout<Entity>::value, "Sanity check failure: TypeStruct Entity is not standard layout");
 	static_assert(std::is_standard_layout<ForceFeedback>::value, "Sanity check failure: TypeStruct ForceFeedback is not standard layout");
 	static_assert(std::is_standard_layout<FuelConsumptionData>::value, "Sanity check failure: TypeStruct FuelConsumptionData is not standard layout");
-	static_assert(std::is_standard_layout<FuelInjectionData>::value, "Sanity check failure: TypeStruct FuelInjectionData is not standard layout");
+	static_assert(std::is_standard_layout<GearboxState>::value, "Sanity check failure: TypeStruct GearboxState is not standard layout");
 	static_assert(std::is_standard_layout<Inertia>::value, "Sanity check failure: TypeAlias Inertia is not standard layout");
 	static_assert(std::is_standard_layout<Length>::value, "Sanity check failure: TypeAlias Length is not standard layout");
 	static_assert(std::is_standard_layout<LinearForce>::value, "Sanity check failure: TypeAlias LinearForce is not standard layout");
@@ -2069,68 +2459,80 @@ namespace xsim
 	static_assert(std::is_standard_layout<SystemAbsConfig>::value, "Sanity check failure: TypeStruct SystemAbsConfig is not standard layout");
 	static_assert(std::is_standard_layout<SystemAsrConfig>::value, "Sanity check failure: TypeStruct SystemAsrConfig is not standard layout");
 	static_assert(std::is_standard_layout<SystemEscConfig>::value, "Sanity check failure: TypeStruct SystemEscConfig is not standard layout");
+	static_assert(std::is_standard_layout<VehicleApiData>::value, "Sanity check failure: TypeStruct VehicleApiData is not standard layout");
+	static_assert(std::is_standard_layout<VehicleState>::value, "Sanity check failure: TypeStruct VehicleState is not standard layout");
 	static_assert(std::is_standard_layout<WheelTransformState>::value, "Sanity check failure: TypeStruct WheelTransformState is not standard layout");
-	static_assert(std::is_standard_layout<CatSegmentArray>::value, "Sanity check failure: TypeStruct CatSegmentArray is not standard layout");
-	static_assert(std::is_standard_layout<WheelBrakeData>::value, "Sanity check failure: TypeStruct WheelBrakeData is not standard layout");
-	static_assert(std::is_standard_layout<CatBrakeData>::value, "Sanity check failure: TypeStruct CatBrakeData is not standard layout");
-	static_assert(std::is_standard_layout<CatTrackState>::value, "Sanity check failure: TypeStruct CatTrackState is not standard layout");
 	static_assert(std::is_standard_layout<ContactSlip>::value, "Sanity check failure: TypeStruct ContactSlip is not standard layout");
-	static_assert(std::is_standard_layout<ContactForces>::value, "Sanity check failure: TypeStruct ContactForces is not standard layout");
 	static_assert(std::is_standard_layout<WheelTurnState>::value, "Sanity check failure: TypeStruct WheelTurnState is not standard layout");
-	static_assert(std::is_standard_layout<SatForce>::value, "Sanity check failure: TypeStruct SatForce is not standard layout");
 	static_assert(std::is_standard_layout<SystemAsrState>::value, "Sanity check failure: TypeStruct SystemAsrState is not standard layout");
 	static_assert(std::is_standard_layout<SystemAbsState>::value, "Sanity check failure: TypeStruct SystemAbsState is not standard layout");
+	static_assert(std::is_standard_layout<CatSegmentArray>::value, "Sanity check failure: TypeStruct CatSegmentArray is not standard layout");
+	static_assert(std::is_standard_layout<DashboardConfig>::value, "Sanity check failure: TypeStruct DashboardConfig is not standard layout");
+	static_assert(std::is_standard_layout<EngineStarterData>::value, "Sanity check failure: TypeStruct EngineStarterData is not standard layout");
+	static_assert(std::is_standard_layout<ContactForces>::value, "Sanity check failure: TypeStruct ContactForces is not standard layout");
+	static_assert(std::is_standard_layout<WheelBrakeData>::value, "Sanity check failure: TypeStruct WheelBrakeData is not standard layout");
+	static_assert(std::is_standard_layout<RetarderState>::value, "Sanity check failure: TypeStruct RetarderState is not standard layout");
+	static_assert(std::is_standard_layout<CouplerState>::value, "Sanity check failure: TypeStruct CouplerState is not standard layout");
+	static_assert(std::is_standard_layout<CatBrakeData>::value, "Sanity check failure: TypeStruct CatBrakeData is not standard layout");
+	static_assert(std::is_standard_layout<SatForce>::value, "Sanity check failure: TypeStruct SatForce is not standard layout");
 	static_assert(std::is_standard_layout<VehicleControllerData>::value, "Sanity check failure: TypeStruct VehicleControllerData is not standard layout");
-	static_assert(std::is_standard_layout<VehicleGaugeData>::value, "Sanity check failure: TypeStruct VehicleGaugeData is not standard layout");
-	static_assert(std::is_standard_layout<VehicleState>::value, "Sanity check failure: TypeStruct VehicleState is not standard layout");
 	static_assert(std::is_standard_layout<DriveData>::value, "Sanity check failure: TypeStruct DriveData is not standard layout");
 	static_assert(std::is_standard_layout<DrivetrainData>::value, "Sanity check failure: TypeStruct DrivetrainData is not standard layout");
+	static_assert(std::is_standard_layout<ElectronicsConfig>::value, "Sanity check failure: TypeStruct ElectronicsConfig is not standard layout");
+	static_assert(std::is_standard_layout<ElectricsState>::value, "Sanity check failure: TypeStruct ElectricsState is not standard layout");
 	static_assert(std::is_standard_layout<BodyInterpData>::value, "Sanity check failure: TypeStruct BodyInterpData is not standard layout");
 	static_assert(std::is_standard_layout<BodyTransformData>::value, "Sanity check failure: TypeStruct BodyTransformData is not standard layout");
 	static_assert(std::is_standard_layout<BodyTelemetryData>::value, "Sanity check failure: TypeStruct BodyTelemetryData is not standard layout");
+	static_assert(std::is_standard_layout<GearboxData>::value, "Sanity check failure: TypeStruct GearboxData is not standard layout");
+	static_assert(std::is_standard_layout<AutoBoxData>::value, "Sanity check failure: TypeStruct AutoBoxData is not standard layout");
 	static_assert(std::is_standard_layout<WheelShapeState>::value, "Sanity check failure: TypeStruct WheelShapeState is not standard layout");
 	static_assert(std::is_standard_layout<WheelShapeData>::value, "Sanity check failure: TypeStruct WheelShapeData is not standard layout");
 	static_assert(std::is_standard_layout<CatShapeData>::value, "Sanity check failure: TypeStruct CatShapeData is not standard layout");
 	static_assert(std::is_standard_layout<CatTrackSuspensionData>::value, "Sanity check failure: TypeStruct CatTrackSuspensionData is not standard layout");
 	static_assert(std::is_standard_layout<ManifoldIndex>::value, "Sanity check failure: TypeStruct ManifoldIndex is not standard layout");
 	static_assert(std::is_standard_layout<InOutConfig>::value, "Sanity check failure: TypeStruct InOutConfig is not standard layout");
-	static_assert(std::is_standard_layout<VehicleSteeringData>::value, "Sanity check failure: TypeStruct VehicleSteeringData is not standard layout");
-	static_assert(std::is_standard_layout<VehicleConfig>::value, "Sanity check failure: TypeStruct VehicleConfig is not standard layout");
-	static_assert(std::is_standard_layout<ElectricEngineState>::value, "Sanity check failure: TypeStruct ElectricEngineState is not standard layout");
-	static_assert(std::is_standard_layout<CombustionEngineState>::value, "Sanity check failure: TypeStruct CombustionEngineState is not standard layout");
-	static_assert(std::is_standard_layout<MotorEngineState>::value, "Sanity check failure: TypeStruct MotorEngineState is not standard layout");
 	static_assert(std::is_standard_layout<InOutFeedback>::value, "Sanity check failure: TypeStruct InOutFeedback is not standard layout");
 	static_assert(std::is_standard_layout<InOutState>::value, "Sanity check failure: TypeStruct InOutState is not standard layout");
 	static_assert(std::is_standard_layout<WheelOutput>::value, "Sanity check failure: TypeStruct WheelOutput is not standard layout");
 	static_assert(std::is_standard_layout<AxisOutput>::value, "Sanity check failure: TypeStruct AxisOutput is not standard layout");
+	static_assert(std::is_standard_layout<VehicleSteeringData>::value, "Sanity check failure: TypeStruct VehicleSteeringData is not standard layout");
+	static_assert(std::is_standard_layout<VehicleConfig>::value, "Sanity check failure: TypeStruct VehicleConfig is not standard layout");
+	static_assert(std::is_standard_layout<VehicleDoorStateArray>::value, "Sanity check failure: TypeStruct VehicleDoorStateArray is not standard layout");
+	static_assert(std::is_standard_layout<DashboardState>::value, "Sanity check failure: TypeStruct DashboardState is not standard layout");
+	static_assert(std::is_standard_layout<ElectricEngineState>::value, "Sanity check failure: TypeStruct ElectricEngineState is not standard layout");
+	static_assert(std::is_standard_layout<CombustionEngineState>::value, "Sanity check failure: TypeStruct CombustionEngineState is not standard layout");
+	static_assert(std::is_standard_layout<MotorEngineState>::value, "Sanity check failure: TypeStruct MotorEngineState is not standard layout");
+	static_assert(std::is_standard_layout<AutoBoxState>::value, "Sanity check failure: TypeStruct AutoBoxState is not standard layout");
+	static_assert(std::is_standard_layout<TransmissionState>::value, "Sanity check failure: TypeStruct TransmissionState is not standard layout");
 	static_assert(std::is_standard_layout<DriveOutput>::value, "Sanity check failure: TypeStruct DriveOutput is not standard layout");
 	static_assert(std::is_standard_layout<ManifoldState>::value, "Sanity check failure: TypeStruct ManifoldState is not standard layout");
-	static_assert(std::is_standard_layout<GearboxData>::value, "Sanity check failure: TypeStruct GearboxData is not standard layout");
-	static_assert(std::is_standard_layout<AutoBoxData>::value, "Sanity check failure: TypeStruct AutoBoxData is not standard layout");
 	static_assert(std::is_standard_layout<WheelSuspensionData>::value, "Sanity check failure: TypeStruct WheelSuspensionData is not standard layout");
 	static_assert(std::is_standard_layout<ContactLoad>::value, "Sanity check failure: TypeStruct ContactLoad is not standard layout");
 	static_assert(std::is_standard_layout<ContactForceCommand>::value, "Sanity check failure: TypeStruct ContactForceCommand is not standard layout");
 	static_assert(std::is_standard_layout<CurveData>::value, "Sanity check failure: TypeStruct CurveData is not standard layout");
+	static_assert(std::is_standard_layout<HydraulicTorqueConverterData>::value, "Sanity check failure: TypeStruct HydraulicTorqueConverterData is not standard layout");
 	static_assert(std::is_standard_layout<FrictionClutchData>::value, "Sanity check failure: TypeStruct FrictionClutchData is not standard layout");
+	static_assert(std::is_standard_layout<CouplerData>::value, "Sanity check failure: TypeStruct CouplerData is not standard layout");
 	static_assert(std::is_standard_layout<WheelSatData>::value, "Sanity check failure: TypeStruct WheelSatData is not standard layout");
 	static_assert(std::is_standard_layout<WheelTireData>::value, "Sanity check failure: TypeStruct WheelTireData is not standard layout");
 	static_assert(std::is_standard_layout<WheelConfig>::value, "Sanity check failure: TypeStruct WheelConfig is not standard layout");
 	static_assert(std::is_standard_layout<VehicleConfigInfo>::value, "Sanity check failure: TypeStruct VehicleConfigInfo is not standard layout");
 	static_assert(std::is_standard_layout<TrailerVehicleConfigInfo>::value, "Sanity check failure: TypeStruct TrailerVehicleConfigInfo is not standard layout");
-	static_assert(std::is_standard_layout<RetarderData>::value, "Sanity check failure: TypeStruct RetarderData is not standard layout");
 	static_assert(std::is_standard_layout<ElectricEngineData>::value, "Sanity check failure: TypeStruct ElectricEngineData is not standard layout");
 	static_assert(std::is_standard_layout<CatPlateData>::value, "Sanity check failure: TypeStruct CatPlateData is not standard layout");
 	static_assert(std::is_standard_layout<CatTrackConfig>::value, "Sanity check failure: TypeStruct CatTrackConfig is not standard layout");
-	static_assert(std::is_standard_layout<HydraulicTorqueConverterData>::value, "Sanity check failure: TypeStruct HydraulicTorqueConverterData is not standard layout");
-	static_assert(std::is_standard_layout<CouplerData>::value, "Sanity check failure: TypeStruct CouplerData is not standard layout");
+	static_assert(std::is_standard_layout<RetarderData>::value, "Sanity check failure: TypeStruct RetarderData is not standard layout");
 	static_assert(std::is_standard_layout<TransmissionConfig>::value, "Sanity check failure: TypeStruct TransmissionConfig is not standard layout");
+	static_assert(std::is_standard_layout<PneumaticDoorState>::value, "Sanity check failure: TypeStruct PneumaticDoorState is not standard layout");
+	static_assert(std::is_standard_layout<PneumaticDoorStateArray>::value, "Sanity check failure: TypeStruct PneumaticDoorStateArray is not standard layout");
+	static_assert(std::is_standard_layout<PneumaticsState>::value, "Sanity check failure: TypeStruct PneumaticsState is not standard layout");
+	static_assert(std::is_standard_layout<ThrottleControlData>::value, "Sanity check failure: TypeStruct ThrottleControlData is not standard layout");
+	static_assert(std::is_standard_layout<CombustionEngineData>::value, "Sanity check failure: TypeStruct CombustionEngineData is not standard layout");
+	static_assert(std::is_standard_layout<MotorEngineConfig>::value, "Sanity check failure: TypeStruct MotorEngineConfig is not standard layout");
 	static_assert(std::is_standard_layout<SurfaceData>::value, "Sanity check failure: TypeStruct SurfaceData is not standard layout");
 	static_assert(std::is_standard_layout<ShapeContact>::value, "Sanity check failure: TypeStruct ShapeContact is not standard layout");
 	static_assert(std::is_standard_layout<WheelState>::value, "Sanity check failure: TypeStruct WheelState is not standard layout");
 	static_assert(std::is_standard_layout<MirrorsConfig>::value, "Sanity check failure: TypeStruct MirrorsConfig is not standard layout");
-	static_assert(std::is_standard_layout<EngineStarterData>::value, "Sanity check failure: TypeStruct EngineStarterData is not standard layout");
-	static_assert(std::is_standard_layout<CombustionEngineData>::value, "Sanity check failure: TypeStruct CombustionEngineData is not standard layout");
-	static_assert(std::is_standard_layout<MotorEngineConfig>::value, "Sanity check failure: TypeStruct MotorEngineConfig is not standard layout");
 	static_assert(std::is_standard_layout<MotorVehicleConfigInfo>::value, "Sanity check failure: TypeStruct MotorVehicleConfigInfo is not standard layout");
 	static_assert(std::is_standard_layout<VehicleSetupInfo>::value, "Sanity check failure: TypeStruct VehicleSetupInfo is not standard layout");
 }

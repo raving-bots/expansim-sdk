@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ABI Version="0" Checksum="1337507121753179911">
+<ABI Version="0" Checksum="14422718685158762490">
 	<Types>
+		<Enum Name="AutoBoxDriveMode" Type="Int32">
+			<Item Name="Neutral" Value="0" />
+			<Item Name="Drive" Value="1" />
+			<Item Name="Reverse" Value="-1" />
+		</Enum>
 		<Enum Name="AutoBoxType" Type="Int32">
 			<Item Name="FullOrSemi" Value="0" />
 			<Item Name="FullOnly" Value="1" />
@@ -35,6 +40,15 @@
 			<Item Name="Automatic" Value="1" />
 			<Item Name="Cvt" Value="2" />
 		</Enum>
+		<Enum Name="HeadlampsBeamType" Type="Int32">
+			<Item Name="Low" Value="0" />
+			<Item Name="High" Value="1" />
+		</Enum>
+		<Enum Name="HeadlampsModeType" Type="Int32">
+			<Item Name="None" Value="0" />
+			<Item Name="Position" Value="1" />
+			<Item Name="Beam" Value="2" />
+		</Enum>
 		<Enum Name="InOutBindMode" Type="Int32">
 			<Item Name="None" Value="0" />
 			<Item Name="ParentDefault" Value="1" />
@@ -52,6 +66,10 @@
 			<Item Name="Petrol" Value="1" />
 			<Item Name="Electric" Value="2" />
 			<Item Name="Hybrid" Value="3" />
+		</Enum>
+		<Enum Name="PneumaticDoorSignalType" Type="Int32">
+			<Item Name="Close" Value="0" />
+			<Item Name="Open" Value="1" />
 		</Enum>
 		<Enum Name="RetarderType" Type="Int32">
 			<Item Name="None" Value="0" />
@@ -71,6 +89,10 @@
 			<Item Name="SandGravel" Value="10" />
 			<Item Name="Other" Value="11" />
 		</Enum>
+		<Enum Name="ThrottleControlType" Type="Int32">
+			<Item Name="ThrottleToPower" Value="0" />
+			<Item Name="ThrottleToRpm" Value="1" />
+		</Enum>
 		<Enum Name="VehicleCategory" Type="Int32">
 			<Item Name="Car" Value="0" />
 			<Item Name="Truck" Value="1" />
@@ -78,9 +100,37 @@
 			<Item Name="Groundwork" Value="3" />
 			<Item Name="Military" Value="4" />
 		</Enum>
+		<Enum Name="VehicleDoorState" Type="Int32">
+			<Item Name="Closed" Value="0" />
+			<Item Name="Open" Value="1" />
+		</Enum>
+		<Enum Name="VehicleGearboxMode" Type="Int32">
+			<Item Name="Manual" Value="0" />
+			<Item Name="Direct" Value="1" />
+			<Item Name="SemiAuto" Value="2" />
+			<Item Name="FullAuto" Value="3" />
+			<Item Name="Cvt" Value="4" />
+		</Enum>
+		<Enum Name="VehicleHeadlampsMode" Type="Int32">
+			<Item Name="None" Value="0" />
+			<Item Name="Position" Value="1" />
+			<Item Name="LowBeam" Value="2" />
+			<Item Name="HighBeam" Value="3" />
+		</Enum>
+		<Enum Name="VehicleSignalMode" Type="Int32">
+			<Item Name="None" Value="0" />
+			<Item Name="TurnLeft" Value="1" />
+			<Item Name="TurnRight" Value="2" />
+			<Item Name="HazardWarning" Value="3" />
+		</Enum>
 		<Enum Name="VehicleSteeringType" Type="Int32">
 			<Item Name="Wheel" Value="0" />
 			<Item Name="Lever" Value="1" />
+		</Enum>
+		<Enum Name="VehicleSystemState" Type="Int32">
+			<Item Name="Disabled" Value="0" />
+			<Item Name="Enabled" Value="1" />
+			<Item Name="Active" Value="2" />
 		</Enum>
 		<Enum Name="WheelIndex" Type="Int32">
 			<Item Name="Left" Value="0" />
@@ -122,6 +172,22 @@
 			<Field Name="ManualInputCooldown" Type="Float" />
 			<Field Name="CvtSmooth" Type="Float" />
 		</Struct>
+		<Struct Name="AutoBoxState">
+			<Field Name="DriveMode" Type="AutoBoxDriveMode" />
+			<Field Name="SemiAuto" Type="Bool" />
+			<Field Name="DeltaGear" Type="Int32" />
+			<Field Name="ShiftRegress" Type="Float" />
+			<Field Name="ShiftUp" Type="AutoShiftCond" />
+			<Field Name="ShiftDown" Type="AutoShiftCond" />
+			<Field Name="Cooldown" Type="Float" />
+			<Field Name="CvtProgress" Type="Float" />
+			<Field Name="CvtProgressVel" Type="Float" />
+		</Struct>
+		<Struct Name="AutoShiftCond">
+			<Field Name="State" Type="Float" />
+			<Field Name="ShiftSum" Type="Int32" />
+			<Field Name="SampleCount" Type="Int32" />
+		</Struct>
 		<Struct Name="AxisOutput">
 			<Field Name="LeftOutput" Type="WheelOutput" />
 			<Field Name="RightOutput" Type="WheelOutput" />
@@ -134,6 +200,13 @@
 			<Field Name="ConsumedKwh" Type="Float" />
 			<Field Name="KwhPer100Km" Type="Float" />
 			<Field Name="IsValidKwhPer100Km" Type="Bool" />
+		</Struct>
+		<Struct Name="BodyCollisionData">
+			<Field Name="EventCounter" Type="Int32" />
+			<Field Name="LastEventTime" Type="Float" />
+			<Field Name="LastContactRelativeVelocity" Type="Vector3F" />
+			<Field Name="LastContactImpulse" Type="Vector3F" />
+			<Field Name="LastContactPoint" Type="Vector3F" />
 		</Struct>
 		<Struct Name="BodyInterpData">
 			<Field Name="T" Type="Float" />
@@ -154,6 +227,30 @@
 		</Struct>
 		<Struct Name="BodyTransformData">
 			<Field Name="RigidTransform" Type="RigidTransform" />
+		</Struct>
+		<Struct Name="CameraState">
+			<Field Name="InsideFloorPosition" Type="Vector3F" />
+			<Field Name="InsideCockpitPosition" Type="Vector3F" />
+			<Field Name="InsideHeadPosition" Type="Vector3F" />
+			<Field Name="InsideFloorRotation" Type="Quaternion" />
+			<Field Name="InsideCockpitRotation" Type="Quaternion" />
+			<Field Name="InsideHeadRotation" Type="Quaternion" />
+			<Field Name="InsideLinearVelocity" Type="Vector3F" />
+			<Field Name="InsideAngularVelocity" Type="Vector3F" />
+			<Field Name="InsideLinearAcceleration" Type="Vector3F" />
+			<Field Name="InsideAngularAcceleration" Type="Vector3F" />
+			<Field Name="OutsidePosition" Type="Vector3F" />
+			<Field Name="OutsideRotation" Type="Quaternion" />
+			<Field Name="OutsideLinearVelocity" Type="Vector3F" />
+			<Field Name="OutsideAngularVelocity" Type="Vector3F" />
+			<Field Name="OutsideLinearAcceleration" Type="Vector3F" />
+			<Field Name="OutsideAngularAcceleration" Type="Vector3F" />
+			<Field Name="TopSidePosition" Type="Vector3F" />
+			<Field Name="TopSideRotation" Type="Quaternion" />
+			<Field Name="LeftSidePosition" Type="Vector3F" />
+			<Field Name="LeftSideRotation" Type="Quaternion" />
+			<Field Name="RightSidePosition" Type="Vector3F" />
+			<Field Name="RightSideRotation" Type="Quaternion" />
 		</Struct>
 		<Struct Name="CatBrakeData">
 			<Field Name="BrakeTorque" Type="AngularForce" />
@@ -219,9 +316,6 @@
 			<Field Name="SoundPresetId" Type="UInt8" />
 			<Field Name="FxPresetId" Type="UInt8" />
 		</Struct>
-		<Struct Name="CatTrackState">
-			<Field Name="MaintainTorque" Type="AngularForce" />
-		</Struct>
 		<Struct Name="CatTrackSuspensionData">
 			<Field Name="FrontSegment0" Type="CatSegmentSuspensionData" />
 			<Field Name="FrontSegment1" Type="CatSegmentSuspensionData" />
@@ -236,7 +330,7 @@
 			<Field Name="RpmToMotorTorque" Type="CurveData" />
 			<Field Name="RpmToBrakeTorque" Type="CurveData" />
 			<Field Name="RpmToFuelConsumptionGpKwh" Type="CurveData" />
-			<Field Name="Injection" Type="FuelInjectionData" />
+			<Field Name="ThrottleControl" Type="ThrottleControlData" />
 			<Field Name="Starter" Type="EngineStarterData" />
 			<Field Name="PrecomputedMaxTorque" Type="AngularForce" />
 			<Field Name="PrecomputedMaxTorqueRpm" Type="Rpm" />
@@ -248,6 +342,8 @@
 		</Struct>
 		<Struct Name="CombustionEngineState">
 			<Field Name="InjectionRqv" Type="PID" />
+			<Field Name="ThrottlePid" Type="PID" />
+			<Field Name="Throttle" Type="Float" />
 		</Struct>
 		<Struct Name="ContactForceCommand">
 			<Field Name="FeedbackTorque" Type="AngularForce" />
@@ -278,6 +374,15 @@
 			<Field Name="Friction" Type="FrictionClutchData" />
 			<Field Name="Hydraulic" Type="HydraulicTorqueConverterData" />
 		</Struct>
+		<Struct Name="CouplerState">
+			<Field Name="Coupled" Type="Bool" />
+			<Field Name="SpeedRatio" Type="Float" />
+			<Field Name="TorqueRatio" Type="Float" />
+			<Field Name="Capacity" Type="Float" />
+			<Field Name="CollarClutch" Type="Float" />
+			<Field Name="LockupClutch" Type="Float" />
+			<Field Name="CouplingTorque" Type="AngularForce" />
+		</Struct>
 		<Struct Name="CurveData">
 			<Field Name="MinX" Type="Float" />
 			<Field Name="MaxX" Type="Float" />
@@ -289,6 +394,59 @@
 			<Field Name="InterpHermiteTension" Type="Float" />
 			<Field Name="InterpHermiteBias" Type="Float" />
 			<Field Name="Values" Type="Float" ArrayLength="32" />
+		</Struct>
+		<Struct Name="DashboardConfig">
+			<Field Name="VehicleEntity" Type="Entity" />
+			<Field Name="GaugeShortSmooth" Type="Float" />
+			<Field Name="HandBrakeThreshold" Type="Float" />
+			<Field Name="ConsumptionMediumSmooth" Type="Float" />
+			<Field Name="ConsumptionLongSmooth" Type="Float" />
+			<Field Name="ConsumptionMinSpeed" Type="Float" />
+			<Field Name="SystemActiveThreshold" Type="Float" />
+			<Field Name="DoorThreshold" Type="Float" />
+		</Struct>
+		<Struct Name="DashboardState">
+			<Field Name="Speed" Type="Float" />
+			<Field Name="SpeedSmoothed" Type="Float" />
+			<Field Name="SpeedSmoothVel" Type="Float" />
+			<Field Name="DistanceTraveled" Type="Float" />
+			<Field Name="Rpm" Type="Float" />
+			<Field Name="RpmSmoothed" Type="Float" />
+			<Field Name="RpmSmoothVel" Type="Float" />
+			<Field Name="Torque" Type="Float" />
+			<Field Name="Power" Type="Float" />
+			<Field Name="GearboxMode" Type="VehicleGearboxMode" />
+			<Field Name="Gear" Type="Int32" />
+			<Field Name="MotorReverse" Type="Bool" />
+			<Field Name="NeutralPivot" Type="Bool" />
+			<Field Name="HandBrake" Type="Bool" />
+			<Field Name="Retarder" Type="Int32" />
+			<Field Name="RetarderNorm" Type="Float" />
+			<Field Name="Headlamps" Type="VehicleHeadlampsMode" />
+			<Field Name="SignalMode" Type="VehicleSignalMode" />
+			<Field Name="SignalInterrupt" Type="Bool" />
+			<Field Name="DriveFront" Type="Bool" />
+			<Field Name="DriveRear" Type="Bool" />
+			<Field Name="DiffLockFront" Type="Bool" />
+			<Field Name="DiffLockInter" Type="Bool" />
+			<Field Name="DiffLockRear" Type="Bool" />
+			<Field Name="FuelTankReserve" Type="Float" />
+			<Field Name="FuelTankReserveNorm" Type="Float" />
+			<Field Name="FuelConsumption" Type="FuelConsumptionData" />
+			<Field Name="FuelConsumptionSmoothed" Type="FuelConsumptionData" />
+			<Field Name="FuelConsumptionSmoothVel" Type="FuelConsumptionData" />
+			<Field Name="FuelLongDuration" Type="Float" />
+			<Field Name="BatteryReserveKwh" Type="Float" />
+			<Field Name="BatteryReserveNorm" Type="Float" />
+			<Field Name="BatteryConsumption" Type="BatteryConsumptionData" />
+			<Field Name="BatteryConsumptionSmoothed" Type="BatteryConsumptionData" />
+			<Field Name="BatteryConsumptionSmoothVel" Type="BatteryConsumptionData" />
+			<Field Name="BatteryLongDuration" Type="Float" />
+			<Field Name="SystemAbaState" Type="VehicleSystemState" />
+			<Field Name="SystemAbsState" Type="VehicleSystemState" />
+			<Field Name="SystemAsrState" Type="VehicleSystemState" />
+			<Field Name="SystemEscState" Type="VehicleSystemState" />
+			<Field Name="Doors" Type="VehicleDoorStateArray" />
 		</Struct>
 		<Alias Name="DeltaTime" Target="Float" />
 		<Struct Name="DriveData">
@@ -335,6 +493,39 @@
 			<Field Name="ControllerPid" Type="PID" />
 			<Field Name="Reverse" Type="Bool" />
 		</Struct>
+		<Struct Name="ElectricsState">
+			<Field Name="Horn" Type="Bool" />
+			<Field Name="Drl" Type="Bool" />
+			<Field Name="Headlamps" Type="HeadlampsModeType" />
+			<Field Name="BrakeLights" Type="Bool" />
+			<Field Name="ReverseLights" Type="Bool" />
+			<Field Name="HeadlampsBeam" Type="HeadlampsBeamType" />
+			<Field Name="TurnLeftSignal" Type="Bool" />
+			<Field Name="TurnRightSignal" Type="Bool" />
+			<Field Name="HazardWarningSignal" Type="Bool" />
+			<Field Name="EmergencyVehicleLights" Type="Bool" />
+			<Field Name="EmergencyVehicleSiren" Type="Bool" />
+			<Field Name="Interrupt" Type="Bool" />
+			<Field Name="InterruptTime" Type="Float" />
+		</Struct>
+		<Struct Name="ElectronicsConfig">
+			<Field Name="VehicleEntity" Type="Entity" />
+			<Field Name="SystemAba" Type="SystemAbaConfig" />
+			<Field Name="SystemAbs" Type="SystemAbsConfig" />
+			<Field Name="SystemAsr" Type="SystemAsrConfig" />
+			<Field Name="SystemEsc" Type="SystemEscConfig" />
+		</Struct>
+		<Struct Name="ElectronicsState">
+			<Field Name="Precomputed" Type="Bool" />
+			<Field Name="SystemAbaEnabled" Type="Bool" />
+			<Field Name="SystemAbsEnabled" Type="Bool" />
+			<Field Name="SystemAsrEnabled" Type="Bool" />
+			<Field Name="SystemEscEnabled" Type="Bool" />
+			<Field Name="SystemAbaState" Type="Float" />
+			<Field Name="SystemAbsState" Type="Float" />
+			<Field Name="SystemAsrState" Type="Float" />
+			<Field Name="SystemEscState" Type="Float" />
+		</Struct>
 		<Struct Name="EngineStarterData">
 			<Field Name="Torque" Type="AngularForce" />
 		</Struct>
@@ -367,11 +558,6 @@
 			<Field Name="LitersPer100Km" Type="Float" />
 			<Field Name="IsValidLitersPer100Km" Type="Bool" />
 		</Struct>
-		<Struct Name="FuelInjectionData">
-			<Field Name="Min" Type="Float" />
-			<Field Name="Pid" Type="Vector3F" />
-			<Field Name="Lag" Type="Float" />
-		</Struct>
 		<Struct Name="GearboxData">
 			<Field Name="Type" Type="GearboxType" />
 			<Field Name="ForwardGearCount" Type="Int32" />
@@ -381,6 +567,11 @@
 			<Field Name="ReverseGearRatios" Type="Float" ArrayLength="16" />
 			<Field Name="FinalGearRatio" Type="Float" />
 			<Field Name="Inertia" Type="Inertia" />
+		</Struct>
+		<Struct Name="GearboxState">
+			<Field Name="Gear" Type="Int32" />
+			<Field Name="Ratio" Type="Float" />
+			<Field Name="Pivot" Type="Bool" />
 		</Struct>
 		<Struct Name="HydraulicTorqueConverterData">
 			<Field Name="SpeedRatioToTorqueRatio" Type="CurveData" />
@@ -481,6 +672,21 @@
 			<Field Name="Yaw" Type="Float" />
 			<Field Name="Roll" Type="Float" />
 		</Struct>
+		<Struct Name="PneumaticDoorState">
+			<Field Name="Signal" Type="PneumaticDoorSignalType" />
+			<Field Name="Progress" Type="Float" />
+			<Field Name="ProgressVel" Type="Float" />
+		</Struct>
+		<Struct Name="PneumaticDoorStateArray">
+			<Field Name="Count" Type="Int32" />
+			<Field Name="State0" Type="PneumaticDoorState" />
+			<Field Name="State1" Type="PneumaticDoorState" />
+			<Field Name="State2" Type="PneumaticDoorState" />
+			<Field Name="State3" Type="PneumaticDoorState" />
+		</Struct>
+		<Struct Name="PneumaticsState">
+			<Field Name="Doors" Type="PneumaticDoorStateArray" />
+		</Struct>
 		<Alias Name="Power" Target="Float" />
 		<Struct Name="RetarderData">
 			<Field Name="Type" Type="RetarderType" />
@@ -489,6 +695,12 @@
 			<Field Name="MaxThrottleInput" Type="Float" />
 			<Field Name="MaxBrakeTorque" Type="AngularForce" />
 			<Field Name="RpmToTorqueNormalized" Type="CurveData" />
+		</Struct>
+		<Struct Name="RetarderState">
+			<Field Name="Level" Type="Int32" />
+			<Field Name="LevelNorm" Type="Float" />
+			<Field Name="Progress" Type="Float" />
+			<Field Name="BrakeTorque" Type="AngularForce" />
 		</Struct>
 		<Struct Name="RigidTransform">
 			<Field Name="rot" Type="Quaternion" />
@@ -586,6 +798,11 @@
 			<Field Name="Default" Type="Bool" />
 			<Field Name="Selectable" Type="Bool" />
 		</Struct>
+		<Struct Name="ThrottleControlData">
+			<Field Name="Type" Type="ThrottleControlType" />
+			<Field Name="Pid" Type="Vector3F" />
+			<Field Name="Lag" Type="Float" />
+		</Struct>
 		<Struct Name="TrailerVehicleConfigInfo">
 			<Field Name="Vehicle" Type="VehicleConfigInfo" />
 		</Struct>
@@ -597,9 +814,17 @@
 			<Field Name="Retarder" Type="RetarderData" />
 			<Field Name="Drivetrain" Type="DrivetrainData" />
 		</Struct>
+		<Struct Name="TransmissionState">
+			<Field Name="Gearbox" Type="GearboxState" />
+			<Field Name="Coupler" Type="CouplerState" />
+			<Field Name="AutoBox" Type="AutoBoxState" />
+			<Field Name="Retarder" Type="RetarderState" />
+		</Struct>
+		<Struct Name="VehicleApiData">
+			<Field Name="Id" Type="Int32" />
+		</Struct>
 		<Struct Name="VehicleConfig">
 			<Field Name="InstanceId" Type="Int32" />
-			<Field Name="ApiId" Type="Int32" />
 			<Field Name="EngineEntity" Type="Entity" />
 			<Field Name="TransmissionEntity" Type="Entity" />
 			<Field Name="Category" Type="VehicleCategory" />
@@ -628,44 +853,40 @@
 			<Field Name="SatForce" Type="SatForce" />
 			<Field Name="ForceFeedback" Type="ForceFeedback" />
 			<Field Name="EngineStarter" Type="Bool" />
-			<Field Name="ThrottlePedal" Type="SignalUnipolar" />
-			<Field Name="BrakePedal" Type="SignalUnipolar" />
-			<Field Name="ClutchPedal" Type="SignalUnipolar" />
+			<Field Name="Throttle" Type="SignalUnipolar" />
+			<Field Name="Brake" Type="SignalUnipolar" />
+			<Field Name="Clutch" Type="SignalUnipolar" />
 			<Field Name="HandBrake" Type="SignalUnipolar" />
+			<Field Name="HandBrakeToggle" Type="Bool" />
 			<Field Name="GearChange" Type="Int32" />
 			<Field Name="GearboxSemiAutoChange" Type="Bool" />
 			<Field Name="NeutralPivot" Type="Bool" />
 			<Field Name="RetarderChange" Type="Int32" />
-			<Field Name="SystemAbaChange" Type="Bool" />
-			<Field Name="SystemAbsChange" Type="Bool" />
-			<Field Name="SystemAsrChange" Type="Bool" />
-			<Field Name="SystemEscChange" Type="Bool" />
 			<Field Name="DriveFrontChange" Type="Bool" />
 			<Field Name="DriveRearChange" Type="Bool" />
 			<Field Name="DiffLockFrontChange" Type="Bool" />
 			<Field Name="DiffLockInterChange" Type="Bool" />
 			<Field Name="DiffLockRearChange" Type="Bool" />
+			<Field Name="Horn" Type="Bool" />
+			<Field Name="HeadlampsChange" Type="Bool" />
+			<Field Name="HeadlampsBeamChange" Type="Bool" />
+			<Field Name="TurnLeftChange" Type="Bool" />
+			<Field Name="TurnRightChange" Type="Bool" />
+			<Field Name="HazardWarningChange" Type="Bool" />
+			<Field Name="EmergencyLightsChange" Type="Bool" />
+			<Field Name="EmergencySirenChange" Type="Bool" />
+			<Field Name="SystemAbaChange" Type="Bool" />
+			<Field Name="SystemAbsChange" Type="Bool" />
+			<Field Name="SystemAsrChange" Type="Bool" />
+			<Field Name="SystemEscChange" Type="Bool" />
+			<Field Name="PneumaticDoorChange" Type="Bool" />
 		</Struct>
-		<Struct Name="VehicleGaugeData">
-			<Field Name="Speed" Type="Float" />
-			<Field Name="SpeedSmoothed" Type="Float" />
-			<Field Name="Rpm" Type="Float" />
-			<Field Name="RpmSmoothed" Type="Float" />
-			<Field Name="DistanceTraveled" Type="Float" />
-			<Field Name="FuelTankReserve" Type="Float" />
-			<Field Name="FuelTankReserveNorm" Type="Float" />
-			<Field Name="BatteryReserveKwh" Type="Float" />
-			<Field Name="BatteryReserveNorm" Type="Float" />
-			<Field Name="FuelConsumption" Type="FuelConsumptionData" />
-			<Field Name="FuelConsumptionSmoothed" Type="FuelConsumptionData" />
-			<Field Name="BatteryConsumption" Type="BatteryConsumptionData" />
-			<Field Name="BatteryConsumptionSmoothed" Type="BatteryConsumptionData" />
-			<Field Name="RpmSmoothVel" Type="Float" />
-			<Field Name="SpeedSmoothVel" Type="Float" />
-			<Field Name="FuelConsumptionSmoothVel" Type="FuelConsumptionData" />
-			<Field Name="FuelLongDuration" Type="Float" />
-			<Field Name="BatteryConsumptionSmoothVel" Type="BatteryConsumptionData" />
-			<Field Name="BatteryLongDuration" Type="Float" />
+		<Struct Name="VehicleDoorStateArray">
+			<Field Name="Count" Type="Int32" />
+			<Field Name="State0" Type="VehicleDoorState" />
+			<Field Name="State1" Type="VehicleDoorState" />
+			<Field Name="State2" Type="VehicleDoorState" />
+			<Field Name="State3" Type="VehicleDoorState" />
 		</Struct>
 		<Struct Name="VehicleSetupInfo">
 			<Field Name="MotorVehicle" Type="MotorVehicleConfigInfo" />
@@ -674,15 +895,6 @@
 		</Struct>
 		<Struct Name="VehicleState">
 			<Field Name="Precomputed" Type="Bool" />
-			<Field Name="Gauge" Type="VehicleGaugeData" />
-			<Field Name="SystemAbaEnabled" Type="Bool" />
-			<Field Name="SystemAbsEnabled" Type="Bool" />
-			<Field Name="SystemAsrEnabled" Type="Bool" />
-			<Field Name="SystemEscEnabled" Type="Bool" />
-			<Field Name="SystemAbaState" Type="Float" />
-			<Field Name="SystemAbsState" Type="Float" />
-			<Field Name="SystemAsrState" Type="Float" />
-			<Field Name="SystemEscState" Type="Float" />
 			<Field Name="FuelTankReserve" Type="Float" />
 			<Field Name="BatteryReserveKwh" Type="Float" />
 		</Struct>
@@ -801,73 +1013,106 @@
 		</Struct>
 	</Types>
 	<Exports>
-		<Export Name="CalculateCatTrackHub" ReturnType="Void">
-			<Parameter Name="entity" Type="Entity" />
-			<Parameter Name="index" Type="Int32" />
-			<Parameter Name="dt" Type="DeltaTime" />
-			<Parameter Name="config" Type="CatTrackConfig" Pointer="readonly" />
-			<Parameter Name="state" Type="CatTrackState" Pointer="readonly" />
-			<Parameter Name="inputConfig" Type="InOutConfig" Pointer="readonly" />
-			<Parameter Name="controller" Type="VehicleControllerData" Pointer="readonly" />
-			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
-			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
-			<Parameter Name="engineConfig" Type="MotorEngineConfig" Pointer="readonly" />
-			<Parameter Name="engineState" Type="MotorEngineState" Pointer="readonly" />
-			<Parameter Name="inputState" Type="InOutState" Pointer="readwrite" />
-		</Export>
-		<Export Name="CalculateMotorEngine" ReturnType="Void">
-			<Parameter Name="entity" Type="Entity" />
-			<Parameter Name="index" Type="Int32" />
-			<Parameter Name="dt" Type="DeltaTime" />
-			<Parameter Name="config" Type="MotorEngineConfig" Pointer="readonly" />
-			<Parameter Name="outputConfig" Type="InOutConfig" Pointer="readonly" />
-			<Parameter Name="controller" Type="VehicleControllerData" Pointer="readonly" />
-			<Parameter Name="state" Type="MotorEngineState" Pointer="readwrite" />
-			<Parameter Name="outputState" Type="InOutState" Pointer="readwrite" />
-		</Export>
-		<Export Name="CalculateVehicleController" ReturnType="Void">
-			<Parameter Name="controller" Type="VehicleControllerData" Pointer="readwrite" />
-			<Parameter Name="forceFeedback" Type="ForceFeedback" Pointer="readwrite" />
-		</Export>
-		<Export Name="CalculateWheelHub" ReturnType="Void">
-			<Parameter Name="entity" Type="Entity" />
-			<Parameter Name="index" Type="Int32" />
-			<Parameter Name="dt" Type="DeltaTime" />
-			<Parameter Name="config" Type="WheelConfig" Pointer="readonly" />
-			<Parameter Name="state" Type="WheelState" Pointer="readonly" />
-			<Parameter Name="inputConfig" Type="InOutConfig" Pointer="readonly" />
-			<Parameter Name="controller" Type="VehicleControllerData" Pointer="readonly" />
-			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
-			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
-			<Parameter Name="engineConfig" Type="MotorEngineConfig" Pointer="readonly" />
-			<Parameter Name="engineState" Type="MotorEngineState" Pointer="readonly" />
-			<Parameter Name="inputState" Type="InOutState" Pointer="readwrite" />
-		</Export>
 		<Export Name="GetABIChecksum" ReturnType="UInt64" />
 		<Export Name="GetABIVersion" ReturnType="UInt32" />
+		<Export Name="OnCatTrackHub" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readonly" />
+			<Parameter Name="transmissionConfig" Type="TransmissionConfig" Pointer="readonly" />
+			<Parameter Name="catTrackConfig" Type="CatTrackConfig" Pointer="readonly" />
+			<Parameter Name="inputConfig" Type="InOutConfig" Pointer="readonly" />
+			<Parameter Name="inputState" Type="InOutState" Pointer="readwrite" />
+		</Export>
+		<Export Name="OnDashboard" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readonly" />
+			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
+			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readwrite" />
+			<Parameter Name="dashboardConfig" Type="DashboardConfig" Pointer="readonly" />
+			<Parameter Name="dashboardState" Type="DashboardState" Pointer="readwrite" />
+			<Parameter Name="motorEngineState" Type="MotorEngineState" Pointer="readonly" />
+			<Parameter Name="transmissionConfig" Type="TransmissionConfig" Pointer="readonly" />
+			<Parameter Name="transmissionState" Type="TransmissionState" Pointer="readonly" />
+			<Parameter Name="manifoldState" Type="ManifoldState" Pointer="readonly" />
+			<Parameter Name="hasElectrics" Type="Bool" />
+			<Parameter Name="electricsState" Type="ElectricsState" Pointer="readonly" />
+			<Parameter Name="hasElectronics" Type="Bool" />
+			<Parameter Name="electronicsState" Type="ElectronicsState" Pointer="readonly" />
+			<Parameter Name="hasPneumatics" Type="Bool" />
+			<Parameter Name="pneumaticsState" Type="PneumaticsState" Pointer="readonly" />
+		</Export>
+		<Export Name="OnMotorEngine" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readonly" />
+			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
+			<Parameter Name="engineConfig" Type="MotorEngineConfig" Pointer="readonly" />
+			<Parameter Name="engineState" Type="MotorEngineState" Pointer="readwrite" />
+			<Parameter Name="outputState" Type="InOutState" Pointer="readwrite" />
+		</Export>
 		<Export Name="OnPluginLoad" ReturnType="Void">
 			<Parameter Name="logSink" Type="LogSinkFn" />
 		</Export>
 		<Export Name="OnPluginUnload" ReturnType="Void" />
+		<Export Name="OnTelemetry" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
+			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
+			<Parameter Name="bodyTransformData" Type="BodyTransformData" Pointer="readonly" />
+			<Parameter Name="bodyInterpData" Type="BodyInterpData" Pointer="readonly" />
+			<Parameter Name="bodyTelemetryData" Type="BodyTelemetryData" Pointer="readonly" />
+			<Parameter Name="bodyCollisionData" Type="BodyCollisionData" Pointer="readonly" />
+			<Parameter Name="hasCamera" Type="Bool" />
+			<Parameter Name="cameraState" Type="CameraState" Pointer="readonly" />
+			<Parameter Name="hasCabin" Type="Bool" />
+			<Parameter Name="cabinTransformData" Type="BodyTransformData" Pointer="readonly" />
+			<Parameter Name="cabinInterpData" Type="BodyInterpData" Pointer="readonly" />
+			<Parameter Name="cabinTelemetryData" Type="BodyTelemetryData" Pointer="readonly" />
+			<Parameter Name="cabinCollisionData" Type="BodyCollisionData" Pointer="readonly" />
+		</Export>
+		<Export Name="OnTransmission" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readonly" />
+			<Parameter Name="engineConfig" Type="MotorEngineConfig" Pointer="readonly" />
+			<Parameter Name="engineState" Type="MotorEngineState" Pointer="readonly" />
+			<Parameter Name="engineOutput" Type="InOutState" Pointer="readonly" />
+			<Parameter Name="transmissionConfig" Type="TransmissionConfig" Pointer="readonly" />
+			<Parameter Name="transmissionState" Type="TransmissionState" Pointer="readwrite" />
+			<Parameter Name="inputConfig" Type="InOutConfig" Pointer="readonly" />
+			<Parameter Name="gearboxInput" Type="InOutState" Pointer="readwrite" />
+			<Parameter Name="manifoldState" Type="ManifoldState" Pointer="readwrite" />
+		</Export>
+		<Export Name="OnVehicleController" ReturnType="Void">
+			<Parameter Name="dt" Type="DeltaTime" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readwrite" />
+			<Parameter Name="forceFeedback" Type="ForceFeedback" Pointer="readwrite" />
+		</Export>
 		<Export Name="OnVehicleDespawned" ReturnType="Void" />
 		<Export Name="OnVehicleSpawned" ReturnType="Void">
 			<Parameter Name="vehicleSetup" Type="VehicleSetupInfo" Pointer="readonly" />
 		</Export>
-		<Export Name="OnVehicleTelemetry" ReturnType="Void">
+		<Export Name="OnWheelHub" ReturnType="Void">
 			<Parameter Name="dt" Type="DeltaTime" />
-			<Parameter Name="vehicleConfig" Type="VehicleConfig" Pointer="readonly" />
-			<Parameter Name="vehicleState" Type="VehicleState" Pointer="readonly" />
-			<Parameter Name="bodyTransform" Type="BodyTransformData" Pointer="readonly" />
-			<Parameter Name="bodyInterp" Type="BodyInterpData" Pointer="readonly" />
-			<Parameter Name="bodyTelemetry" Type="BodyTelemetryData" Pointer="readonly" />
-			<Parameter Name="hasTransmission" Type="Bool" />
-			<Parameter Name="manifoldState" Type="ManifoldState" Pointer="readonly" />
-			<Parameter Name="transmissionConfig" Type="TransmissionConfig" Pointer="readonly" />
-			<Parameter Name="hasEngine" Type="Bool" />
+			<Parameter Name="api" Type="VehicleApiData" Pointer="readonly" />
+			<Parameter Name="vehicleController" Type="VehicleControllerData" Pointer="readonly" />
+			<Parameter Name="electronicsConfig" Type="ElectronicsConfig" Pointer="readonly" />
+			<Parameter Name="electronicsState" Type="ElectronicsState" Pointer="readonly" />
+			<Parameter Name="hasPowertrain" Type="Bool" />
 			<Parameter Name="engineState" Type="MotorEngineState" Pointer="readonly" />
+			<Parameter Name="transmissionState" Type="TransmissionState" Pointer="readonly" />
+			<Parameter Name="wheelConfig" Type="WheelConfig" Pointer="readonly" />
+			<Parameter Name="wheelState" Type="WheelState" Pointer="readwrite" />
+			<Parameter Name="inputConfig" Type="InOutConfig" Pointer="readonly" />
+			<Parameter Name="inputState" Type="InOutState" Pointer="readwrite" />
 		</Export>
 	</Exports>
 	<TopologicalOrder>
+		<Type Name="AutoBoxDriveMode" />
 		<Type Name="AutoBoxType" />
 		<Type Name="AxisIndex" />
 		<Type Name="CouplerType" />
@@ -875,13 +1120,22 @@
 		<Type Name="DriveType" />
 		<Type Name="EngineState" />
 		<Type Name="GearboxType" />
+		<Type Name="HeadlampsBeamType" />
+		<Type Name="HeadlampsModeType" />
 		<Type Name="InOutBindMode" />
 		<Type Name="InterpMethod" />
 		<Type Name="MotorEngineType" />
+		<Type Name="PneumaticDoorSignalType" />
 		<Type Name="RetarderType" />
 		<Type Name="SurfaceType" />
+		<Type Name="ThrottleControlType" />
 		<Type Name="VehicleCategory" />
+		<Type Name="VehicleDoorState" />
+		<Type Name="VehicleGearboxMode" />
+		<Type Name="VehicleHeadlampsMode" />
+		<Type Name="VehicleSignalMode" />
 		<Type Name="VehicleSteeringType" />
+		<Type Name="VehicleSystemState" />
 		<Type Name="WheelIndex" />
 		<Type Name="WheelSuspensionType" />
 		<Type Name="WrapMethod" />
@@ -891,13 +1145,17 @@
 		<Type Name="AngleDeg" />
 		<Type Name="AngularForce" />
 		<Type Name="AngularVelocity" />
+		<Type Name="AutoShiftCond" />
 		<Type Name="BatteryConsumptionData" />
+		<Type Name="BodyCollisionData" />
+		<Type Name="CameraState" />
 		<Type Name="CatSegmentSuspensionData" />
 		<Type Name="DeltaTime" />
+		<Type Name="ElectronicsState" />
 		<Type Name="Entity" />
 		<Type Name="ForceFeedback" />
 		<Type Name="FuelConsumptionData" />
-		<Type Name="FuelInjectionData" />
+		<Type Name="GearboxState" />
 		<Type Name="Inertia" />
 		<Type Name="Length" />
 		<Type Name="LinearForce" />
@@ -918,38 +1176,49 @@
 		<Type Name="SystemAbsConfig" />
 		<Type Name="SystemAsrConfig" />
 		<Type Name="SystemEscConfig" />
+		<Type Name="VehicleApiData" />
+		<Type Name="VehicleState" />
 		<Type Name="WheelTransformState" />
-		<Type Name="CatSegmentArray">
-			<DependsOn Name="Entity" />
-		</Type>
-		<Type Name="WheelBrakeData">
-			<DependsOn Name="AngularForce" />
-		</Type>
-		<Type Name="CatBrakeData">
-			<DependsOn Name="AngularForce" />
-		</Type>
-		<Type Name="CatTrackState">
-			<DependsOn Name="AngularForce" />
-		</Type>
 		<Type Name="ContactSlip">
 			<DependsOn Name="Angle" />
 		</Type>
-		<Type Name="ContactForces">
-			<DependsOn Name="AngularForce" />
-			<DependsOn Name="ContactSlip" />
-		</Type>
 		<Type Name="WheelTurnState">
 			<DependsOn Name="Angle" />
-		</Type>
-		<Type Name="SatForce">
-			<DependsOn Name="Angle" />
-			<DependsOn Name="AngularForce" />
 		</Type>
 		<Type Name="SystemAsrState">
 			<DependsOn Name="SignalUnipolar" />
 		</Type>
 		<Type Name="SystemAbsState">
 			<DependsOn Name="SignalUnipolar" />
+		</Type>
+		<Type Name="CatSegmentArray">
+			<DependsOn Name="Entity" />
+		</Type>
+		<Type Name="DashboardConfig">
+			<DependsOn Name="Entity" />
+		</Type>
+		<Type Name="EngineStarterData">
+			<DependsOn Name="AngularForce" />
+		</Type>
+		<Type Name="ContactForces">
+			<DependsOn Name="AngularForce" />
+			<DependsOn Name="ContactSlip" />
+		</Type>
+		<Type Name="WheelBrakeData">
+			<DependsOn Name="AngularForce" />
+		</Type>
+		<Type Name="RetarderState">
+			<DependsOn Name="AngularForce" />
+		</Type>
+		<Type Name="CouplerState">
+			<DependsOn Name="AngularForce" />
+		</Type>
+		<Type Name="CatBrakeData">
+			<DependsOn Name="AngularForce" />
+		</Type>
+		<Type Name="SatForce">
+			<DependsOn Name="Angle" />
+			<DependsOn Name="AngularForce" />
 		</Type>
 		<Type Name="VehicleControllerData">
 			<DependsOn Name="Angle" />
@@ -958,19 +1227,23 @@
 			<DependsOn Name="SignalBipolar" />
 			<DependsOn Name="SignalUnipolar" />
 		</Type>
-		<Type Name="VehicleGaugeData">
-			<DependsOn Name="BatteryConsumptionData" />
-			<DependsOn Name="FuelConsumptionData" />
-		</Type>
-		<Type Name="VehicleState">
-			<DependsOn Name="VehicleGaugeData" />
-		</Type>
 		<Type Name="DriveData">
 			<DependsOn Name="AngularForce" />
 			<DependsOn Name="Inertia" />
 		</Type>
 		<Type Name="DrivetrainData">
 			<DependsOn Name="DriveData" />
+		</Type>
+		<Type Name="ElectronicsConfig">
+			<DependsOn Name="Entity" />
+			<DependsOn Name="SystemAbaConfig" />
+			<DependsOn Name="SystemAbsConfig" />
+			<DependsOn Name="SystemAsrConfig" />
+			<DependsOn Name="SystemEscConfig" />
+		</Type>
+		<Type Name="ElectricsState">
+			<DependsOn Name="HeadlampsBeamType" />
+			<DependsOn Name="HeadlampsModeType" />
 		</Type>
 		<Type Name="BodyInterpData">
 			<DependsOn Name="RigidTransform" />
@@ -980,6 +1253,13 @@
 		</Type>
 		<Type Name="BodyTelemetryData">
 			<DependsOn Name="PitchYawRoll" />
+		</Type>
+		<Type Name="GearboxData">
+			<DependsOn Name="GearboxType" />
+			<DependsOn Name="Inertia" />
+		</Type>
+		<Type Name="AutoBoxData">
+			<DependsOn Name="AutoBoxType" />
 		</Type>
 		<Type Name="WheelShapeState">
 			<DependsOn Name="Length" />
@@ -1007,36 +1287,6 @@
 			<DependsOn Name="InOutBindMode" />
 			<DependsOn Name="ManifoldIndex" />
 		</Type>
-		<Type Name="VehicleSteeringData">
-			<DependsOn Name="AngleDeg" />
-			<DependsOn Name="VehicleSteeringType" />
-		</Type>
-		<Type Name="VehicleConfig">
-			<DependsOn Name="Entity" />
-			<DependsOn Name="Mass" />
-			<DependsOn Name="SystemAbaConfig" />
-			<DependsOn Name="SystemAbsConfig" />
-			<DependsOn Name="SystemAsrConfig" />
-			<DependsOn Name="SystemEscConfig" />
-			<DependsOn Name="VehicleCategory" />
-			<DependsOn Name="VehicleSteeringData" />
-		</Type>
-		<Type Name="ElectricEngineState">
-			<DependsOn Name="PID" />
-		</Type>
-		<Type Name="CombustionEngineState">
-			<DependsOn Name="PID" />
-		</Type>
-		<Type Name="MotorEngineState">
-			<DependsOn Name="AngularForce" />
-			<DependsOn Name="BatteryConsumptionData" />
-			<DependsOn Name="CombustionEngineState" />
-			<DependsOn Name="ElectricEngineState" />
-			<DependsOn Name="EngineState" />
-			<DependsOn Name="FuelConsumptionData" />
-			<DependsOn Name="Power" />
-			<DependsOn Name="Rpm" />
-		</Type>
 		<Type Name="InOutFeedback">
 			<DependsOn Name="Angle" />
 			<DependsOn Name="AngularVelocity" />
@@ -1054,6 +1304,58 @@
 			<DependsOn Name="InOutFeedback" />
 			<DependsOn Name="WheelOutput" />
 		</Type>
+		<Type Name="VehicleSteeringData">
+			<DependsOn Name="AngleDeg" />
+			<DependsOn Name="VehicleSteeringType" />
+		</Type>
+		<Type Name="VehicleConfig">
+			<DependsOn Name="Entity" />
+			<DependsOn Name="Mass" />
+			<DependsOn Name="SystemAbaConfig" />
+			<DependsOn Name="SystemAbsConfig" />
+			<DependsOn Name="SystemAsrConfig" />
+			<DependsOn Name="SystemEscConfig" />
+			<DependsOn Name="VehicleCategory" />
+			<DependsOn Name="VehicleSteeringData" />
+		</Type>
+		<Type Name="VehicleDoorStateArray">
+			<DependsOn Name="VehicleDoorState" />
+		</Type>
+		<Type Name="DashboardState">
+			<DependsOn Name="BatteryConsumptionData" />
+			<DependsOn Name="FuelConsumptionData" />
+			<DependsOn Name="VehicleDoorStateArray" />
+			<DependsOn Name="VehicleGearboxMode" />
+			<DependsOn Name="VehicleHeadlampsMode" />
+			<DependsOn Name="VehicleSignalMode" />
+			<DependsOn Name="VehicleSystemState" />
+		</Type>
+		<Type Name="ElectricEngineState">
+			<DependsOn Name="PID" />
+		</Type>
+		<Type Name="CombustionEngineState">
+			<DependsOn Name="PID" />
+		</Type>
+		<Type Name="MotorEngineState">
+			<DependsOn Name="AngularForce" />
+			<DependsOn Name="BatteryConsumptionData" />
+			<DependsOn Name="CombustionEngineState" />
+			<DependsOn Name="ElectricEngineState" />
+			<DependsOn Name="EngineState" />
+			<DependsOn Name="FuelConsumptionData" />
+			<DependsOn Name="Power" />
+			<DependsOn Name="Rpm" />
+		</Type>
+		<Type Name="AutoBoxState">
+			<DependsOn Name="AutoBoxDriveMode" />
+			<DependsOn Name="AutoShiftCond" />
+		</Type>
+		<Type Name="TransmissionState">
+			<DependsOn Name="AutoBoxState" />
+			<DependsOn Name="CouplerState" />
+			<DependsOn Name="GearboxState" />
+			<DependsOn Name="RetarderState" />
+		</Type>
 		<Type Name="DriveOutput">
 			<DependsOn Name="AxisOutput" />
 			<DependsOn Name="DriveType" />
@@ -1063,13 +1365,6 @@
 			<DependsOn Name="DriveOutput" />
 			<DependsOn Name="Entity" />
 			<DependsOn Name="InOutState" />
-		</Type>
-		<Type Name="GearboxData">
-			<DependsOn Name="GearboxType" />
-			<DependsOn Name="Inertia" />
-		</Type>
-		<Type Name="AutoBoxData">
-			<DependsOn Name="AutoBoxType" />
 		</Type>
 		<Type Name="WheelSuspensionData">
 			<DependsOn Name="AngleDeg" />
@@ -1088,8 +1383,17 @@
 			<DependsOn Name="InterpMethod" />
 			<DependsOn Name="WrapMethod" />
 		</Type>
+		<Type Name="HydraulicTorqueConverterData">
+			<DependsOn Name="CurveData" />
+			<DependsOn Name="LockupClutchData" />
+		</Type>
 		<Type Name="FrictionClutchData">
 			<DependsOn Name="CurveData" />
+		</Type>
+		<Type Name="CouplerData">
+			<DependsOn Name="CouplerType" />
+			<DependsOn Name="FrictionClutchData" />
+			<DependsOn Name="HydraulicTorqueConverterData" />
 		</Type>
 		<Type Name="WheelSatData">
 			<DependsOn Name="CurveData" />
@@ -1114,11 +1418,6 @@
 		<Type Name="TrailerVehicleConfigInfo">
 			<DependsOn Name="VehicleConfigInfo" />
 		</Type>
-		<Type Name="RetarderData">
-			<DependsOn Name="AngularForce" />
-			<DependsOn Name="CurveData" />
-			<DependsOn Name="RetarderType" />
-		</Type>
 		<Type Name="ElectricEngineData">
 			<DependsOn Name="AngularForce" />
 			<DependsOn Name="CurveData" />
@@ -1141,14 +1440,10 @@
 			<DependsOn Name="CatTrackSuspensionData" />
 			<DependsOn Name="Entity" />
 		</Type>
-		<Type Name="HydraulicTorqueConverterData">
+		<Type Name="RetarderData">
+			<DependsOn Name="AngularForce" />
 			<DependsOn Name="CurveData" />
-			<DependsOn Name="LockupClutchData" />
-		</Type>
-		<Type Name="CouplerData">
-			<DependsOn Name="CouplerType" />
-			<DependsOn Name="FrictionClutchData" />
-			<DependsOn Name="HydraulicTorqueConverterData" />
+			<DependsOn Name="RetarderType" />
 		</Type>
 		<Type Name="TransmissionConfig">
 			<DependsOn Name="AutoBoxData" />
@@ -1157,6 +1452,33 @@
 			<DependsOn Name="Entity" />
 			<DependsOn Name="GearboxData" />
 			<DependsOn Name="RetarderData" />
+		</Type>
+		<Type Name="PneumaticDoorState">
+			<DependsOn Name="PneumaticDoorSignalType" />
+		</Type>
+		<Type Name="PneumaticDoorStateArray">
+			<DependsOn Name="PneumaticDoorState" />
+		</Type>
+		<Type Name="PneumaticsState">
+			<DependsOn Name="PneumaticDoorStateArray" />
+		</Type>
+		<Type Name="ThrottleControlData">
+			<DependsOn Name="ThrottleControlType" />
+		</Type>
+		<Type Name="CombustionEngineData">
+			<DependsOn Name="AngularForce" />
+			<DependsOn Name="CurveData" />
+			<DependsOn Name="EngineStarterData" />
+			<DependsOn Name="Inertia" />
+			<DependsOn Name="Power" />
+			<DependsOn Name="Rpm" />
+			<DependsOn Name="ThrottleControlData" />
+		</Type>
+		<Type Name="MotorEngineConfig">
+			<DependsOn Name="CombustionEngineData" />
+			<DependsOn Name="ElectricEngineData" />
+			<DependsOn Name="Entity" />
+			<DependsOn Name="MotorEngineType" />
 		</Type>
 		<Type Name="SurfaceData">
 			<DependsOn Name="SurfaceType" />
@@ -1182,24 +1504,6 @@
 		<Type Name="MirrorsConfig">
 			<DependsOn Name="Entity" />
 			<DependsOn Name="MirrorConfig" />
-		</Type>
-		<Type Name="EngineStarterData">
-			<DependsOn Name="AngularForce" />
-		</Type>
-		<Type Name="CombustionEngineData">
-			<DependsOn Name="AngularForce" />
-			<DependsOn Name="CurveData" />
-			<DependsOn Name="EngineStarterData" />
-			<DependsOn Name="FuelInjectionData" />
-			<DependsOn Name="Inertia" />
-			<DependsOn Name="Power" />
-			<DependsOn Name="Rpm" />
-		</Type>
-		<Type Name="MotorEngineConfig">
-			<DependsOn Name="CombustionEngineData" />
-			<DependsOn Name="ElectricEngineData" />
-			<DependsOn Name="Entity" />
-			<DependsOn Name="MotorEngineType" />
 		</Type>
 		<Type Name="MotorVehicleConfigInfo">
 			<DependsOn Name="CatTrackConfig" />

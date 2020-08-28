@@ -22,6 +22,40 @@
 namespace fmt
 {
 	template <typename Char>
+	struct formatter<xsim::AutoBoxDriveMode, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::AutoBoxDriveMode& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::AutoBoxDriveMode::Neutral:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxDriveMode(Neutral)"));
+				}
+				case xsim::AutoBoxDriveMode::Drive:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxDriveMode(Drive)"));
+				}
+				case xsim::AutoBoxDriveMode::Reverse:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxDriveMode(Reverse)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxDriveMode({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::AutoBoxType, Char>
 	{
 		template <typename ParseContext>
@@ -256,6 +290,70 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::HeadlampsBeamType, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::HeadlampsBeamType& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::HeadlampsBeamType::Low:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsBeamType(Low)"));
+				}
+				case xsim::HeadlampsBeamType::High:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsBeamType(High)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsBeamType({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::HeadlampsModeType, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::HeadlampsModeType& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::HeadlampsModeType::None:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsModeType(None)"));
+				}
+				case xsim::HeadlampsModeType::Position:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsModeType(Position)"));
+				}
+				case xsim::HeadlampsModeType::Beam:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsModeType(Beam)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("HeadlampsModeType({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::InOutBindMode, Char>
 	{
 		template <typename ParseContext>
@@ -370,6 +468,36 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::PneumaticDoorSignalType, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::PneumaticDoorSignalType& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::PneumaticDoorSignalType::Close:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticDoorSignalType(Close)"));
+				}
+				case xsim::PneumaticDoorSignalType::Open:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticDoorSignalType(Open)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticDoorSignalType({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::RetarderType, Char>
 	{
 		template <typename ParseContext>
@@ -470,6 +598,36 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::ThrottleControlType, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ThrottleControlType& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::ThrottleControlType::ThrottleToPower:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("ThrottleControlType(ThrottleToPower)"));
+				}
+				case xsim::ThrottleControlType::ThrottleToRpm:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("ThrottleControlType(ThrottleToRpm)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("ThrottleControlType({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::VehicleCategory, Char>
 	{
 		template <typename ParseContext>
@@ -512,6 +670,154 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::VehicleDoorState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleDoorState& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::VehicleDoorState::Closed:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleDoorState(Closed)"));
+				}
+				case xsim::VehicleDoorState::Open:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleDoorState(Open)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleDoorState({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleGearboxMode, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleGearboxMode& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::VehicleGearboxMode::Manual:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode(Manual)"));
+				}
+				case xsim::VehicleGearboxMode::Direct:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode(Direct)"));
+				}
+				case xsim::VehicleGearboxMode::SemiAuto:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode(SemiAuto)"));
+				}
+				case xsim::VehicleGearboxMode::FullAuto:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode(FullAuto)"));
+				}
+				case xsim::VehicleGearboxMode::Cvt:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode(Cvt)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGearboxMode({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleHeadlampsMode, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleHeadlampsMode& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::VehicleHeadlampsMode::None:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleHeadlampsMode(None)"));
+				}
+				case xsim::VehicleHeadlampsMode::Position:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleHeadlampsMode(Position)"));
+				}
+				case xsim::VehicleHeadlampsMode::LowBeam:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleHeadlampsMode(LowBeam)"));
+				}
+				case xsim::VehicleHeadlampsMode::HighBeam:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleHeadlampsMode(HighBeam)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleHeadlampsMode({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleSignalMode, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleSignalMode& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::VehicleSignalMode::None:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSignalMode(None)"));
+				}
+				case xsim::VehicleSignalMode::TurnLeft:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSignalMode(TurnLeft)"));
+				}
+				case xsim::VehicleSignalMode::TurnRight:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSignalMode(TurnRight)"));
+				}
+				case xsim::VehicleSignalMode::HazardWarning:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSignalMode(HazardWarning)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSignalMode({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::VehicleSteeringType, Char>
 	{
 		template <typename ParseContext>
@@ -536,6 +842,40 @@ namespace fmt
 				default:
 				{
 					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringType({})"), static_cast<uintmax_t>(value));
+				}
+			}
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleSystemState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleSystemState& value, FormatContext& ctx)
+		{
+			switch (value)
+			{
+				case xsim::VehicleSystemState::Disabled:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSystemState(Disabled)"));
+				}
+				case xsim::VehicleSystemState::Enabled:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSystemState(Enabled)"));
+				}
+				case xsim::VehicleSystemState::Active:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSystemState(Active)"));
+				}
+				default:
+				{
+					return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSystemState({})"), static_cast<uintmax_t>(value));
 				}
 			}
 		}
@@ -724,6 +1064,22 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::AutoShiftCond, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::AutoShiftCond& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoShiftCond"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::BatteryConsumptionData, Char>
 	{
 		template <typename ParseContext>
@@ -736,6 +1092,38 @@ namespace fmt
 		auto format(const xsim::BatteryConsumptionData& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("BatteryConsumptionData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::BodyCollisionData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::BodyCollisionData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("BodyCollisionData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CameraState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CameraState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CameraState"));
 		}
 	};
 
@@ -768,6 +1156,22 @@ namespace fmt
 		auto format(const xsim::DeltaTime& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("DeltaTime({})"), value.Value());
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ElectronicsState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ElectronicsState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectronicsState"));
 		}
 	};
 
@@ -820,7 +1224,7 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::FuelInjectionData, Char>
+	struct formatter<xsim::GearboxState, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -829,9 +1233,9 @@ namespace fmt
 		}
 
 		template <typename FormatContext>
-		auto format(const xsim::FuelInjectionData& value, FormatContext& ctx)
+		auto format(const xsim::GearboxState& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("FuelInjectionData"));
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxState"));
 		}
 	};
 
@@ -1140,6 +1544,38 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::VehicleApiData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleApiData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleApiData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleState"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::WheelTransformState, Char>
 	{
 		template <typename ParseContext>
@@ -1152,70 +1588,6 @@ namespace fmt
 		auto format(const xsim::WheelTransformState& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelTransformState"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CatSegmentArray, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CatSegmentArray& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatSegmentArray"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::WheelBrakeData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::WheelBrakeData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelBrakeData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CatBrakeData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CatBrakeData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatBrakeData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CatTrackState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CatTrackState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatTrackState"));
 		}
 	};
 
@@ -1236,22 +1608,6 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::ContactForces, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::ContactForces& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactForces"));
-		}
-	};
-
-	template <typename Char>
 	struct formatter<xsim::WheelTurnState, Char>
 	{
 		template <typename ParseContext>
@@ -1264,22 +1620,6 @@ namespace fmt
 		auto format(const xsim::WheelTurnState& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelTurnState"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::SatForce, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::SatForce& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("SatForce"));
 		}
 	};
 
@@ -1316,6 +1656,150 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::CatSegmentArray, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CatSegmentArray& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatSegmentArray"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::DashboardConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::DashboardConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DashboardConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::EngineStarterData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::EngineStarterData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineStarterData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ContactForces, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ContactForces& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ContactForces"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::WheelBrakeData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::WheelBrakeData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("WheelBrakeData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::RetarderState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::RetarderState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CouplerState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CouplerState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CatBrakeData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CatBrakeData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CatBrakeData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::SatForce, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::SatForce& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("SatForce"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::VehicleControllerData, Char>
 	{
 		template <typename ParseContext>
@@ -1328,38 +1812,6 @@ namespace fmt
 		auto format(const xsim::VehicleControllerData& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleControllerData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::VehicleGaugeData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::VehicleGaugeData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleGaugeData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::VehicleState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::VehicleState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleState"));
 		}
 	};
 
@@ -1392,6 +1844,38 @@ namespace fmt
 		auto format(const xsim::DrivetrainData& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("DrivetrainData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ElectronicsConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ElectronicsConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectronicsConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ElectricsState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ElectricsState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectricsState"));
 		}
 	};
 
@@ -1440,6 +1924,38 @@ namespace fmt
 		auto format(const xsim::BodyTelemetryData& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("BodyTelemetryData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::GearboxData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::GearboxData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::AutoBoxData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::AutoBoxData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxData"));
 		}
 	};
 
@@ -1540,86 +2056,6 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::VehicleSteeringData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::VehicleSteeringData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::VehicleConfig, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::VehicleConfig& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleConfig"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::ElectricEngineState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::ElectricEngineState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectricEngineState"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CombustionEngineState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CombustionEngineState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineState"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::MotorEngineState, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::MotorEngineState& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineState"));
-		}
-	};
-
-	template <typename Char>
 	struct formatter<xsim::InOutFeedback, Char>
 	{
 		template <typename ParseContext>
@@ -1684,6 +2120,150 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::VehicleSteeringData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleSteeringData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleSteeringData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::VehicleDoorStateArray, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::VehicleDoorStateArray& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("VehicleDoorStateArray"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::DashboardState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::DashboardState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("DashboardState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ElectricEngineState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ElectricEngineState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ElectricEngineState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CombustionEngineState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CombustionEngineState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::MotorEngineState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::MotorEngineState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::AutoBoxState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::AutoBoxState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::TransmissionState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::TransmissionState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("TransmissionState"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::DriveOutput, Char>
 	{
 		template <typename ParseContext>
@@ -1712,38 +2292,6 @@ namespace fmt
 		auto format(const xsim::ManifoldState& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("ManifoldState"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::GearboxData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::GearboxData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("GearboxData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::AutoBoxData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::AutoBoxData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("AutoBoxData"));
 		}
 	};
 
@@ -1812,6 +2360,22 @@ namespace fmt
 	};
 
 	template <typename Char>
+	struct formatter<xsim::HydraulicTorqueConverterData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::HydraulicTorqueConverterData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("HydraulicTorqueConverterData"));
+		}
+	};
+
+	template <typename Char>
 	struct formatter<xsim::FrictionClutchData, Char>
 	{
 		template <typename ParseContext>
@@ -1824,6 +2388,22 @@ namespace fmt
 		auto format(const xsim::FrictionClutchData& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("FrictionClutchData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CouplerData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CouplerData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerData"));
 		}
 	};
 
@@ -1908,22 +2488,6 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::RetarderData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::RetarderData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderData"));
-		}
-	};
-
-	template <typename Char>
 	struct formatter<xsim::ElectricEngineData, Char>
 	{
 		template <typename ParseContext>
@@ -1972,7 +2536,7 @@ namespace fmt
 	};
 
 	template <typename Char>
-	struct formatter<xsim::HydraulicTorqueConverterData, Char>
+	struct formatter<xsim::RetarderData, Char>
 	{
 		template <typename ParseContext>
 		constexpr auto parse(ParseContext& ctx)
@@ -1981,25 +2545,9 @@ namespace fmt
 		}
 
 		template <typename FormatContext>
-		auto format(const xsim::HydraulicTorqueConverterData& value, FormatContext& ctx)
+		auto format(const xsim::RetarderData& value, FormatContext& ctx)
 		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("HydraulicTorqueConverterData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CouplerData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CouplerData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CouplerData"));
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("RetarderData"));
 		}
 	};
 
@@ -2016,6 +2564,102 @@ namespace fmt
 		auto format(const xsim::TransmissionConfig& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("TransmissionConfig"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::PneumaticDoorState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::PneumaticDoorState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticDoorState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::PneumaticDoorStateArray, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::PneumaticDoorStateArray& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticDoorStateArray"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::PneumaticsState, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::PneumaticsState& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("PneumaticsState"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::ThrottleControlData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::ThrottleControlData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("ThrottleControlData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::CombustionEngineData, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::CombustionEngineData& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineData"));
+		}
+	};
+
+	template <typename Char>
+	struct formatter<xsim::MotorEngineConfig, Char>
+	{
+		template <typename ParseContext>
+		constexpr auto parse(ParseContext& ctx)
+		{
+			return ctx.begin();
+		}
+
+		template <typename FormatContext>
+		auto format(const xsim::MotorEngineConfig& value, FormatContext& ctx)
+		{
+			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineConfig"));
 		}
 	};
 
@@ -2080,54 +2724,6 @@ namespace fmt
 		auto format(const xsim::MirrorsConfig& value, FormatContext& ctx)
 		{
 			return format_to(ctx.out(), XSIM_FMT_LITERAL("MirrorsConfig"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::EngineStarterData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::EngineStarterData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("EngineStarterData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::CombustionEngineData, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::CombustionEngineData& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("CombustionEngineData"));
-		}
-	};
-
-	template <typename Char>
-	struct formatter<xsim::MotorEngineConfig, Char>
-	{
-		template <typename ParseContext>
-		constexpr auto parse(ParseContext& ctx)
-		{
-			return ctx.begin();
-		}
-
-		template <typename FormatContext>
-		auto format(const xsim::MotorEngineConfig& value, FormatContext& ctx)
-		{
-			return format_to(ctx.out(), XSIM_FMT_LITERAL("MotorEngineConfig"));
 		}
 	};
 
