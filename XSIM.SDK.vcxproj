@@ -14,6 +14,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4dbf1ce1-6d62-4b28-84a0-0f1909eea27e}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(VisualStudioVersion)' == '16.0'">10.0</WindowsTargetPlatformVersion>
     <VcpkgEnabled>true</VcpkgEnabled>
     <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
     <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
@@ -23,6 +24,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
     <OutDir>$(ProjectDir)Lib\$(Configuration)\</OutDir>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -31,6 +33,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
     <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
     <OutDir>$(ProjectDir)Lib\$(Configuration)\</OutDir>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -118,37 +121,18 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\fmt\core.h" />
-    <ClInclude Include="Include\fmt\format-inl.h" />
-    <ClInclude Include="Include\fmt\format.h" />
-    <ClInclude Include="Include\fmt\ostream.h" />
     <ClInclude Include="Include\xsim\fmt.hpp" />
-    <ClInclude Include="Include\xsim\formatters.hpp" />
-    <ClInclude Include="Include\xsim\generated\abi.hpp" />
-    <ClInclude Include="Include\xsim\generated\exports.hpp" />
-    <ClInclude Include="Include\xsim\generated\formatters.hpp" />
-    <ClInclude Include="Include\xsim\generated\types.hpp" />
     <ClInclude Include="Include\xsim\logs.hpp" />
+    <ClInclude Include="Include\xsim\math.hpp" />
     <ClInclude Include="Include\xsim\types.hpp" />
     <ClInclude Include="Include\xsim\utils.hpp" />
     <ClInclude Include="Include\xsim\xsim.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\fmt\format.cpp" />
-    <ClCompile Include="Source\xsim\logging.cpp" />
+    <ClCompile Include="Source\xsim\logs.cpp" />
     <ClCompile Include="Source\xsim\utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Source\ABI.txt">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="Source\ABI.xml">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Xml>
+    <ClCompile Include="Source\xsim\xsim.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

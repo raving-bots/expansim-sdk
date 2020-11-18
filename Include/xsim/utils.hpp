@@ -5,16 +5,19 @@
 
 #pragma once
 
+// ReSharper disable CppClangTidyCppcoreguidelinesMacroUsage
+
 #include <string>
 #include <string_view>
 #include <filesystem>
 #include <sstream>
 #include <iomanip>
 
-#include <windows.h>
+#include <Windows.h>
 
 #include <xsim/fmt.hpp>
 #include <xsim/logs.hpp>
+#include <xsim/types.hpp>
 
 namespace fs = std::filesystem;
 
@@ -53,13 +56,11 @@ namespace xsim
 	struct PluginError final : virtual std::exception
 	{
 		explicit PluginError(std::wstring message)
-			: m_Message{message}
+			: m_Message{std::move(message)}
 		{
 		}
 
-		~PluginError() noexcept override
-		{
-		}
+		~PluginError() noexcept override = default;
 
 		const char* what() const override
 		{
@@ -78,7 +79,10 @@ namespace xsim
 	std::wstring ToUTF16(std::string_view source);
 	std::string ToUTF8(std::wstring_view source);
 
-	fs::path GetDocumentsPath();
+	const fs::path& GetDocumentsPath();
+	const fs::path& GetSimulatorPath();
+	int32_t GetSimulatorBuildID();
+	std::wstring_view GetSimulatorVersion();
 
 	namespace detail
 	{
@@ -118,6 +122,8 @@ namespace xsim
 		{
 			Fail(function, file, line, result, fmt::format(message, std::forward<T>(arg0), std::forward<Args>(args)...));
 		}
+
+		XSIM_EXPORT void SetSimulatorEnv(const wchar_t* version, int32_t buildID, const wchar_t* execPath, const wchar_t* userDataPath) noexcept;
 	}
 
 	template <typename Fn>

@@ -5,11 +5,16 @@
 
 #pragma once
 
-#include <xsim/xsim.hpp>
-
 #include <fstream>
+#include <filesystem>
 
-#include "csv.hpp"
+namespace xsim
+{
+	struct BodyTelemetryDataV1;
+	struct RigidTransformV1;
+	struct VehicleSetupInfoV1;
+	struct DashboardStateV1;
+}
 
 namespace plugin
 {
@@ -20,24 +25,24 @@ namespace plugin
 		TelemetryRecorder& operator=(const TelemetryRecorder& other) = delete;
 		TelemetryRecorder& operator=(TelemetryRecorder&& other) noexcept = delete;
 
-		explicit TelemetryRecorder(fs::path basePath);
-		~TelemetryRecorder();
+		explicit TelemetryRecorder(const std::filesystem::path& basePath);
+		~TelemetryRecorder() = default;
 
-		void Start(const xsim::VehicleSetupInfo& vehicleSetup);
+		void Start(const xsim::VehicleSetupInfoV1& vehicleSetup);
 
 		void RecordTelemetry(
-			xsim::DeltaTime dt,
-			const xsim::RigidTransform& transform,
-			const xsim::BodyTelemetryData& telemetry
+			float dt,
+			const xsim::RigidTransformV1& transform,
+			const xsim::BodyTelemetryDataV1& telemetry
 		);
 
 		void RecordDashboard(
-			xsim::DeltaTime dt,
-			const xsim::DashboardState& dashboard
+			float dt,
+			const xsim::DashboardStateV1& dashboard
 		);
 
 	private:
-		fs::path m_OutputPath{};
+		std::filesystem::path m_OutputPath{};
 		std::ofstream m_TelemetryFile{};
 		std::ofstream m_DashboardFile{};
 		float m_TelemetryTime{};

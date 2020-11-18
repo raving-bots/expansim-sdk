@@ -6,14 +6,18 @@
 #include <xsim/utils.hpp>
 #include <xsim/logs.hpp>
 
-#include <windows.h>
+#include <Windows.h>
 #include <comdef.h>
-#include <shlobj.h>
 
 namespace xsim
 {
 	namespace detail
 	{
+		fs::path g_SimulatorPath{};
+		fs::path g_UserDataPath{};
+		std::wstring g_SimVersion{};
+		int32_t g_SimBuildID{};
+
 		std::wstring DescribeWindowsError(DWORD code)
 		{
 			wchar_t* raw;
@@ -84,6 +88,14 @@ namespace xsim
 		{
 			Fail(function, file, line, fmt::format(L"(0x{:08X}) {}", code, message));
 		}
+
+		XSIM_EXPORT void SetSimulatorEnv(const wchar_t* version, int32_t buildID, const wchar_t* execPath, const wchar_t* userDataPath) noexcept
+		{
+			g_SimVersion = version;
+			g_SimBuildID = buildID;
+			g_SimulatorPath = execPath;
+			g_UserDataPath = userDataPath;
+		}
 	}
 
 	std::wstring ToUTF16(std::string_view source)
@@ -138,16 +150,23 @@ namespace xsim
 		return buffer;
 	}
 
-	fs::path GetDocumentsPath()
+	const fs::path& GetDocumentsPath()
 	{
-		// TODO: would be better to get this from the simulator
-		wchar_t* documents;
+		return detail::g_UserDataPath;
+	}
 
-		auto result = SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_DEFAULT, nullptr, &documents);
-		XSIM_CHECK_HRESULT(result, L"SHGetKnownFolderPath");
-		std::unique_ptr<wchar_t, decltype(&CoTaskMemFree)> guard(documents, CoTaskMemFree);
+	const fs::path& GetSimulatorPath()
+	{
+		return detail::g_SimulatorPath;
+	}
 
-		// ReSharper disable once StringLiteralTypo
-		return fs::path(documents) / L"eXpanSIM";
+	int32_t GetSimulatorBuildID()
+	{
+		return detail::g_SimBuildID;
+	}
+
+	std::wstring_view GetSimulatorVersion()
+	{
+		return detail::g_SimVersion;
 	}
 }

@@ -13,79 +13,42 @@
     <Filter Include="Source\xsim">
       <UniqueIdentifier>{c9dac01c-c263-4347-974e-0f672297411c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include\xsim\generated">
-      <UniqueIdentifier>{a7e1714f-a595-4fa3-aed6-bb50762af810}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\fmt">
-      <UniqueIdentifier>{1f66a8c5-a325-498b-8fa2-abe5a74676b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\fmt">
       <UniqueIdentifier>{0ac0b30a-8df9-46a8-a126-d31cb85c636b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\xsim\fmt.hpp">
+      <Filter>Include\xsim</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\xsim\logs.hpp">
+      <Filter>Include\xsim</Filter>
+    </ClInclude>
     <ClInclude Include="Include\xsim\types.hpp">
+      <Filter>Include\xsim</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\xsim\utils.hpp">
       <Filter>Include\xsim</Filter>
     </ClInclude>
     <ClInclude Include="Include\xsim\xsim.hpp">
       <Filter>Include\xsim</Filter>
     </ClInclude>
-    <ClInclude Include="Include\xsim\fmt.hpp">
-      <Filter>Include\xsim</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\generated\abi.hpp">
-      <Filter>Include\xsim\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\generated\types.hpp">
-      <Filter>Include\xsim\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\generated\exports.hpp">
-      <Filter>Include\xsim\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\utils.hpp">
-      <Filter>Include\xsim</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\fmt\core.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\fmt\format.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\fmt\format-inl.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\fmt\ostream.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\logs.hpp">
-      <Filter>Include\xsim</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\generated\formatters.hpp">
-      <Filter>Include\xsim\generated</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\xsim\formatters.hpp">
+    <ClInclude Include="Include\xsim\math.hpp">
       <Filter>Include\xsim</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\xsim\logging.cpp">
-      <Filter>Source\xsim</Filter>
-    </ClCompile>
     <ClCompile Include="Source\xsim\utils.cpp">
       <Filter>Source\xsim</Filter>
     </ClCompile>
     <ClCompile Include="Source\fmt\format.cpp">
       <Filter>Source\fmt</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Source\ABI.txt">
-      <Filter>Source</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="Source\ABI.xml">
-      <Filter>Source</Filter>
-    </Xml>
+    <ClCompile Include="Source\xsim\xsim.cpp">
+      <Filter>Source\xsim</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\xsim\logs.cpp">
+      <Filter>Source\xsim</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

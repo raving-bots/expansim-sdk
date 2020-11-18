@@ -5,28 +5,50 @@
 
 #pragma once
 
-#include <xsim/generated/abi.hpp>
+#include <xsim/types.hpp>
 #include <xsim/fmt.hpp>
 
 #include <utility>
 
 namespace xsim
 {
+	enum class LogLevel : int32_t
+	{
+		Verbose,
+		Debug,
+		Information,
+		Warning,
+		Error,
+		Fatal
+	};
+
 	namespace detail
 	{
-		void Log(std::wstring_view message);
+		using LogSink = Ptr<void(void* self, LogLevel level, const wchar_t* message, int32_t length) noexcept>;
+
+		void Log(LogLevel level, std::wstring_view message);
+		XSIM_EXPORT void SetLogSink(void* self, LogSink sink) noexcept;
 	}
 
-	void SetLogSink(LogSinkFn sink);
+	inline void Log(LogLevel level, std::wstring_view message)
+	{
+		detail::Log(level, message);
+	}
 
 	inline void Log(std::wstring_view message)
 	{
-		detail::Log(message);
+		Log(LogLevel::Information, message);
+	}
+
+	template <typename T, typename... Args>
+	void Log(LogLevel level, std::wstring_view message, T&& arg0, Args&&... args)
+	{
+		detail::Log(level, fmt::format(message, std::forward<T>(arg0), std::forward<Args>(args)...));
 	}
 
 	template <typename T, typename... Args>
 	void Log(std::wstring_view message, T&& arg0, Args&&... args)
 	{
-		detail::Log(fmt::format(message, std::forward<T>(arg0), std::forward<Args>(args)...));
+		Log(LogLevel::Information, message, std::forward<T>(arg0), std::forward<Args>(args)...);
 	}
 }

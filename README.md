@@ -1,10 +1,16 @@
 # eXpanSIM SDK
 
-[eXpanSIM][1] is a universal vehicle simulator supporting VR. The training mode lets you learn (eco-)driving cars and trucks. Racing fans can test their skills in driving vehicles with realistic physics. It is also a modern research testbed for engineers, designers and AI specialists working on autonomous vehicles. You can find it on [Steam][1].
+[eXpanSIM][1] is a universal vehicle simulator supporting VR. The training mode lets you learn (eco-)driving cars and trucks.
+Racing fans can test their skills in driving vehicles with realistic physics. It is also a modern research testbed for engineers,
+designers and AI specialists working on autonomous vehicles. You can find it on [Steam][1]. We also offer enterprise licensing: [contact
+us](mailto:contact@ravingbots.com) for details.
 
 [1]: https://store.steampowered.com/app/1015370/eXpanSIM/
 
 **IMPORTANT**: this is an early preview release of the plugins feature and the SDK. Everything is subject to change.
+
+**IMPORTANT, BREAKING CHANGE**: the SDK and the plugins feature changed significantly recently.
+Review `CHANGELOG.md` and this document, old plugins will no longer work.
 
 After installing eXpanSIM on Steam you can find the built SDK in the `<Steam directory>\steamapps\common\eXpanSIM\SDK` directory.
 It's recommended to always use the SDK included with the simulator build. The GitHub repository is provided only for reference and might be out of date.
@@ -13,39 +19,159 @@ It's recommended to always use the SDK included with the simulator build. The Gi
 
 Building plugins with the current version of the SDK requires:
 
-- Visual Studio 2017 15.9 or newer. Visual Studio 2019 might work but is not recommended at this time.
-- C++17 support.
+- Visual Studio 2017 15.9 or newer, or Visual Studio 2019 16.7 or newer. Other compilers haven't yet been tested and aren't recommended at this time.
+- C++17 support. C support will be released in the future.
 - Windows SDK 1809 (10.0.17763.0).
 
 ## Getting started
 
-1. Run eXpanSIM at least once to create all of the configuration files. Close it afterwards.
-2. Set `XSIM_SDK_PATH` environment variable to this folder.
-3. Install the Visual Studio 2017 project template (see below).
-4. Edit `Documents\eXpanSIM\Configs\vXX\API_vYY.json` (the version numbers might vary, use the highest one):
-  1. Set `PluginPath` to the **absolute** path to your DLL. **IMPORTANT**: JSON strings support escapes, so paths must use a doubled backslash (`C:\\foo\\bar.dll`) or a forward slash (`C:/foo/bar.dll`).
-  2. Set `PluginDebug` to `true` to make plugin loading more verbose.
-  3. Set any of the `VehicleControllerPlugin`, `MotorEnginePlugin`, `WheelHubPlugin`, `CatTrackHubPlugin`, `TelemetryPlugin`, `DashboardPlugin` and `TransmissionPlugin` as needed.
-5. Run eXpanSIM again. Your plugin should now be loaded.
+1. Set `XSIM_SDK_PATH` environment variable to this folder.
+2. Install the Visual Studio project template (see below).
+3. After building your plugin, copy it to one of these directories (create it if it doesn't exist):
+   1. `<installation path>\Simulator\Plugins`: this is recommended path to use for automated deployment
+      - for Steam version: `<Steam library path>\steamapps\common\eXpanSIM\Simulator\Plugins`
+        (stored under `InstallPath` value in `HKEY_LOCAL_MACHINE\SOFTWARE\Raving Bots\eXpanSIM\Steam`)
+      - for enterprise version (default): `C:\Program Files\Raving Bots\eXpanSIM`
+        (stored under `InstallPath` value in `HKEY_LOCAL_MACHINE\SOFTWARE\Raving Bots\eXpanSIM\Enterprise`)
+   2. `Documents\eXpanSIM\Plugins` (if not redirected then `C:\Users\<username>\Documents` is the default)
+4. Run eXpanSIM. Your plugin should now be loaded -- this will be noted in `Simulator.log`.
 
-The plugin switches (`VehicleControllerPlugin` etc.) can have the following values:
-- When set to `0` (`None`), only the internal implementation of the component will be used.
-- When set to `1` (`DllInherit`), the plugin function will be called after the internal implementation runs.
-- When set to `2` (`DllReplace`), the plugin function will be called instead of the internal implementation.
+### Plugin framework
 
-Other values are related to networking and not implemented yet.
+The SDK comes with a framework that makes implementing plugins easier, and takes care of some of the details for you. In the current version,
+you have to implement the `xsim::GetPlugin` method, and inside call `xsim::MakePlugin<YourPluginClass>`. The plugin class specified must inherit
+from `xsim::PluginV1<>` and in the template arguments specify which interfaces it wants to implement.
+
+```cpp
+#include <xsim/xsim.hpp>
+#include <xsim/generated/IPluginNotifySpawnV1.hpp>
+
+namespace my_plugin
+{
+	struct MyPlugin final : xsim::PluginV1<xsim::IPluginNotifySpawnV1>
+	{
+		MyPlugin()
+		{
+			// must be default-constructible
+			// constructed when the plugin is loaded
+		}
+
+		~MyPlugin() noexcept
+		{
+			// destructed when the plugin is being unloaded gracefully
+		}
+
+		// ... override methods ...
+	};
+}
+
+std::unique_ptr<xsim::IPluginWrapper> xsim::GetPlugin()
+{
+	return xsim::MakePlugin<my_plugin::MyPlugin>();
+}
+```
+
+### Interfaces
+
+The plugin system is now based on your plugin class inheriting from special interface classes and overriding methods in them.
+
+Every plugin implements `IPluginV1` implicitly. Your plugin class will be created using the default constructor when the plugin is loaded,
+and destructed when the plugin is gracefully unloaded. eXpanSIM doesn't guarantee that the plugins will be unloaded when it terminates, however.
+
+Other than that you can implement any number of functionality-related interfaces. The unstable interfaces expose the latest features, but will change
+in time and plugins using them will eventually stop working. The stable interfaces are versioned and never change (but might be removed in the future).
+For the current list of interfaces see [INTERFACES.md](INTERFACES.md).
+
+Your plugin will continue to work even if interfaces you implement have changed or are no longer supported. See ABI stability below.
+
+### Dispositions
+
+Some interfaces require you to specify when its methods are to be called. This is controlled by a JSON file deployed together with the plugin
+(in previous version this was `API_v1.json` in the main configuration directory).
+
+The file should be have the same base name as the plugin, and a `.json` extension, e.g. if your plugin is `Telemetry.dll` then the configuration is
+`Telemetry.json`. The defaults look like this:
+
+```json
+{
+	"DebugMode": false,
+	"VehicleControllerV1": "None",
+	"VehicleV1": {
+		"MotorEngineV1": "None",
+		"TransmissionV1": "None",
+		"WheelHubV1": "None",
+		"CatTrackHubV1": "None",
+		"TelemetryV1": "None",
+		"DashboardV1": "None"
+	}
+}
+```
+
+Setting `DebugMode` to `true` enables some additional diagnostic logging. For other fields the valid values are:
+
+- `None` (the default if the field is not present) - the plugin method will not be called at all
+- `Inherit` - the plugin method will be called after the default implementation is done
+- `Replace` - the plugin method will be called instead of the default implementation
+
+Note that this only applies to some of the interfaces, e.g. `IPluginNotifySpawnV1` doesn't require dispositions. See [INTERFACES.md](INTERFACES.md) for more
+details.
+
+For example a plugin that wants to receive telemetry would implement `IPluginTelemetryV1` and set `TelemetryV1` in the configuration to `Inherit`:
+
+```cpp
+{
+	"VehicleV1": {
+		"TelemetryV1": "Inherit"
+	}
+}
+```
 
 ### ABI/API stability
 
-Currently you need to rebuild your plugin after each SDK update. If your plugin fails to load with ABI mismatch errors, it needs to be updated.
+The current ABI version is v1. Plugins built for ABI v0 will no longer work.
+
+Your plugin will continue to work as long as ABI v1 and `IPluginV1` interface are supported, even if you implement unstable interfaces.
+Interfaces are identified by a unique name and a checksum, so your methods will simply not be called on interfaces that have changed or have been removed.
+
+You should no longer need to rebuild the plugin when new simulator builds are released. Implement only stable interfaces for the best guarantee that your
+plugin will continue to work as intended with no changes.
+
+API might change occasionally as the framework is improved, however. Expect your code to require changes to recompile with newer versions of the SDK.
+
+### Utility functions
+
+The SDK offers a few utilities to make developing the plugins easier:
+
+- In `<xsim/logs.hpp>`
+  - `xsim::Log(xsim::LogLevel level, std::wstring_view message, Args&&...)` - logging with formatting support (via [fmt](https://fmt.dev))
+  - `xsim::Log(std::wstring_view message, Args&&...)` - for API compatibility with earlier SDK, calls `Log` with `LogLevel::Information`
+- In `<xsim/math.hpp>`
+  - `xsim::Vector2F`, `xsim::Vector3F`, `xsim::Vector4F` - vector classes with overloaded operators (including `xsim::Dot` and `xsim::Cross`)
+  - `xsim::Quaternion` - quaternion class (no operator support yet)
+- In `<xsim/utils.hpp>`
+  - `xsim::PluginError` - exception class that supports `wstring` message
+  - `XSIM_FAIL(message)` - unconditionally throws `xsim::PluginError` tagged with file/line/function
+  - `XSIM_FAILF(message, ...)` - same as above, plus formatting support
+  - `XSIM_FAIL_WINDOWS(message)` - unconditionally throws `xsim::PluginError` with a description based on `GetLastError()`, tagged with file/line/function
+  - `XSIM_FAILF_WINDOWS(message, ...)` - same as above, plus formatting support
+  - `XSIM_FAIL_WINDOWS_CODE(code, message)` - same as above, but with given error code instead of `GetLastError()`
+  - `XSIM_FAILF_WINDOWS_CODE(code, message)` - same as above, plus formatting support
+  - `XSIM_FAIL_HRESULT(hr, message)` - unconditionally throws `xsim::PluginError` with a description based on given `HRESULT`, tagged with file/line/function
+  - `XSIM_FAILF_HRESULT(hr, message, ...)` - same as above, plus formatting support
+  - `XSIM_CHECK_HRESULT(hr, message)` - throws `xsim::PluginError` if given `HRESULT` is `FAILED()`, tagged with file/line/function
+  - `XSIM_CHECKF_HRESULT(hr, message, ...)` - same as above, plus formatting support
+  - `std::wstring xsim::ToUTF16(std::string_view source)` - converts given string from UTF-8 to UTF-16
+  - `std::string xsim::ToUTF8(std::wstring_view source)` - converts given string from UTF-16 to UTF-8
+  - `const fs::path& xsim::GetDocumentsPath()` - returns the path to `Documents\eXpanSIM`
+  - `const fs::path& xsim::GetSimulatorPath()` - returns the path to eXpanSIM executable directory
+  - `int32_t xsim::GetSimulatorBuildID()` - returns the current build number (increases by 1 with every build)
+  - `std::wstring_view xsim::GetSimulatorVersion()` - returns the current descriptive simulator version (in undefined format, use `GetSimulatorBuildID` for version checks)
+  - `auto xsim::Protect(Fn&&)` - calls the given invokable and catches all unhandled exceptions
 
 ### Troubleshooting and logging
 
-Any plugin-related errors can be found in the simulator log file: `%LOCALAPPDATA%\eXpanSIM\Logs\Simulator.log`.
-
-Every plugin gets a function pointer in `OnPluginLoad` that can be used to append to this logfile. Messages will be prefixed by the plugin name. **NOTE**: this function pointer must be discarded in `OnPluginUnload`.
-
-The SDK contains a `Log(...)` and `SetLogSink(...)` functions that support formatting and can be used to easily log messages.
+Any plugin-related errors can be found in the simulator log file: `%LOCALAPPDATA%\eXpanSIM\Logs\Simulator.log`. Use `xsim::Log` to append your own
+messages there.
 
 ### Thread safety
 
@@ -53,55 +179,27 @@ Threading model will be clarified in the future. For now assume plugin-exported 
 
 ### Exceptions
 
-Exceptions can be used within the plugins, but they must not cross the DLL boundary: all of the plugin exports must be marked `noexcept`. There is a `Protect(callable)` function available which catches and logs all unhandled exceptions and can be used like this:
+Exceptions can be used within the plugins, but they must not cross the DLL boundary: the interface methods are all `noexcept`. Any unhandled exception
+will terminate the simulator. You can use `xsim::Protect` to log the unhandled exceptions and continue instead:
 
 ```cpp
-XSIM_EXPORT void OnVehicleDespawned() noexcept
+void SomeMethod() noexcept override
 {
-	Protect([&]
+	xsim::Protect([&]
 	{
 		// code that might throw
 	});
 }
 ```
 
-If you don't catch an exception before it leaves the exported function, eXpanSIM will terminate.
-
 ### Pointers
 
 All pointers you receive are valid only for the duration of your exported function. Make a copy of any data you want to hold on for longer.
 
-### Plugin exports
+## Visual Studio project template
 
-Every plugin *must* export (the SDK takes care of this for you):
-
-- `XSIM_EXPORT uint32_t GetABIVersion()` - must return `xsim::abi::Version` appropriate for the simulator build. Used to protect against ABI mismatches.
-- `XSIM_EXPORT uint64_t GetABIChecksum()` - for ABI v0. Must return `xsim::abi::Checksum` appropriate for the simulator build. Used to protect against ABI mismatches.
-
-Additionally several functions are called regardless of the plugin settings above (if they exist):
-
-- `XSIM_EXPORT void OnPluginLoad(LogSinkFn)` - called after the plugin is loaded. The argument is a function that when called adds an UTF-16 encoded message to the main eXpanSIM log file (Simulator.log).
-- `XSIM_EXPORT void OnPluginUnload()` - called before the plugin is unloaded (typically when simulator shuts down).
-- `XSIM_EXPORT void OnVehicleSpawned(Ptr<const VehicleSetupInfo> vehicleSetup)` - called when a new vehicle setup is spawned.
-- `XSIM_EXPORT void OnVehicleDespawned()` - called when the current vehicle setup is despawned.
-
-The rest of the exports are dependent on the configuration file:
-
-- `XSIM_EXPORT void OnCatTrackHub(...)` - called when `CatTrackHubPlugin` is configured.
-- `XSIM_EXPORT void OnMotorEngine(...)` - called when `MotorEnginePlugin` is configured.
-- `XSIM_EXPORT void OnVehicleController(...)` - called when `VehicleControllerPlugin` is configured.
-- `XSIM_EXPORT void OnWheelHub(...)` - called when `WheelHubPlugin` is configured.
-- `XSIM_EXPORT void OnTransmission(...)` - called when `TransmissionPlugin` is configured.
-- `XSIM_EXPORT void OnTelemetry(...)` - called when `TelemetryPlugin` is configured (you probably want `DllInherit` when using this).
-- `XSIM_EXPORT void OnDashboard(...)` - called when `DashboardPlugin` is configured (you probably want `DllInherit` when using this).
-
-Note: this list might not be comprehensive. The simulator is under heavy development, and new features are being implemented all the time.
-Always check the SDK headers and the newest configuration file for an up-to-date list of available calls.
-
-## Visual Studio 2017 project template
-
-To use this template copy `VisualStudio\XSIM.VisualStudio.PluginTemplate.zip` to `Documents\Visual Studio 2017\Templates\ProjectTemplates`.
-Make sure Visual Studio is closed, or restart it after copying the file.
+To use this template copy `VisualStudio\XSIM.VisualStudio.PluginTemplate.zip` to `Documents\Visual Studio 2019\Templates\ProjectTemplates` or
+`Documents\Visual Studio 2017\Templates\ProjectTemplates`. Make sure Visual Studio is closed, or restart it after copying the file.
 
 Afterwards you should be able to find "eXpanSIM plugin" in the Visual C++ category.
 
@@ -109,4 +207,4 @@ Afterwards you should be able to find "eXpanSIM plugin" in the Visual C++ catego
 
 Early examples can be found in the `Examples` folder. Built DLLs are included with the simulator SDK.
 
-- `Telemetry` - a sample plugin that exports vehicle telemetry to a CSV file.
+- `Telemetry` - a sample plugin that exports vehicle telemetry to a CSV file. Requires `Telemetry.json` to work properly.

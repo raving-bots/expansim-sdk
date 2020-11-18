@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ABI Version="0" Checksum="14422718685158762490">
+<ABI Version="0" Checksum="16977707435377284520">
 	<Types>
 		<Enum Name="AutoBoxDriveMode" Type="Int32">
 			<Item Name="Neutral" Value="0" />
@@ -67,6 +67,10 @@
 			<Item Name="Electric" Value="2" />
 			<Item Name="Hybrid" Value="3" />
 		</Enum>
+		<Enum Name="ParkingBrakeSideType" Type="Int32">
+			<Item Name="Rear" Value="0" />
+			<Item Name="FrontAndRear" Value="1" />
+		</Enum>
 		<Enum Name="PneumaticDoorSignalType" Type="Int32">
 			<Item Name="Close" Value="0" />
 			<Item Name="Open" Value="1" />
@@ -87,7 +91,8 @@
 			<Item Name="Metal" Value="8" />
 			<Item Name="Hedgehog" Value="9" />
 			<Item Name="SandGravel" Value="10" />
-			<Item Name="Other" Value="11" />
+			<Item Name="Flesh" Value="11" />
+			<Item Name="Other" Value="12" />
 		</Enum>
 		<Enum Name="ThrottleControlType" Type="Int32">
 			<Item Name="ThrottleToPower" Value="0" />
@@ -123,6 +128,11 @@
 			<Item Name="TurnRight" Value="2" />
 			<Item Name="HazardWarning" Value="3" />
 		</Enum>
+		<Enum Name="VehicleSteeringSide" Type="Int32">
+			<Item Name="Front" Value="0" />
+			<Item Name="Rear" Value="1" />
+			<Item Name="Both" Value="2" />
+		</Enum>
 		<Enum Name="VehicleSteeringType" Type="Int32">
 			<Item Name="Wheel" Value="0" />
 			<Item Name="Lever" Value="1" />
@@ -131,6 +141,10 @@
 			<Item Name="Disabled" Value="0" />
 			<Item Name="Enabled" Value="1" />
 			<Item Name="Active" Value="2" />
+		</Enum>
+		<Enum Name="WheelBrakeSystemType" Type="Int32">
+			<Item Name="Single" Value="0" />
+			<Item Name="Double" Value="1" />
 		</Enum>
 		<Enum Name="WheelIndex" Type="Int32">
 			<Item Name="Left" Value="0" />
@@ -201,12 +215,19 @@
 			<Field Name="KwhPer100Km" Type="Float" />
 			<Field Name="IsValidKwhPer100Km" Type="Bool" />
 		</Struct>
-		<Struct Name="BodyCollisionData">
-			<Field Name="EventCounter" Type="Int32" />
-			<Field Name="LastEventTime" Type="Float" />
-			<Field Name="LastContactRelativeVelocity" Type="Vector3F" />
-			<Field Name="LastContactImpulse" Type="Vector3F" />
-			<Field Name="LastContactPoint" Type="Vector3F" />
+		<Struct Name="BodyContactData">
+			<Field Name="Count" Type="Int32" />
+			<Field Name="P0" Type="BodyContactPoint" />
+			<Field Name="P1" Type="BodyContactPoint" />
+			<Field Name="P2" Type="BodyContactPoint" />
+			<Field Name="P3" Type="BodyContactPoint" />
+		</Struct>
+		<Struct Name="BodyContactPoint">
+			<Field Name="Position" Type="Vector3F" />
+			<Field Name="Normal" Type="Vector3F" />
+			<Field Name="ImpulseForce" Type="Vector3F" />
+			<Field Name="RelativeVelocity" Type="Vector3F" />
+			<Field Name="Stay" Type="Bool" />
 		</Struct>
 		<Struct Name="BodyInterpData">
 			<Field Name="T" Type="Float" />
@@ -415,7 +436,9 @@
 			<Field Name="RpmSmoothVel" Type="Float" />
 			<Field Name="Torque" Type="Float" />
 			<Field Name="Power" Type="Float" />
+			<Field Name="Load" Type="Float" />
 			<Field Name="GearboxMode" Type="VehicleGearboxMode" />
+			<Field Name="TargetGear" Type="Int32" />
 			<Field Name="Gear" Type="Int32" />
 			<Field Name="MotorReverse" Type="Bool" />
 			<Field Name="NeutralPivot" Type="Bool" />
@@ -494,6 +517,7 @@
 			<Field Name="Reverse" Type="Bool" />
 		</Struct>
 		<Struct Name="ElectricsState">
+			<Field Name="Faulty" Type="Bool" />
 			<Field Name="Horn" Type="Bool" />
 			<Field Name="Drl" Type="Bool" />
 			<Field Name="Headlamps" Type="HeadlampsModeType" />
@@ -517,6 +541,7 @@
 		</Struct>
 		<Struct Name="ElectronicsState">
 			<Field Name="Precomputed" Type="Bool" />
+			<Field Name="Faulty" Type="Bool" />
 			<Field Name="SystemAbaEnabled" Type="Bool" />
 			<Field Name="SystemAbsEnabled" Type="Bool" />
 			<Field Name="SystemAsrEnabled" Type="Bool" />
@@ -549,6 +574,7 @@
 		<Struct Name="FrictionClutchData">
 			<Field Name="InputToPressure" Type="CurveData" />
 			<Field Name="EngineMaxTorqueScale" Type="Float" />
+			<Field Name="ChangeGearThreshold" Type="Float" />
 		</Struct>
 		<Struct Name="FuelConsumptionData">
 			<Field Name="Normalized" Type="Float" />
@@ -560,6 +586,9 @@
 		</Struct>
 		<Struct Name="GearboxData">
 			<Field Name="Type" Type="GearboxType" />
+			<Field Name="HasCrawler" Type="Bool" />
+			<Field Name="SplitRanges" Type="Bool" />
+			<Field Name="SplitGears" Type="Bool" />
 			<Field Name="ForwardGearCount" Type="Int32" />
 			<Field Name="ForwardGearRatios" Type="Float" ArrayLength="16" />
 			<Field Name="PivotGearRatio" Type="Float" />
@@ -569,6 +598,7 @@
 			<Field Name="Inertia" Type="Inertia" />
 		</Struct>
 		<Struct Name="GearboxState">
+			<Field Name="TargetGear" Type="Int32" />
 			<Field Name="Gear" Type="Int32" />
 			<Field Name="Ratio" Type="Float" />
 			<Field Name="Pivot" Type="Bool" />
@@ -767,6 +797,7 @@
 			<Field Name="Metal" Type="Float" />
 			<Field Name="Hedgehog" Type="Float" />
 			<Field Name="SandGravel" Type="Float" />
+			<Field Name="Flesh" Type="Float" />
 			<Field Name="Other" Type="Float" />
 		</Struct>
 		<Struct Name="SystemAbaConfig">
@@ -830,12 +861,9 @@
 			<Field Name="Category" Type="VehicleCategory" />
 			<Field Name="Mass" Type="Mass" />
 			<Field Name="Steering" Type="VehicleSteeringData" />
-			<Field Name="SystemAba" Type="SystemAbaConfig" />
-			<Field Name="SystemAbs" Type="SystemAbsConfig" />
-			<Field Name="SystemAsr" Type="SystemAsrConfig" />
-			<Field Name="SystemEsc" Type="SystemEscConfig" />
 			<Field Name="FuelTankCapacity" Type="Float" />
 			<Field Name="BatteryCapacityKwh" Type="Float" />
+			<Field Name="WaterFloodThreshold" Type="Float" />
 			<Field Name="SoundPresetId" Type="UInt8" />
 		</Struct>
 		<Struct Name="VehicleConfigInfo">
@@ -858,7 +886,11 @@
 			<Field Name="Clutch" Type="SignalUnipolar" />
 			<Field Name="HandBrake" Type="SignalUnipolar" />
 			<Field Name="HandBrakeToggle" Type="Bool" />
+			<Field Name="UseGearTarget" Type="Bool" />
+			<Field Name="GearTarget" Type="Int32" />
 			<Field Name="GearChange" Type="Int32" />
+			<Field Name="GearboxSplitRangeUpper" Type="Bool" />
+			<Field Name="GearboxSplitGearUpper" Type="Bool" />
 			<Field Name="GearboxSemiAutoChange" Type="Bool" />
 			<Field Name="NeutralPivot" Type="Bool" />
 			<Field Name="RetarderChange" Type="Int32" />
@@ -880,6 +912,8 @@
 			<Field Name="SystemAsrChange" Type="Bool" />
 			<Field Name="SystemEscChange" Type="Bool" />
 			<Field Name="PneumaticDoorChange" Type="Bool" />
+			<Field Name="PrimaryActuator" Type="Vector2F" />
+			<Field Name="SecondaryActuator" Type="Vector2F" />
 		</Struct>
 		<Struct Name="VehicleDoorStateArray">
 			<Field Name="Count" Type="Int32" />
@@ -897,16 +931,21 @@
 			<Field Name="Precomputed" Type="Bool" />
 			<Field Name="FuelTankReserve" Type="Float" />
 			<Field Name="BatteryReserveKwh" Type="Float" />
+			<Field Name="WaterFlooded" Type="Bool" />
 		</Struct>
 		<Struct Name="VehicleSteeringData">
 			<Field Name="Type" Type="VehicleSteeringType" />
+			<Field Name="Side" Type="VehicleSteeringSide" />
 			<Field Name="LeverTurnAngle" Type="AngleDeg" />
 			<Field Name="FrontWheelTurnAngle" Type="AngleDeg" />
 			<Field Name="ForceFeedbackScale" Type="Float" />
 		</Struct>
 		<Struct Name="WheelBrakeData">
-			<Field Name="BrakeTorque" Type="AngularForce" />
-			<Field Name="StaticBrakeTorque" Type="AngularForce" />
+			<Field Name="BrakeSystem" Type="WheelBrakeSystemType" />
+			<Field Name="ParkingSide" Type="ParkingBrakeSideType" />
+			<Field Name="ServiceBrakeTorque" Type="AngularForce" />
+			<Field Name="ParkingBrakeTorque" Type="AngularForce" />
+			<Field Name="FrictionBrakeTorque" Type="AngularForce" />
 		</Struct>
 		<Struct Name="WheelConfig">
 			<Field Name="VehicleEntity" Type="Entity" />
@@ -1064,14 +1103,19 @@
 			<Parameter Name="bodyTransformData" Type="BodyTransformData" Pointer="readonly" />
 			<Parameter Name="bodyInterpData" Type="BodyInterpData" Pointer="readonly" />
 			<Parameter Name="bodyTelemetryData" Type="BodyTelemetryData" Pointer="readonly" />
-			<Parameter Name="bodyCollisionData" Type="BodyCollisionData" Pointer="readonly" />
+			<Parameter Name="bodyContactData" Type="BodyContactData" Pointer="readonly" />
 			<Parameter Name="hasCamera" Type="Bool" />
 			<Parameter Name="cameraState" Type="CameraState" Pointer="readonly" />
 			<Parameter Name="hasCabin" Type="Bool" />
 			<Parameter Name="cabinTransformData" Type="BodyTransformData" Pointer="readonly" />
 			<Parameter Name="cabinInterpData" Type="BodyInterpData" Pointer="readonly" />
 			<Parameter Name="cabinTelemetryData" Type="BodyTelemetryData" Pointer="readonly" />
-			<Parameter Name="cabinCollisionData" Type="BodyCollisionData" Pointer="readonly" />
+			<Parameter Name="cabinContactData" Type="BodyContactData" Pointer="readonly" />
+			<Parameter Name="hasTurret" Type="Bool" />
+			<Parameter Name="turretTransformData" Type="BodyTransformData" Pointer="readonly" />
+			<Parameter Name="turretInterpData" Type="BodyInterpData" Pointer="readonly" />
+			<Parameter Name="turretTelemetryData" Type="BodyTelemetryData" Pointer="readonly" />
+			<Parameter Name="turretContactData" Type="BodyContactData" Pointer="readonly" />
 		</Export>
 		<Export Name="OnTransmission" ReturnType="Void">
 			<Parameter Name="dt" Type="DeltaTime" />
@@ -1125,6 +1169,7 @@
 		<Type Name="InOutBindMode" />
 		<Type Name="InterpMethod" />
 		<Type Name="MotorEngineType" />
+		<Type Name="ParkingBrakeSideType" />
 		<Type Name="PneumaticDoorSignalType" />
 		<Type Name="RetarderType" />
 		<Type Name="SurfaceType" />
@@ -1134,8 +1179,10 @@
 		<Type Name="VehicleGearboxMode" />
 		<Type Name="VehicleHeadlampsMode" />
 		<Type Name="VehicleSignalMode" />
+		<Type Name="VehicleSteeringSide" />
 		<Type Name="VehicleSteeringType" />
 		<Type Name="VehicleSystemState" />
+		<Type Name="WheelBrakeSystemType" />
 		<Type Name="WheelIndex" />
 		<Type Name="WheelSuspensionType" />
 		<Type Name="WrapMethod" />
@@ -1147,7 +1194,7 @@
 		<Type Name="AngularVelocity" />
 		<Type Name="AutoShiftCond" />
 		<Type Name="BatteryConsumptionData" />
-		<Type Name="BodyCollisionData" />
+		<Type Name="BodyContactPoint" />
 		<Type Name="CameraState" />
 		<Type Name="CatSegmentSuspensionData" />
 		<Type Name="DeltaTime" />
@@ -1204,9 +1251,6 @@
 			<DependsOn Name="AngularForce" />
 			<DependsOn Name="ContactSlip" />
 		</Type>
-		<Type Name="WheelBrakeData">
-			<DependsOn Name="AngularForce" />
-		</Type>
 		<Type Name="RetarderState">
 			<DependsOn Name="AngularForce" />
 		</Type>
@@ -1234,13 +1278,6 @@
 		<Type Name="DrivetrainData">
 			<DependsOn Name="DriveData" />
 		</Type>
-		<Type Name="ElectronicsConfig">
-			<DependsOn Name="Entity" />
-			<DependsOn Name="SystemAbaConfig" />
-			<DependsOn Name="SystemAbsConfig" />
-			<DependsOn Name="SystemAsrConfig" />
-			<DependsOn Name="SystemEscConfig" />
-		</Type>
 		<Type Name="ElectricsState">
 			<DependsOn Name="HeadlampsBeamType" />
 			<DependsOn Name="HeadlampsModeType" />
@@ -1253,6 +1290,16 @@
 		</Type>
 		<Type Name="BodyTelemetryData">
 			<DependsOn Name="PitchYawRoll" />
+		</Type>
+		<Type Name="BodyContactData">
+			<DependsOn Name="BodyContactPoint" />
+		</Type>
+		<Type Name="ElectronicsConfig">
+			<DependsOn Name="Entity" />
+			<DependsOn Name="SystemAbaConfig" />
+			<DependsOn Name="SystemAbsConfig" />
+			<DependsOn Name="SystemAsrConfig" />
+			<DependsOn Name="SystemEscConfig" />
 		</Type>
 		<Type Name="GearboxData">
 			<DependsOn Name="GearboxType" />
@@ -1306,15 +1353,12 @@
 		</Type>
 		<Type Name="VehicleSteeringData">
 			<DependsOn Name="AngleDeg" />
+			<DependsOn Name="VehicleSteeringSide" />
 			<DependsOn Name="VehicleSteeringType" />
 		</Type>
 		<Type Name="VehicleConfig">
 			<DependsOn Name="Entity" />
 			<DependsOn Name="Mass" />
-			<DependsOn Name="SystemAbaConfig" />
-			<DependsOn Name="SystemAbsConfig" />
-			<DependsOn Name="SystemAsrConfig" />
-			<DependsOn Name="SystemEscConfig" />
 			<DependsOn Name="VehicleCategory" />
 			<DependsOn Name="VehicleSteeringData" />
 		</Type>
@@ -1365,6 +1409,11 @@
 			<DependsOn Name="DriveOutput" />
 			<DependsOn Name="Entity" />
 			<DependsOn Name="InOutState" />
+		</Type>
+		<Type Name="WheelBrakeData">
+			<DependsOn Name="AngularForce" />
+			<DependsOn Name="ParkingBrakeSideType" />
+			<DependsOn Name="WheelBrakeSystemType" />
 		</Type>
 		<Type Name="WheelSuspensionData">
 			<DependsOn Name="AngleDeg" />

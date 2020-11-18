@@ -3,16 +3,25 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
 
-#include "recorder.hpp"
-
 #include <fstream>
 #include <sstream>
 #include <iomanip>
 #include <chrono>
 
+#include "recorder.hpp"
+#include "csv.hpp"
+
+#include <xsim/utils.hpp>
+#include <xsim/fmt.hpp>
+
+#include <xsim/generated/VehicleSetupInfoV1.hpp>
+#include <xsim/generated/RigidTransformV1.hpp>
+#include <xsim/generated/BodyTelemetryDataV1.hpp>
+#include <xsim/generated/DashboardStateV1.hpp>
+
 namespace plugin
 {
-	static fs::path CreateOutputPath(fs::path basePath)
+	static fs::path CreateOutputPath(const fs::path& basePath)
 	{
 		using Clock = std::chrono::system_clock;
 		auto now = Clock::to_time_t(Clock::now());
@@ -26,24 +35,20 @@ namespace plugin
 		return path;
 	}
 
-	static std::ofstream CreateOutputFile(fs::path parent, std::wstring_view name)
+	static std::ofstream CreateOutputFile(const fs::path& parent, std::wstring_view name)
 	{
 		std::ofstream fp{};
 		fp.exceptions(std::ios_base::badbit | std::ios_base::failbit);
 		fp.open((parent / name).wstring());
-		return std::move(fp);
+		return fp;
 	}
 
-	TelemetryRecorder::TelemetryRecorder(fs::path basePath)
+	TelemetryRecorder::TelemetryRecorder(const fs::path& basePath)
 		: m_OutputPath(CreateOutputPath(basePath))
 	{
 	}
 
-	TelemetryRecorder::~TelemetryRecorder()
-	{
-	}
-
-	void TelemetryRecorder::Start(const xsim::VehicleSetupInfo& vehicleSetup)
+	void TelemetryRecorder::Start(const xsim::VehicleSetupInfoV1& vehicleSetup)
 	{
 		m_TelemetryTime = 0;
 		m_TelemetryFlushTime = 0;
@@ -54,12 +59,6 @@ namespace plugin
 		m_DashboardFile = CreateOutputFile(m_OutputPath, L"Dashboard.csv");
 
 		auto setupFile = CreateOutputFile(m_OutputPath, L"VehicleSetup.txt");
-		setupFile << "Vehicle: " << xsim::ToUTF8(vehicleSetup.m_MotorVehicle.m_Vehicle.m_Name) << "\n";
-
-		if (vehicleSetup.m_HasTrailer)
-		{
-			setupFile << "Trailer: " << xsim::ToUTF8(vehicleSetup.m_TrailerVehicle.m_Vehicle.m_Name) << "\n";
-		}
 
 		const auto& vehicleConfig = vehicleSetup.m_MotorVehicle.m_Vehicle;
 		const auto& bodyConfig = vehicleConfig.m_Body;
@@ -108,12 +107,12 @@ namespace plugin
 	}
 
 	void TelemetryRecorder::RecordTelemetry(
-		xsim::DeltaTime dt,
-		const xsim::RigidTransform& transform,
-		const xsim::BodyTelemetryData& telemetry)
+		float dt,
+		const xsim::RigidTransformV1& transform,
+		const xsim::BodyTelemetryDataV1& telemetry)
 	{
-		m_TelemetryTime += dt.Value();
-		m_TelemetryFlushTime += dt.Value();
+		m_TelemetryTime += dt;
+		m_TelemetryFlushTime += dt;
 
 		const auto& position = transform.m_pos;
 
@@ -150,11 +149,11 @@ namespace plugin
 	}
 
 	void TelemetryRecorder::RecordDashboard(
-		xsim::DeltaTime dt,
-		const xsim::DashboardState& dashboard)
+		float dt,
+		const xsim::DashboardStateV1& dashboard)
 	{
-		m_DashboardTime += dt.Value();
-		m_DashboardFlushTime += dt.Value();
+		m_DashboardTime += dt;
+		m_DashboardFlushTime += dt;
 
 		csv::WriteRow(m_DashboardFile,
 			m_DashboardTime,

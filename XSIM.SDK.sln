@@ -12,6 +12,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Telemetry", "Examples\Telem
 		{4DBF1CE1-6D62-4B28-84A0-0F1909EEA27E} = {4DBF1CE1-6D62-4B28-84A0-0F1909EEA27E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PluginsTest", "Examples\PluginsTest\PluginsTest.vcxproj", "{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4DBF1CE1-6D62-4B28-84A0-0F1909EEA27E} = {4DBF1CE1-6D62-4B28-84A0-0F1909EEA27E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -26,12 +31,17 @@ Global
 		{6CB3BECF-44F7-456F-A751-C31D5E6760B7}.Debug|x64.Build.0 = Debug|x64
 		{6CB3BECF-44F7-456F-A751-C31D5E6760B7}.Release|x64.ActiveCfg = Release|x64
 		{6CB3BECF-44F7-456F-A751-C31D5E6760B7}.Release|x64.Build.0 = Release|x64
+		{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC}.Debug|x64.ActiveCfg = Debug|x64
+		{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC}.Debug|x64.Build.0 = Debug|x64
+		{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC}.Release|x64.ActiveCfg = Release|x64
+		{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6CB3BECF-44F7-456F-A751-C31D5E6760B7} = {04A35568-749E-4638-B7A8-A5898194E287}
+		{FE52DC1F-2A52-4AAB-A51F-A0899E778FDC} = {04A35568-749E-4638-B7A8-A5898194E287}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFC6BC8E-0D9D-4ADB-8212-40B923DC3028}
