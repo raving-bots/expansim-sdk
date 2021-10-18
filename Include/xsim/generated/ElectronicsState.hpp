@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -11,6 +11,9 @@
 
 #include <xsim/types.hpp>
 
+#include "AngleDeg.hpp"
+#include "SpeedLimiterState.hpp"
+
 namespace xsim
 {
 	struct ElectronicsState final
@@ -22,16 +25,20 @@ namespace xsim
 		constexpr ElectronicsState& operator=(const ElectronicsState&) = default;
 		constexpr ElectronicsState& operator=(ElectronicsState&&) = default;
 
+		int32_t m_DataGeneration{};
 		::xsim::Boolean<uint8_t> m_Precomputed{};
 		::xsim::Boolean<uint8_t> m_Faulty{};
 		::xsim::Boolean<uint8_t> m_SystemAbaEnabled{};
 		::xsim::Boolean<uint8_t> m_SystemAbsEnabled{};
 		::xsim::Boolean<uint8_t> m_SystemAsrEnabled{};
 		::xsim::Boolean<uint8_t> m_SystemEscEnabled{};
+		::xsim::SpeedLimiterState m_SpeedLimiter{};
 		float m_SystemAbaState{};
 		float m_SystemAbsState{};
 		float m_SystemAsrState{};
 		float m_SystemEscState{};
+		::xsim::AngleDeg m_FrontSlipAngleDeg{};
+		::xsim::AngleDeg m_RearSlipAngleDeg{};
 	};
 }
 

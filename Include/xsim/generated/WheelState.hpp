@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -11,13 +11,12 @@
 
 #include <xsim/types.hpp>
 
-#include "ContactForceCommand.hpp"
 #include "ContactForces.hpp"
 #include "ContactLoad.hpp"
 #include "SatForce.hpp"
-#include "ShapeContact.hpp"
 #include "SystemAbsState.hpp"
 #include "SystemAsrState.hpp"
+#include "SystemEscState.hpp"
 #include "WheelShapeState.hpp"
 #include "WheelTransformState.hpp"
 #include "WheelTurnState.hpp"
@@ -33,16 +32,16 @@ namespace xsim
 		constexpr WheelState& operator=(const WheelState&) = default;
 		constexpr WheelState& operator=(WheelState&&) = default;
 
+		int32_t m_DataGeneration{};
 		::xsim::WheelTurnState m_Turn{};
 		::xsim::WheelTransformState m_Transform{};
 		::xsim::WheelShapeState m_Shape{};
-		::xsim::ShapeContact m_Contact{};
 		::xsim::ContactLoad m_Load{};
 		::xsim::ContactForces m_Forces{};
 		::xsim::SatForce m_Sat{};
-		::xsim::ContactForceCommand m_ForceCommand{};
 		::xsim::SystemAbsState m_SystemAbs{};
 		::xsim::SystemAsrState m_SystemAsr{};
+		::xsim::SystemEscState m_SystemEsc{};
 	};
 }
 

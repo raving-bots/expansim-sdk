@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +12,7 @@
 #include <xsim/types.hpp>
 
 #include "CombustionEngineData.hpp"
+#include "CurveData.hpp"
 #include "ElectricEngineData.hpp"
 #include "MotorEngineType.hpp"
 
@@ -29,6 +30,7 @@ namespace xsim
 		::xsim::Entity m_VehicleEntity{};
 		::xsim::Boolean<uint8_t> m_Precomputed{};
 		::xsim::MotorEngineType m_Type{};
+		::xsim::CurveData m_InputToThrottle{};
 		::xsim::CombustionEngineData m_CombustionEngine{};
 		::xsim::ElectricEngineData m_ElectricEngine{};
 		uint8_t m_SoundPresetId{};

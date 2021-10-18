@@ -1,3 +1,7 @@
+| :warning: **This repository is provided for reference only, and might be out of date. Always use the newest SDK included with the simulator to build your
+plugins.** :warning: |
+| --- |
+
 # eXpanSIM SDK
 
 [eXpanSIM][1] is a universal vehicle simulator supporting VR. The training mode lets you learn (eco-)driving cars and trucks.
@@ -9,9 +13,6 @@ us](mailto:contact@ravingbots.com) for details.
 
 **IMPORTANT**: this is an early preview release of the plugins feature and the SDK. Everything is subject to change.
 
-**IMPORTANT, BREAKING CHANGE**: the SDK and the plugins feature changed significantly recently.
-Review `CHANGELOG.md` and this document, old plugins will no longer work.
-
 After installing eXpanSIM on Steam you can find the built SDK in the `<Steam directory>\steamapps\common\eXpanSIM\SDK` directory.
 It's recommended to always use the SDK included with the simulator build. The GitHub repository is provided only for reference and might be out of date.
 
@@ -19,7 +20,7 @@ It's recommended to always use the SDK included with the simulator build. The Gi
 
 Building plugins with the current version of the SDK requires:
 
-- Visual Studio 2017 15.9 or newer, or Visual Studio 2019 16.7 or newer. Other compilers haven't yet been tested and aren't recommended at this time.
+- Visual Studio 2019 16.7 or newer. Other compilers haven't yet been tested and aren't recommended at this time.
 - C++17 support. C support will be released in the future.
 - Windows SDK 1809 (10.0.17763.0).
 
@@ -30,7 +31,7 @@ Building plugins with the current version of the SDK requires:
 3. After building your plugin, copy it to one of these directories (create it if it doesn't exist):
    1. `<installation path>\Simulator\Plugins`: this is recommended path to use for automated deployment
       - for Steam version: `<Steam library path>\steamapps\common\eXpanSIM\Simulator\Plugins`
-        (stored under `InstallPath` value in `HKEY_LOCAL_MACHINE\SOFTWARE\Raving Bots\eXpanSIM\Steam`)
+        (stored under `installpath` value in `HKEY_LOCAL_MACHINE\WOW6432Node\SOFTWARE\Raving Bots\eXpanSIM\Steam`)
       - for enterprise version (default): `C:\Program Files\Raving Bots\eXpanSIM`
         (stored under `InstallPath` value in `HKEY_LOCAL_MACHINE\SOFTWARE\Raving Bots\eXpanSIM\Enterprise`)
    2. `Documents\eXpanSIM\Plugins` (if not redirected then `C:\Users\<username>\Documents` is the default)

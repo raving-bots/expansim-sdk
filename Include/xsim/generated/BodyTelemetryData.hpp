@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -24,7 +24,9 @@ namespace xsim
 		constexpr BodyTelemetryData& operator=(const BodyTelemetryData&) = default;
 		constexpr BodyTelemetryData& operator=(BodyTelemetryData&&) = default;
 
+		int32_t m_DataGeneration{};
 		::xsim::Vector3F m_CenterOfMass{};
+		::xsim::Vector3F m_LocalCenterOfMass{};
 		::xsim::PitchYawRoll m_PitchYawRoll{};
 		::xsim::Vector3F m_LinearVelocity{};
 		::xsim::Vector3F m_AngularVelocity{};

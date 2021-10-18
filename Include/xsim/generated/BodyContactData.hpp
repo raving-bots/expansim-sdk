@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -24,6 +24,7 @@ namespace xsim
 		constexpr BodyContactData& operator=(const BodyContactData&) = default;
 		constexpr BodyContactData& operator=(BodyContactData&&) = default;
 
+		int32_t m_DataGeneration{};
 		int32_t m_Count{};
 		::xsim::BodyContactPoint m_P0{};
 		::xsim::BodyContactPoint m_P1{};

@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -11,6 +11,7 @@
 
 #include <xsim/types.hpp>
 
+#include "SpeedLimiterConfig.hpp"
 #include "SystemAbaConfig.hpp"
 #include "SystemAbsConfig.hpp"
 #include "SystemAsrConfig.hpp"
@@ -32,6 +33,7 @@ namespace xsim
 		::xsim::SystemAbsConfig m_SystemAbs{};
 		::xsim::SystemAsrConfig m_SystemAsr{};
 		::xsim::SystemEscConfig m_SystemEsc{};
+		::xsim::SpeedLimiterConfig m_SpeedLimiter{};
 	};
 }
 

@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +22,9 @@ namespace xsim
 		constexpr SystemAbsState& operator=(const SystemAbsState&) = default;
 		constexpr SystemAbsState& operator=(SystemAbsState&&) = default;
 
+		float m_SlipRatioSignal{};
+		float m_SlipAngleSignal{};
+		float m_StabilitySignal{};
 		::xsim::SignalUnipolar m_Signal{};
 		float m_SmoothVelocity{};
 	};

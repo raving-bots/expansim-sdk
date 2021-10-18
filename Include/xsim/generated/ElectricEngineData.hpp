@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -32,7 +32,6 @@ namespace xsim
 		::xsim::Rpm m_MaxRpm{};
 		::xsim::Power m_PowerLimit{};
 		float m_ReverseSpeed{};
-		::xsim::CurveData m_InputToVoltage{};
 		::xsim::Vector3F m_ControllerPid{};
 		::xsim::CurveData m_RpmToDriveTorque{};
 		::xsim::CurveData m_RpmToRegenTorque{};

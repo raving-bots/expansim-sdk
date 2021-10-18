@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -27,6 +27,7 @@ namespace xsim
 		constexpr TransmissionState& operator=(const TransmissionState&) = default;
 		constexpr TransmissionState& operator=(TransmissionState&&) = default;
 
+		::xsim::SignalUnipolar m_ThrottleLimit{};
 		::xsim::GearboxState m_Gearbox{};
 		::xsim::CouplerState m_Coupler{};
 		::xsim::AutoBoxState m_AutoBox{};

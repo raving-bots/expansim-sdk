@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -36,7 +36,7 @@ namespace xsim
 		::xsim::Boolean<uint8_t> m_TurnRightSignal{};
 		::xsim::Boolean<uint8_t> m_HazardWarningSignal{};
 		::xsim::Boolean<uint8_t> m_EmergencyVehicleLights{};
-		::xsim::Boolean<uint8_t> m_EmergencyVehicleSiren{};
+		int32_t m_EmergencyVehicleSiren{};
 		::xsim::Boolean<uint8_t> m_Interrupt{};
 		float m_InterruptTime{};
 	};

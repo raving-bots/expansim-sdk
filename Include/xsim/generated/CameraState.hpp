@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -22,11 +22,14 @@ namespace xsim
 		constexpr CameraState& operator=(const CameraState&) = default;
 		constexpr CameraState& operator=(CameraState&&) = default;
 
+		::xsim::Boolean<uint8_t> m_Calculated{};
 		::xsim::Vector3F m_InsideFloorPosition{};
 		::xsim::Vector3F m_InsideCockpitPosition{};
+		::xsim::Vector3F m_InsideChallengePosition{};
 		::xsim::Vector3F m_InsideHeadPosition{};
 		::xsim::Quaternion m_InsideFloorRotation{};
 		::xsim::Quaternion m_InsideCockpitRotation{};
+		::xsim::Quaternion m_InsideChallengeRotation{};
 		::xsim::Quaternion m_InsideHeadRotation{};
 		::xsim::Vector3F m_InsideLinearVelocity{};
 		::xsim::Vector3F m_InsideAngularVelocity{};

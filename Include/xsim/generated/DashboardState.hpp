@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -30,6 +30,7 @@ namespace xsim
 		constexpr DashboardState& operator=(const DashboardState&) = default;
 		constexpr DashboardState& operator=(DashboardState&&) = default;
 
+		int32_t m_DataGeneration{};
 		float m_Speed{};
 		float m_SpeedSmoothed{};
 		float m_SpeedSmoothVel{};
@@ -72,6 +73,8 @@ namespace xsim
 		::xsim::VehicleSystemState m_SystemAbsState{};
 		::xsim::VehicleSystemState m_SystemAsrState{};
 		::xsim::VehicleSystemState m_SystemEscState{};
+		::xsim::VehicleSystemState m_SpeedLimiterState{};
+		float m_SpeedLimit{};
 		::xsim::VehicleDoorStateArray m_Doors{};
 	};
 }

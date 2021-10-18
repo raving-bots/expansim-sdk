@@ -1,4 +1,4 @@
-// Copyright Raving Bots 2018-2020
+// Copyright Raving Bots 2018-2021
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file SDK-LICENSE or copy at https://www.boost.org/LICENSE_1_0.txt)
@@ -57,7 +57,7 @@ namespace xsim
 		constexpr static const wchar_t* Name = L"IPluginDashboardV1";
 		constexpr static bool IsFrozen = true;
 		constexpr static bool IsSystem = false;
-		constexpr static uint64_t Checksum = UINT64_C(18309325036184984085);
+		constexpr static uint64_t Checksum = UINT64_C(10266749892264056645);
 	};
 }
 
