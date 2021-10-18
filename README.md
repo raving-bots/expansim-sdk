@@ -1,6 +1,5 @@
-| :warning: **This repository is provided for reference only, and might be out of date. Always use the newest SDK included with the simulator to build your
-plugins.** :warning: |
-| --- |
+| :warning: | **This repository is provided for reference only, and might be out of date. Always use the newest SDK included with the simulator to build your plugins.** | :warning: |
+| --- | --- | --- |
 
 # eXpanSIM SDK
 
